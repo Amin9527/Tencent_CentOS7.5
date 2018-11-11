@@ -1,9 +1,24 @@
 #include<iostream>
 #include<string.h>
+#include<string>
 
 using namespace std;
 
-void fun(char arr[])
+int main()
+{
+    string s1="abcde0fgh";
+    string s2="abcde\0fgh";
+    cout<<s1<<endl;
+    cout<<s2<<endl;
+    char *ss1="abcdefgh";
+    char *ss2="abcd\0efgh";
+    cout<<ss1<<endl;
+    cout<<ss2<<endl;
+    return 0;
+}
+
+//指针和数组
+/*void fun(char arr[])
 {
     cout<<arr<<endl;
 }
@@ -32,3 +47,4 @@ int main()
     cout<<p3<<endl;
     return 0;
 }
+*/
