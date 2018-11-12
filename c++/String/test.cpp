@@ -1,6 +1,7 @@
 #include<iostream>
 //#include<string>
 #include<string.h>
+
 using namespace std;
 
 class string1
@@ -26,12 +27,32 @@ class string1
         }
 
         //拷贝构造函数(传统写法)
+        /*
         string1(const string1& str)
         {
             _str=new char[str._size+1];
             strcpy(_str,str._str);
             _size=str._size;
             _capacity=str._capacity;
+        }
+        */
+
+        //交换函数
+        void Swap(string1& str)
+        {
+            swap(_str,str._str);
+            swap(_size,str._size);
+            swap(_capacity,str._capacity);
+        }
+
+        //拷贝构造函数（现代写法）
+        string1(const string1& str)
+        {
+            _str=nullptr;
+            _size=0;
+            _capacity=0;
+            string1 tmp(str._str);
+            Swap(tmp);
         }
 
         //析构函数
@@ -44,6 +65,7 @@ class string1
         }
         
         //赋值运算符（=）重载(传统写法)
+        /*
         string1& operator=(const string1& str)
         {
             if(this!=&str)
@@ -55,6 +77,15 @@ class string1
                 strcpy(_str,str._str);
             }
             return *this;
+        }
+        */
+
+        //赋值运算符（=）重载（现代写法）
+        void operator=(const string1& str)
+        {
+            string1 tmp(str);
+            Swap(tmp);
+            //return *this;
         }
 
         //<<运算符重载
