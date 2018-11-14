@@ -220,7 +220,7 @@ const string1& string1::operator<<(int value)const
 
 const string1& string1::operator<<(size_t value)const
 {
-    printf("%d",value);
+    printf("%zd",value);
     return *this;
 }
 const string1& string1::operator<<(char* str)const
@@ -376,9 +376,10 @@ Amin::string1& Amin::string1::insert(size_t pos,const char* str)
     int j=strlen(str);
     for(i=_size;i>pos;--i)
     {
-        _str[i+j]=_str[i-1];
+        _str[i+j-1]=_str[i-1];
     }
-    _str[i]=ch;
+    strncpy(_str+pos,str,strlen(str));
+    _size+=strlen(str);
     return *this;
 }
 

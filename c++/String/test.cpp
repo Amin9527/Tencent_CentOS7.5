@@ -42,5 +42,7 @@ int main()
     myout<<s4.find("cdde")<<"\n";
     myout<<s4.find("def")<<"\n";
     myout<<s4.find("cddefg")<<"\n";
+    s4.insert(3,"zhangmin");
+    myout<<s4<<"\n"<<"元素个数为："<<s4.size()<<"容量为："<<s4.capacity()<<"\n";
     return 0;
 }
