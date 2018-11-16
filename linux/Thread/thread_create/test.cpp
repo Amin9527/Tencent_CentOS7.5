@@ -7,6 +7,8 @@
 
 using namespace std;
 
+//创建线程
+
 void *thread_function(void *arg)
 {
     //while(1)
@@ -15,8 +17,6 @@ void *thread_function(void *arg)
         sleep(3);
         //return (void*)813; //线程退出，和main函数的return意义不一样，此return只代表该线程退出
         pthread_exit((void*)119); //线程退出
-
-
     //}   
 }
 
@@ -34,7 +34,7 @@ int main()
     //{
         sleep(1);
         void *rethread;
-        pthread_join(tid,&rethread);
+        pthread_join(tid,&rethread);  //pthread_join(pthread_t id , void**  )
         cout<<"the thread 1 return is :"<<(int)rethread<<endl;
         cout<<"I am main pthread!"<<"thread 1 tid is :"<<tid<<endl;
     //}
