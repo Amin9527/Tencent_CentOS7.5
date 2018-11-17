@@ -23,7 +23,7 @@ int main()
     pthread_t id;
     pthread_create(&id,NULL,pthread_function,(void*)"thread 1");
     //pthread_detach(id);   //主线程分离副线程
-    sleep(3);
+    //sleep(3);
     void* ret;
     int i=pthread_join(id,&ret);
     cout<<"i am main thread! the thread 1 id is :"<<endl<<i<<endl<<(int)ret<<endl;
