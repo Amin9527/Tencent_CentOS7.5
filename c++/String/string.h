@@ -365,6 +365,7 @@ Amin::string1& Amin::string1::insert(size_t pos,char ch)
         _str[i]=_str[i-1];
     }
     _str[i]=ch;
+    ++_size;
     return *this;
 }
 

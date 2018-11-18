@@ -44,5 +44,8 @@ int main()
     myout<<s4.find("cddefg")<<"\n";
     s4.insert(3,"zhangmin");
     myout<<s4<<"\n"<<"元素个数为："<<s4.size()<<"容量为："<<s4.capacity()<<"\n";
+    string1 s5="zhangmin";
+    s5.insert(0,' ');
+    myout<<s5<<"\n"<<"元素个数为："<<s5.size()<<"容量为："<<s5.capacity()<<"\n";
     return 0;
 }
