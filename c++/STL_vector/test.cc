@@ -95,8 +95,14 @@ void test2()
     }
 }
 
+void test3()
+{
+    vector<int> v1(5,3);
+    cout<<v1[4]<<endl;
+}
+
 int main()
 {
-    test2();
+    test3();
     return 0;
 }
