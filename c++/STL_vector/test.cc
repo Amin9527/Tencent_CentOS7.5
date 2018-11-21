@@ -6,14 +6,14 @@ using namespace std;
 void test1()
 {
     vector<int> first(3,5);     //初始化在first中插入3个5
-    for(int i=0;i<first.size();++i) //遍历
+    for(size_t i=0;i<first.size();++i) //遍历
     {
         cout<<first[i]<<" ";
     }
     cout<<endl;
 
     vector<int> second(first);   //用first初始化second
-    for(int i=0;i<second.size();++i)
+    for(size_t i=0;i<second.size();++i)
     {
         cout<<second[i]<<" ";
     }
@@ -21,14 +21,14 @@ void test1()
 
     int arr[]={1,2,3,4,5,6};
     vector<int> third(arr,arr+sizeof(arr)/sizeof(int)); //用数组arr初始化third，传入一段区间
-    for(int i=0;i<third.size();++i)
+    for(size_t i=0;i<third.size();++i)
     {
         cout<<third[i]<<" ";
     }
     cout<<endl;
 
     vector<int> fourth(third.begin(),third.end());  //用third的迭代器初始化fourth，也是传入一段区间
-    for(int i=0;i<fourth.size();++i)
+    for(size_t i=0;i<fourth.size();++i)
     {
         cout<<fourth[i]<<" ";
     }
@@ -101,8 +101,17 @@ void test3()
     cout<<v1[4]<<endl;
 }
 
+void test4()
+{
+    string s1="zhangmin";
+    vector<char> v1(s1.begin(),s1.end());
+    for(size_t i=0;i<v1.size();++i)
+        cout<<v1[i]<<" ";
+    cout<<endl;
+}
+
 int main()
 {
-    test3();
+    test4();
     return 0;
 }

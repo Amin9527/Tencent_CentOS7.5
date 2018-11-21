@@ -4,9 +4,18 @@
 
 using namespace std;
 
+int main()
+{
+    int i=0,j=5;
+    while(i++!=j)
+        cout<<i<<endl;
+    return 0;
+}
+
 //------------内存对齐
 
 //#pragma pack(4)   //设置默认的内存对齐数
+/*
 int main()
 {
     cout<<sizeof(int)<<endl;  //结果为4，说明该linux为32位操作系统
@@ -19,7 +28,7 @@ int main()
     cout<<sizeof(object)<<endl;  //结果为24，说明该linux的默认对齐数为8，
     return 0;
 }
-
+*/
 //------static关键字
 /*
 int m=0;       //普通的全局变量，作用域为整个源程序，该源程序下的所有源文件都可以调用
