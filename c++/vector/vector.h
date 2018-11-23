@@ -152,10 +152,11 @@ namespace Amin
         }
 
         //尾插
-        void push_back(T& element)
+        void push_back(T& element);
+        /*void push_back(T& element)
         {
             insert(end(),element);
-        }
+        }*/
 
         //尾删
         void pop_back()
@@ -219,4 +220,8 @@ namespace Amin
     };
 }
 
-
+template<typename T>      
+void Amin::vector<T>::push_back(T& element)
+{
+    insert(end(),element);
+}

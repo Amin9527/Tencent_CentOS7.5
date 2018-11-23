@@ -110,8 +110,17 @@ void test4()
     cout<<endl;
 }
 
+void test5()
+{
+    vector<int> v1;
+    v1.resize(5);
+    for(size_t i=0;i<v1.size();++i)
+        cout<<v1[i]<<" ";
+    cout<<endl;
+}
+
 int main()
 {
-    test4();
+    test5();
     return 0;
 }
