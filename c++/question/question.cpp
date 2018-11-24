@@ -14,7 +14,7 @@ int main()
 
 //------------内存对齐
 
-//#pragma pack(4)   //设置默认的内存对齐数
+//#pragma pack(4)   //
 /*
 int main()
 {

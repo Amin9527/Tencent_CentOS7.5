@@ -2,14 +2,16 @@
 #include<vector>
 using namespace std;
 
-vector<vector<int>> showRows(int row)
+vector<vector<int>> showRows(int& row)
 {
     vector<vector<int>> v1(row,vector<int>());
     for(int i=0;i<row;++i)
     {
+        v1[i].resize(i+1);
         v1[i][0]=1;
         v1[i][i]=1;
     }
+
     for(int i=2;i<row;++i)
     {
         for(int j=1;j<i;++j)
@@ -17,6 +19,7 @@ vector<vector<int>> showRows(int row)
             v1[i][j]=v1[i-1][j-1]+v1[i-1][j];
         }
     }
+
     cout<<"["<<endl;
     for(int i=0;i<row;++i)
     {
@@ -42,4 +45,5 @@ int main()
     cout<<"请输入行数：";
     cin>>row;
     showRows(row);
+    return 0;
 }
