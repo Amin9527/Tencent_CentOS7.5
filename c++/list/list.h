@@ -32,9 +32,46 @@ namespace Amin
             return _node->data;
         }
 
+        T* operator->()  //it->_year时，实际是it->->_year,编译器省略了一个->
+        {
+            return &(operator*());
+            //return &_node->data;
+        }
+
+        //++it，it.operator++(&it)
         Self& operator++()
         {
             _node=_node->next;
+            return *this;
+        }
+
+        //it++ it.operator(&it,0)
+        Self operator++(int)
+        {
+            Self tmp(*this);
+            _node=_node->next;
+            return *this;
+        }
+        //--it，it.operator++(&it)
+        Self& operator--()
+        {
+            _node=_node->prev;
+            return *this;
+        }
+
+        //it-- it.operator(&it,0)
+        Self operator--(int)
+        {
+            Self tmp(*this);
+            _node=_node->next;
+            return *this;
+        }
+
+        //it+n    适用于随机迭代器，当前不适合
+        Self operator+(size_t n)
+        {
+            while(n--)
+                _node=_node->next;
             return *this;
         }
 
@@ -107,6 +144,24 @@ namespace Amin
                 newnode->next=pos._node;
             }
 
+            ~list()
+            {
+                clear();
+                delete _head;
+                _head=nullptr;
+            }
+            void clear()
+            {
+                iterator it=begin();
+                while(it!=end())
+                {
+                    iterator del=it;
+                    ++it;
+                    delete del._node;
+                }
+                _head->next=_head;
+                _head->prev=_head;
+            }
             void erase(iterator pos)
             {
                 Node* nnode=pos._node->next;

@@ -24,7 +24,7 @@ void test1()
     l1.printlist();
     l1.erase(l1.begin());
     l1.printlist();
-    l1.insert(l1.begin(),9);
+    l1.insert(l1.begin()+1,9);
     list<int>::iterator it=l1.begin();
     *it=11;
     l1.printlist();
