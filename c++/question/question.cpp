@@ -4,14 +4,34 @@
 
 using namespace std;
 
+int& fun(int& a)
+{
+    return a;
+}
+
 int main()
 {
-    int i=0,j=5;
-    while(i++!=j)
-        cout<<i<<endl;
+    int a=10;
+    fun()=20;
+    cout<<fun(a)<<endl;
     return 0;
 }
 
+/*
+void fun()
+{
+    int b=10;
+    *((int*)*(&b+2)-2)=20;  //实际上将a改成了20
+}
+
+int main()
+{
+    int a=0;
+    fun();
+    cout<<a<<endl;
+    return 0;
+}
+*/
 //------------内存对齐
 
 //#pragma pack(4)   //

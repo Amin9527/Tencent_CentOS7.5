@@ -11,6 +11,7 @@ void test1()
     //std::cout<<l1._head->data<<std::endl;
     //std::cout<<l1._head->next->data<<std::endl;
     //std::cout<<l1._head->next->next->data<<std::endl;
+    /*
     list<int>::iterator it=l1.begin();
     while(it!=l1.end())
     {
@@ -18,6 +19,15 @@ void test1()
         ++it;
     }
     std::cout<<std::endl;
+    */
+
+    l1.printlist();
+    l1.erase(l1.begin());
+    l1.printlist();
+    l1.insert(l1.begin(),9);
+    list<int>::iterator it=l1.begin();
+    *it=11;
+    l1.printlist();
 }
 
 int main()

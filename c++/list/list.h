@@ -7,12 +7,12 @@ namespace Amin
     struct ListNode
     {
         T data;
-        ListNode<T>* perv;
+        ListNode<T>* prev;
         ListNode<T>* next;
 
-        ListNode(const T& _data=T()):data(_data)
+        ListNode(const T& _data):data(_data)  //当接收匿名对象的参数用引用时，必须用const修饰，否则报错
         {
-            perv=nullptr;
+            prev=nullptr;
             next=nullptr;
         }
     };
@@ -27,7 +27,7 @@ namespace Amin
         _iterator(Node* node):_node(node)
         {}
 
-        T operator*()
+        T& operator*()//需要传引用，给*it赋值时。不传引用是给临时变量赋值，临时变量不能做左值
         {
             return _node->data;
         }
@@ -47,7 +47,7 @@ namespace Amin
     template<typename T>
     class list
     {
-        typedef ListNode<T> Node;
+            typedef ListNode<T> Node;
         public:    
             typedef _iterator<T> iterator;
             iterator begin()
@@ -59,20 +59,78 @@ namespace Amin
             {
                 return iterator(_head);
             }
-            list():_head(new Node)
+
+            list():_head(new Node(T())) //T()匿名对象
             {
-                _head->perv=_head;
+                _head->prev=_head;
                 _head->next=_head;
             }
 
             void push_back(const T& data)
             {
-                Node* tail=_head->perv;
+                insert(end(),data);
+            }
+
+            void printlist()
+            {
+                iterator it=begin();
+                while(it!=end())
+                {
+                    std::cout<<*it<<" ";
+                    ++it;
+                }
+                std::cout<<std::endl;
+            }
+
+            void pop_back()
+            {
+                earse(end());
+            }
+
+            void pop_front()
+            {
+                erase(begin());
+            }
+
+            void push_front(const T& data)
+            {
+                insert(begin(),data);
+            }
+
+            void insert(iterator pos,const T& data)
+            {
+                Node* newprev=pos._node->prev;
                 Node* newnode=new Node(data);
-                tail->next=newnode;
-                newnode->next=_head;
-                _head->perv=newnode;
-                newnode->perv=tail;
+                pos._node->prev=newnode;
+                newnode->prev=newprev;
+                newprev->next=newnode;
+                newnode->next=pos._node;
+            }
+
+            void erase(iterator pos)
+            {
+                Node* nnode=pos._node->next;
+                Node* pnode=pos._node->prev;
+                nnode->prev=pnode;
+                pnode->next=nnode;
+                delete pos._node;
+            }
+
+            bool empty()
+            {
+                return _head->next==_head;
+            }
+
+            size_t size()
+            {
+                size_t n=0;
+                iterator it=begin();
+                while(it!=end())
+                {
+                    ++it;
+                    ++n;
+                }
+                return n;
             }
         //private:
             Node* _head;
