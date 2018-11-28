@@ -162,13 +162,14 @@ namespace Amin
                 _head->next=_head;
                 _head->prev=_head;
             }
-            void erase(iterator pos)
+            iterator erase(iterator pos)
             {
                 Node* nnode=pos._node->next;
                 Node* pnode=pos._node->prev;
                 nnode->prev=pnode;
                 pnode->next=nnode;
                 delete pos._node;
+                return iterator(nnode);
             }
 
             bool empty()
