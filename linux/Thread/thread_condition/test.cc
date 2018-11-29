@@ -13,12 +13,13 @@ void* r1(void* arg)
     while(1)
     {
         pthread_cond_wait(&cond,&lock);
-        cout<<((int*)arg)<<endl;
+        cout<<(int)((int*)arg)<<endl;
     }
 }
 
 void* r2(void* arg)
 {
+    int* a=(int*)arg;
     while(1)
     {
         pthread_cond_signal(&cond);
