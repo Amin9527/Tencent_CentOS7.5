@@ -1,0 +1,4 @@
+specification（说明文档）
+
+该程序是基于条件变量condition，加锁lock
+实现生产者消费者模型
