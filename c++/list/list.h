@@ -103,11 +103,43 @@ namespace Amin
                 _head->next=_head;
             }
 
+            template<typename TT>
+            void swap(TT& t1,TT& t2)
+            {
+                TT tmp;
+                tmp=t1;
+                t1=t2;
+                t2=tmp;
+            }
+
+            //拷贝构造
+            list(list<T>& l)
+            {
+                _head=new Node(T());
+                _head->prev=_head;
+                _head->next=_head;
+                iterator it=l.begin();
+                while(it!=l.end())
+                {
+                    push_back(*it);
+                    ++it;
+                }
+            }
+
+            //赋值运算符重载
+            list<T>& operator=(list<T> l)
+            {
+                swap(_head,l._head);
+                return *this;
+            }
+            
+
             void push_back(const T& data)
             {
                 insert(end(),data);
             }
 
+            /*
             void printlist()
             {
                 iterator it=begin();
@@ -118,10 +150,24 @@ namespace Amin
                 }
                 std::cout<<std::endl;
             }
+            */
+
+            /*
+            void printlist(list<T>& l)
+            {
+                list<T>::iterator it=l.begin();
+                while(it!=l.end())
+                {
+                    std::cout<<*it<<" ";
+                    ++it;
+                }
+                std::cout<<std::endl;
+            }
+            */
 
             void pop_back()
             {
-                earse(end());
+                erase(--end());
             }
 
             void pop_front()
@@ -191,4 +237,20 @@ namespace Amin
         //private:
             Node* _head;
     };
+
+
+template<typename T>
+void printlist(list<T> l)
+{
+   _iterator<T> it=l.begin();
+   while(it!=l.end())
+   {
+       std::cout<<*it<<" ";
+       ++it;
+   }
+   std::cout<<std::endl;
 }
+
+}
+
+
