@@ -8,9 +8,9 @@
 
 using namespace std;
 
-typedef int (*type)(int,int);
+typedef int (*type)(int,int); //函数指针，将type赋值为返回值为int，两个参数为int，int，的函数指针类型
 
-class Task
+class Task  
 {
     private:
         int _x;
@@ -25,7 +25,7 @@ class Task
         {}
         void value()
         {
-            cout<<_handler_task<<endl;
+            cout<<_handler_task(_x,_y)<<endl;
         }
 };
 
@@ -36,13 +36,15 @@ class PthreadPool
         queue<Task> t_queue;
         pthread_mutex_t lock;
         pthread_cond_t cond;
-        static void* thread_routine(void*arg)
+    private:
+        static void* thread_routine(void* arg)
         {
             pthread_detach(pthread_self());
             PthreadPool* tp=(PthreadPool*)arg;
-            tp->handlerthread();
+            while(1)
+                tp->handlerthread();
+            return nullptr;
         }
-
 
     public:
         PthreadPool(int sum):thread_sum(sum)
@@ -71,30 +73,30 @@ class PthreadPool
         {
             pthread_cond_wait(&cond,&lock);
         }
+
         void handlerthread()
         {
-            lockpool();
-            while(isempty())
-                wait_task();
-            Task t=t_queue.front();
-            t_queue.pop();
-            unlockpool();
-            t.value();
+            lockpool();       //上锁
+            while(isempty())  //判断队列是否为空
+                wait_task();  //为空则等待
+            Task t=t_queue.front();  //不为空则取出queue的top，类型为Task
+            t_queue.pop();         //删除top
+            unlockpool();    
+            t.value();          //打印
         }
-
-        void initpool()
+        void initpool()    //初始化
         {
             pthread_mutex_init(&lock,nullptr);
             pthread_cond_init(&cond,nullptr);
             int i=0;
-            for(i=0;i<thread_sum;++i)
+            for(i=0;i<thread_sum;++i)  //创建5个线程
             {
                 pthread_t t1;
                 pthread_create(&t1,nullptr,thread_routine,(void*)this);
             }
         }
 
-        void addtask(Task& t)
+        void addtask(Task& t)   //往queue里放Task
         {
             lockpool();
             t_queue.push(t);
