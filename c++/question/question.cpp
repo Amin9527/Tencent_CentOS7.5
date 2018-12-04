@@ -4,18 +4,31 @@
 
 using namespace std;
 
-int& fun(int& a)
-{
-    return a;
-}
+//函数指针
 
-int main()
-{
-    int a=10;
-    fun()=20;
-    cout<<fun(a)<<endl;
-    return 0;
-}
+//typedef int (*fun)(int,int);
+//typedef int ff(int ,int);
+//
+//int add(int x,int y)
+//{
+//    return x+y;
+//}
+//
+//int sub(int x,int y)
+//{
+//    return x-y;
+//}
+//
+//void routine(int x,int y,fun _fun)
+//{
+//    cout<<_fun(x,y)<<endl;
+//}
+//
+//int main()
+//{
+//    routine(3,4,add);
+//    return 0;
+//}
 
 /*
 void fun()
