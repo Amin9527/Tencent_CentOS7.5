@@ -4,7 +4,52 @@
 
 using namespace std;
 
-//函数指针
+//-----------------------类中的const关键字
+
+/*
+class fun
+{
+    public:
+
+        fun(int n,int m=8):i(n),y(m){}  //默认参数列表的默认值从右到左给
+
+        void print()const  //this指针默认是常量指针，这里的const是
+                           //将this这个常量指针变为常指针常量，以此来调用常量函数
+        {
+            cout<<++y<<endl;
+        }
+
+        void Print()  //普通成员函数可以调用常量成员，但是不可以修改
+        {
+            cout<<i<<endl;
+            print();   //普通成员函数可以调用常量函数
+        }
+
+        void routine() const
+        {
+            print();
+            //Print();  //常量函数只可以调用常量函数，以为普通函数有修改数据的意图
+        }
+    private:
+
+        const int i;
+        mutable int y=11;  //mutable修饰的成员，const修饰的函数也可以修改
+};
+
+int main()
+{
+    const fun f1(1);
+    f1.print();//常量对象只能调用常量函数
+    //f1.Print();
+    
+    fun f2(2);
+    f2.print(); //普通对象都可以调用
+    f2.Print();
+    return 0;
+}
+*/
+
+//----------------------------函数指针
 
 //typedef int (*fun)(int,int);
 //typedef int ff(int ,int);
