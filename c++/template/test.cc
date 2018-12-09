@@ -110,41 +110,126 @@ int main()
 
 //---------------------模板特化_类型萃取
 
+#include<string.h>
 
+struct truetype
+{
+    static bool get()
+    {
+        return false;
+    }
+};
 
+struct falsetype
+{
+    static bool get()
+    {
+        return true;
+    }
+};
 
+template<typename T>
+struct typetraits
+{
+    typedef truetype TheType;
+};
 
+template<>
+struct typetraits<unsigned char>
+{
+    typedef falsetype TheType;
+};
 
+template<>
+struct typetraits<unsigned int>
+{
+    typedef falsetype TheType;
+};
 
+template<>
+struct typetraits<char>
+{
+    typedef falsetype TheType;
+};
 
+template<>
+struct typetraits<double>
+{
+    typedef falsetype TheType;
+};
 
+template<>
+struct typetraits<short>
+{
+    typedef falsetype TheType;
+};
 
+template<>
+struct typetraits<long>
+{
+    typedef falsetype TheType;
+};
 
+template<>
+struct typetraits<long long>
+{
+    typedef falsetype TheType;
+};
 
+template<>
+struct typetraits<long double>
+{
+   typedef falsetype TheType;
+};
 
+template<>
+struct typetraits<int>
+{
+    typedef falsetype TheType;
+};
 
+template<>
+struct typetraits<float>
+{
+    typedef falsetype TheType;
+};
 
+template<typename T>
+void copy(T* dst,T* src,int size)
+{
+    if(typetraits<T>::TheType::get())
+        memcpy(dst,src,(sizeof(T)*size));
+    else
+    {
+        cout<<"for() : ";
+        int i=0;
+        for(i=0;i<size;++i)
+            dst[i]=src[i];
+    }
+}
 
+int main()
+{
+    string str[3]={"ab","cd","ef"};
+    string arr[3];
+    copy(arr,str,3);
+    str[0]="zm";
+    cout<<*arr<<endl;
+    string s1="zhangmin";
+    string s2;
+    copy(&s2,&s1,1);
+    s1="zm";
+    cout<<s2<<endl;
 
+    int array1[10]={1,4,2,0,7,5,8,6,9,3};
+    int array2[10];
+    copy(array2,array1,10);
+    for(int i=0;i<10;++i)
+        cout<<array2[i]<<" ";
+    cout<<endl;
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    return 0;
+}
 
 
 
