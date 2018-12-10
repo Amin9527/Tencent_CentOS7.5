@@ -23699,7 +23699,7 @@ namespace std __attribute__ ((__visibility__ ("default")))
 # 2 "test.cc" 2
 
 using namespace std;
-# 113 "test.cc"
+# 115 "test.cc"
 # 1 "/usr/include/string.h" 1 3 4
 # 27 "/usr/include/string.h" 3 4
 extern "C" {
@@ -24126,7 +24126,7 @@ extern "C++" const char *basename (const char *__filename)
      throw () __asm ("basename") __attribute__ ((__nonnull__ (1)));
 # 642 "/usr/include/string.h" 3 4
 }
-# 114 "test.cc" 2
+# 116 "test.cc" 2
 
 struct truetype
 {

@@ -1,8 +1,21 @@
 #include<iostream>
 #include<string.h>
 #include<string>
+#include<vector>
 
 using namespace std;
+
+int main()
+{
+    int arr[5]={1,2,3,4,5};
+    vector<int> v1(arr,arr+5);
+    v1.erase(v1.begin()+2);
+    for(size_t i=0;i<v1.size();++i)
+        cout<<v1[i]<<" ";
+    cout<<endl;
+    cout<<v1.size()<<endl;
+    return 0;
+}
 
 //-----------------------类中的const关键字-----------
 

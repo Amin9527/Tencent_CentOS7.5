@@ -3,6 +3,7 @@
 using namespace std;
 
 //非类型模板参数（字符串、类对象、浮点数不可以做非类型模板参数）
+
 /*
 template<typename T,int N>
 class ZM
@@ -21,7 +22,7 @@ int main()
 {
     ZM<char,8> z1;  //8
     //ZM<int,8> z2;  //32
-    cout<<z.size()<<endl;
+    cout<<z1.size()<<endl;
     return 0;
 }
 */
@@ -109,6 +110,7 @@ int main()
 
 
 //---------------------模板特化_类型萃取
+
 
 #include<string.h>
 

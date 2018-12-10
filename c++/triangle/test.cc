@@ -4,7 +4,7 @@ using namespace std;
 
 vector<vector<int>> showRows(int& row)
 {
-    vector<vector<int>> v1(row,vector<int>());
+    vector<vector<int>> v1(row,vector<int>(1));
     for(int i=0;i<row;++i)
     {
         v1[i].resize(i+1);
