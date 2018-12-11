@@ -1,6 +1,7 @@
 #include<stdlib.h>
 #include<assert.h>
 #include<iostream>
+#include<stdio.h>
 
 using namespace std;
 
@@ -28,3 +29,8 @@ typedef struct Hashtable
 }Hashtable;
 
 void initHashtable(Hashtable* ht,int len);
+void judgecapacity(Hashtable* ht);
+void destroyHashtable(Hashtable* ht);
+int findHashnode(Hashtable* ht,int key);
+Hashtable* eraseHashnode(Hashtable* ht,int adders);
+Hashtable* insertHashtable(Hashtable* ht,keytype key);
