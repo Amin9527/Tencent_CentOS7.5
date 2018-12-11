@@ -530,10 +530,50 @@ _Z14printHashtable9Hashtable:
 	.cfi_endproc
 .LFE978:
 	.size	_Z14printHashtable9Hashtable, .-_Z14printHashtable9Hashtable
+	.globl	_Z7isemptyR9Hashtable
+	.type	_Z7isemptyR9Hashtable, @function
+_Z7isemptyR9Hashtable:
+.LFB979:
+	.cfi_startproc
+	pushq	%rbp
+	.cfi_def_cfa_offset 16
+	.cfi_offset 6, -16
+	movq	%rsp, %rbp
+	.cfi_def_cfa_register 6
+	movq	%rdi, -8(%rbp)
+	movq	-8(%rbp), %rax
+	movl	8(%rax), %eax
+	testl	%eax, %eax
+	sete	%al
+	popq	%rbp
+	.cfi_def_cfa 7, 8
+	ret
+	.cfi_endproc
+.LFE979:
+	.size	_Z7isemptyR9Hashtable, .-_Z7isemptyR9Hashtable
+	.globl	_Z4sizeR9Hashtable
+	.type	_Z4sizeR9Hashtable, @function
+_Z4sizeR9Hashtable:
+.LFB980:
+	.cfi_startproc
+	pushq	%rbp
+	.cfi_def_cfa_offset 16
+	.cfi_offset 6, -16
+	movq	%rsp, %rbp
+	.cfi_def_cfa_register 6
+	movq	%rdi, -8(%rbp)
+	movq	-8(%rbp), %rax
+	movl	8(%rax), %eax
+	popq	%rbp
+	.cfi_def_cfa 7, 8
+	ret
+	.cfi_endproc
+.LFE980:
+	.size	_Z4sizeR9Hashtable, .-_Z4sizeR9Hashtable
 	.globl	_Z4testP9Hashtable
 	.type	_Z4testP9Hashtable, @function
 _Z4testP9Hashtable:
-.LFB979:
+.LFB981:
 	.cfi_startproc
 	pushq	%rbp
 	.cfi_def_cfa_offset 16
@@ -550,7 +590,7 @@ _Z4testP9Hashtable:
 	.cfi_def_cfa 7, 8
 	ret
 	.cfi_endproc
-.LFE979:
+.LFE981:
 	.size	_Z4testP9Hashtable, .-_Z4testP9Hashtable
 	.section	.rodata
 .LC7:
@@ -561,7 +601,7 @@ _Z4testP9Hashtable:
 	.globl	main
 	.type	main, @function
 main:
-.LFB980:
+.LFB982:
 	.cfi_startproc
 	pushq	%rbp
 	.cfi_def_cfa_offset 16
@@ -659,11 +699,11 @@ main:
 	.cfi_def_cfa 7, 8
 	ret
 	.cfi_endproc
-.LFE980:
+.LFE982:
 	.size	main, .-main
 	.type	_Z41__static_initialization_and_destruction_0ii, @function
 _Z41__static_initialization_and_destruction_0ii:
-.LFB989:
+.LFB991:
 	.cfi_startproc
 	pushq	%rbp
 	.cfi_def_cfa_offset 16
@@ -674,25 +714,25 @@ _Z41__static_initialization_and_destruction_0ii:
 	movl	%edi, -4(%rbp)
 	movl	%esi, -8(%rbp)
 	cmpl	$1, -4(%rbp)
-	jne	.L43
+	jne	.L47
 	cmpl	$65535, -8(%rbp)
-	jne	.L43
+	jne	.L47
 	movl	$_ZStL8__ioinit, %edi
 	call	_ZNSt8ios_base4InitC1Ev
 	movl	$__dso_handle, %edx
 	movl	$_ZStL8__ioinit, %esi
 	movl	$_ZNSt8ios_base4InitD1Ev, %edi
 	call	__cxa_atexit
-.L43:
+.L47:
 	leave
 	.cfi_def_cfa 7, 8
 	ret
 	.cfi_endproc
-.LFE989:
+.LFE991:
 	.size	_Z41__static_initialization_and_destruction_0ii, .-_Z41__static_initialization_and_destruction_0ii
 	.type	_GLOBAL__sub_I__Z13initHashtableP9Hashtablei, @function
 _GLOBAL__sub_I__Z13initHashtableP9Hashtablei:
-.LFB990:
+.LFB992:
 	.cfi_startproc
 	pushq	%rbp
 	.cfi_def_cfa_offset 16
@@ -706,7 +746,7 @@ _GLOBAL__sub_I__Z13initHashtableP9Hashtablei:
 	.cfi_def_cfa 7, 8
 	ret
 	.cfi_endproc
-.LFE990:
+.LFE992:
 	.size	_GLOBAL__sub_I__Z13initHashtableP9Hashtablei, .-_GLOBAL__sub_I__Z13initHashtableP9Hashtablei
 	.section	.init_array,"aw"
 	.align 8

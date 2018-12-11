@@ -114,11 +114,21 @@ void printHashtable(Hashtable ht)
     cout<<endl;
 }
 
+
+bool isempty(Hashtable& ht)
+{
+    return ht.size==0;
+}
+
+int size(Hashtable& ht)
+{
+    return ht.size;
+}
+
 void test(Hashtable* ht)
 {
     initHashtable(ht,7);
 }
-
 
 int main()
 {
