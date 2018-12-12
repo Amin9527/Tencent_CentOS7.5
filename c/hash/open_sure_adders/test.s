@@ -5,13 +5,13 @@
 .LC0:
 	.string	"test.cc"
 .LC1:
-	.string	"ht"
+	.string	"&ht"
 .LC2:
 	.string	"len>0"
 	.text
-	.globl	_Z13initHashtableP9Hashtablei
-	.type	_Z13initHashtableP9Hashtablei, @function
-_Z13initHashtableP9Hashtablei:
+	.globl	_Z13initHashtableR9Hashtablei
+	.type	_Z13initHashtableR9Hashtablei, @function
+_Z13initHashtableR9Hashtablei:
 .LFB971:
 	.cfi_startproc
 	pushq	%rbp
@@ -24,7 +24,7 @@ _Z13initHashtableP9Hashtablei:
 	movl	%esi, -28(%rbp)
 	cmpq	$0, -24(%rbp)
 	jne	.L2
-	movl	$_ZZ13initHashtableP9HashtableiE19__PRETTY_FUNCTION__, %ecx
+	movl	$_ZZ13initHashtableR9HashtableiE19__PRETTY_FUNCTION__, %ecx
 	movl	$6, %edx
 	movl	$.LC0, %esi
 	movl	$.LC1, %edi
@@ -32,7 +32,7 @@ _Z13initHashtableP9Hashtablei:
 .L2:
 	cmpl	$0, -28(%rbp)
 	jg	.L3
-	movl	$_ZZ13initHashtableP9HashtableiE19__PRETTY_FUNCTION__, %ecx
+	movl	$_ZZ13initHashtableR9HashtableiE19__PRETTY_FUNCTION__, %ecx
 	movl	$7, %edx
 	movl	$.LC0, %esi
 	movl	$.LC2, %edi
@@ -78,10 +78,10 @@ _Z13initHashtableP9Hashtablei:
 	ret
 	.cfi_endproc
 .LFE971:
-	.size	_Z13initHashtableP9Hashtablei, .-_Z13initHashtableP9Hashtablei
-	.globl	_Z16destroyHashtableP9Hashtable
-	.type	_Z16destroyHashtableP9Hashtable, @function
-_Z16destroyHashtableP9Hashtable:
+	.size	_Z13initHashtableR9Hashtablei, .-_Z13initHashtableR9Hashtablei
+	.globl	_Z16destroyHashtableR9Hashtable
+	.type	_Z16destroyHashtableR9Hashtable, @function
+_Z16destroyHashtableR9Hashtable:
 .LFB972:
 	.cfi_startproc
 	pushq	%rbp
@@ -93,7 +93,7 @@ _Z16destroyHashtableP9Hashtable:
 	movq	%rdi, -8(%rbp)
 	cmpq	$0, -8(%rbp)
 	jne	.L9
-	movl	$_ZZ16destroyHashtableP9HashtableE19__PRETTY_FUNCTION__, %ecx
+	movl	$_ZZ16destroyHashtableR9HashtableE19__PRETTY_FUNCTION__, %ecx
 	movl	$18, %edx
 	movl	$.LC0, %esi
 	movl	$.LC1, %edi
@@ -111,16 +111,15 @@ _Z16destroyHashtableP9Hashtable:
 	movl	12(%rax), %edx
 	movq	-8(%rbp), %rax
 	movl	%edx, 8(%rax)
-	movq	$0, -8(%rbp)
 	leave
 	.cfi_def_cfa 7, 8
 	ret
 	.cfi_endproc
 .LFE972:
-	.size	_Z16destroyHashtableP9Hashtable, .-_Z16destroyHashtableP9Hashtable
-	.globl	_Z13judgecapacityP9Hashtable
-	.type	_Z13judgecapacityP9Hashtable, @function
-_Z13judgecapacityP9Hashtable:
+	.size	_Z16destroyHashtableR9Hashtable, .-_Z16destroyHashtableR9Hashtable
+	.globl	_Z13judgecapacityR9Hashtable
+	.type	_Z13judgecapacityR9Hashtable, @function
+_Z13judgecapacityR9Hashtable:
 .LFB973:
 	.cfi_startproc
 	pushq	%rbp
@@ -134,7 +133,7 @@ _Z13judgecapacityP9Hashtable:
 	movq	%rdi, -56(%rbp)
 	cmpq	$0, -56(%rbp)
 	jne	.L11
-	movl	$_ZZ13judgecapacityP9HashtableE19__PRETTY_FUNCTION__, %ecx
+	movl	$_ZZ13judgecapacityR9HashtableE19__PRETTY_FUNCTION__, %ecx
 	movl	$27, %edx
 	movl	$.LC0, %esi
 	movl	$.LC1, %edi
@@ -160,7 +159,7 @@ _Z13judgecapacityP9Hashtable:
 	leaq	-48(%rbp), %rax
 	movl	%edx, %esi
 	movq	%rax, %rdi
-	call	_Z13initHashtableP9Hashtablei
+	call	_Z13initHashtableR9Hashtablei
 	movl	$0, -20(%rbp)
 	jmp	.L13
 .L15:
@@ -183,7 +182,7 @@ _Z13judgecapacityP9Hashtable:
 	leaq	-48(%rbp), %rax
 	movl	%edx, %esi
 	movq	%rax, %rdi
-	call	_Z15insertHashtableP9Hashtablei
+	call	_Z15insertHashtableR9Hashtablei
 .L14:
 	addl	$1, -20(%rbp)
 .L13:
@@ -193,7 +192,7 @@ _Z13judgecapacityP9Hashtable:
 	jg	.L15
 	movq	-56(%rbp), %rax
 	movq	%rax, %rdi
-	call	_Z16destroyHashtableP9Hashtable
+	call	_Z16destroyHashtableR9Hashtable
 	movq	-48(%rbp), %rdx
 	movq	-56(%rbp), %rax
 	movq	%rdx, (%rax)
@@ -211,7 +210,7 @@ _Z13judgecapacityP9Hashtable:
 	ret
 	.cfi_endproc
 .LFE973:
-	.size	_Z13judgecapacityP9Hashtable, .-_Z13judgecapacityP9Hashtable
+	.size	_Z13judgecapacityR9Hashtable, .-_Z13judgecapacityR9Hashtable
 	.globl	_Z10sureaddersii
 	.type	_Z10sureaddersii, @function
 _Z10sureaddersii:
@@ -239,9 +238,9 @@ _Z10sureaddersii:
 .LC3:
 	.string	"key>=0"
 	.text
-	.globl	_Z15insertHashtableP9Hashtablei
-	.type	_Z15insertHashtableP9Hashtablei, @function
-_Z15insertHashtableP9Hashtablei:
+	.globl	_Z15insertHashtableR9Hashtablei
+	.type	_Z15insertHashtableR9Hashtablei, @function
+_Z15insertHashtableR9Hashtablei:
 .LFB975:
 	.cfi_startproc
 	pushq	%rbp
@@ -254,23 +253,23 @@ _Z15insertHashtableP9Hashtablei:
 	movl	%esi, -28(%rbp)
 	cmpq	$0, -24(%rbp)
 	jne	.L19
-	movl	$_ZZ15insertHashtableP9HashtableiE19__PRETTY_FUNCTION__, %ecx
-	movl	$55, %edx
+	movl	$_ZZ15insertHashtableR9HashtableiE19__PRETTY_FUNCTION__, %ecx
+	movl	$60, %edx
 	movl	$.LC0, %esi
 	movl	$.LC1, %edi
 	call	__assert_fail
 .L19:
 	cmpl	$0, -28(%rbp)
 	jns	.L20
-	movl	$_ZZ15insertHashtableP9HashtableiE19__PRETTY_FUNCTION__, %ecx
-	movl	$56, %edx
+	movl	$_ZZ15insertHashtableR9HashtableiE19__PRETTY_FUNCTION__, %ecx
+	movl	$61, %edx
 	movl	$.LC0, %esi
 	movl	$.LC3, %edi
 	call	__assert_fail
 .L20:
 	movq	-24(%rbp), %rax
 	movq	%rax, %rdi
-	call	_Z13judgecapacityP9Hashtable
+	call	_Z13judgecapacityR9Hashtable
 	movq	-24(%rbp), %rax
 	movl	12(%rax), %eax
 	movl	-28(%rbp), %edx
@@ -336,10 +335,10 @@ _Z15insertHashtableP9Hashtablei:
 	ret
 	.cfi_endproc
 .LFE975:
-	.size	_Z15insertHashtableP9Hashtablei, .-_Z15insertHashtableP9Hashtablei
-	.globl	_Z13eraseHashnodeP9Hashtablei
-	.type	_Z13eraseHashnodeP9Hashtablei, @function
-_Z13eraseHashnodeP9Hashtablei:
+	.size	_Z15insertHashtableR9Hashtablei, .-_Z15insertHashtableR9Hashtablei
+	.globl	_Z13eraseHashnodeR9Hashtablei
+	.type	_Z13eraseHashnodeR9Hashtablei, @function
+_Z13eraseHashnodeR9Hashtablei:
 .LFB976:
 	.cfi_startproc
 	pushq	%rbp
@@ -362,10 +361,10 @@ _Z13eraseHashnodeP9Hashtablei:
 	ret
 	.cfi_endproc
 .LFE976:
-	.size	_Z13eraseHashnodeP9Hashtablei, .-_Z13eraseHashnodeP9Hashtablei
-	.globl	_Z12findHashnodeP9Hashtablei
-	.type	_Z12findHashnodeP9Hashtablei, @function
-_Z12findHashnodeP9Hashtablei:
+	.size	_Z13eraseHashnodeR9Hashtablei, .-_Z13eraseHashnodeR9Hashtablei
+	.globl	_Z12findHashnodeR9Hashtablei
+	.type	_Z12findHashnodeR9Hashtablei, @function
+_Z12findHashnodeR9Hashtablei:
 .LFB977:
 	.cfi_startproc
 	pushq	%rbp
@@ -378,16 +377,16 @@ _Z12findHashnodeP9Hashtablei:
 	movl	%esi, -28(%rbp)
 	cmpq	$0, -24(%rbp)
 	jne	.L28
-	movl	$_ZZ12findHashnodeP9HashtableiE19__PRETTY_FUNCTION__, %ecx
-	movl	$80, %edx
+	movl	$_ZZ12findHashnodeR9HashtableiE19__PRETTY_FUNCTION__, %ecx
+	movl	$85, %edx
 	movl	$.LC0, %esi
 	movl	$.LC1, %edi
 	call	__assert_fail
 .L28:
 	cmpl	$0, -28(%rbp)
 	jns	.L29
-	movl	$_ZZ12findHashnodeP9HashtableiE19__PRETTY_FUNCTION__, %ecx
-	movl	$81, %edx
+	movl	$_ZZ12findHashnodeR9HashtableiE19__PRETTY_FUNCTION__, %ecx
+	movl	$86, %edx
 	movl	$.LC0, %esi
 	movl	$.LC3, %edi
 	call	__assert_fail
@@ -455,7 +454,7 @@ _Z12findHashnodeP9Hashtablei:
 	ret
 	.cfi_endproc
 .LFE977:
-	.size	_Z12findHashnodeP9Hashtablei, .-_Z12findHashnodeP9Hashtablei
+	.size	_Z12findHashnodeR9Hashtablei, .-_Z12findHashnodeR9Hashtablei
 	.section	.rodata
 .LC4:
 	.string	" "
@@ -464,9 +463,9 @@ _Z12findHashnodeP9Hashtablei:
 .LC6:
 	.string	"]"
 	.text
-	.globl	_Z14printHashtable9Hashtable
-	.type	_Z14printHashtable9Hashtable, @function
-_Z14printHashtable9Hashtable:
+	.globl	_Z14printHashtableR9Hashtable
+	.type	_Z14printHashtableR9Hashtable, @function
+_Z14printHashtableR9Hashtable:
 .LFB978:
 	.cfi_startproc
 	pushq	%rbp
@@ -475,15 +474,12 @@ _Z14printHashtable9Hashtable:
 	movq	%rsp, %rbp
 	.cfi_def_cfa_register 6
 	subq	$32, %rsp
-	movq	%rdi, %rax
-	movq	%rsi, %rcx
-	movq	%rcx, %rdx
-	movq	%rax, -32(%rbp)
-	movq	%rdx, -24(%rbp)
+	movq	%rdi, -24(%rbp)
 	movl	$0, -4(%rbp)
 	jmp	.L36
 .L39:
-	movq	-32(%rbp), %rax
+	movq	-24(%rbp), %rax
+	movq	(%rax), %rax
 	movl	-4(%rbp), %edx
 	movslq	%edx, %rdx
 	salq	$3, %rdx
@@ -491,7 +487,8 @@ _Z14printHashtable9Hashtable:
 	movl	(%rax), %eax
 	testl	%eax, %eax
 	jne	.L37
-	movq	-32(%rbp), %rax
+	movq	-24(%rbp), %rax
+	movq	(%rax), %rax
 	movl	-4(%rbp), %edx
 	movslq	%edx, %rdx
 	salq	$3, %rdx
@@ -518,7 +515,8 @@ _Z14printHashtable9Hashtable:
 .L38:
 	addl	$1, -4(%rbp)
 .L36:
-	movl	-20(%rbp), %eax
+	movq	-24(%rbp), %rax
+	movl	12(%rax), %eax
 	cmpl	-4(%rbp), %eax
 	jg	.L39
 	movl	$_ZSt4endlIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_, %esi
@@ -529,7 +527,7 @@ _Z14printHashtable9Hashtable:
 	ret
 	.cfi_endproc
 .LFE978:
-	.size	_Z14printHashtable9Hashtable, .-_Z14printHashtable9Hashtable
+	.size	_Z14printHashtableR9Hashtable, .-_Z14printHashtableR9Hashtable
 	.globl	_Z7isemptyR9Hashtable
 	.type	_Z7isemptyR9Hashtable, @function
 _Z7isemptyR9Hashtable:
@@ -570,9 +568,9 @@ _Z4sizeR9Hashtable:
 	.cfi_endproc
 .LFE980:
 	.size	_Z4sizeR9Hashtable, .-_Z4sizeR9Hashtable
-	.globl	_Z4testP9Hashtable
-	.type	_Z4testP9Hashtable, @function
-_Z4testP9Hashtable:
+	.globl	_Z4testR9Hashtable
+	.type	_Z4testR9Hashtable, @function
+_Z4testR9Hashtable:
 .LFB981:
 	.cfi_startproc
 	pushq	%rbp
@@ -585,13 +583,13 @@ _Z4testP9Hashtable:
 	movq	-8(%rbp), %rax
 	movl	$7, %esi
 	movq	%rax, %rdi
-	call	_Z13initHashtableP9Hashtablei
+	call	_Z13initHashtableR9Hashtablei
 	leave
 	.cfi_def_cfa 7, 8
 	ret
 	.cfi_endproc
 .LFE981:
-	.size	_Z4testP9Hashtable, .-_Z4testP9Hashtable
+	.size	_Z4testR9Hashtable, .-_Z4testR9Hashtable
 	.section	.rodata
 .LC7:
 	.string	"97's adders is :"
@@ -611,48 +609,46 @@ main:
 	subq	$32, %rsp
 	leaq	-32(%rbp), %rax
 	movq	%rax, %rdi
-	call	_Z4testP9Hashtable
+	call	_Z4testR9Hashtable
 	leaq	-32(%rbp), %rax
 	movl	$97, %esi
 	movq	%rax, %rdi
-	call	_Z15insertHashtableP9Hashtablei
+	call	_Z15insertHashtableR9Hashtablei
 	leaq	-32(%rbp), %rax
 	movl	$3, %esi
 	movq	%rax, %rdi
-	call	_Z15insertHashtableP9Hashtablei
+	call	_Z15insertHashtableR9Hashtablei
 	leaq	-32(%rbp), %rax
 	movl	$67, %esi
 	movq	%rax, %rdi
-	call	_Z15insertHashtableP9Hashtablei
+	call	_Z15insertHashtableR9Hashtablei
 	leaq	-32(%rbp), %rax
 	movl	$0, %esi
 	movq	%rax, %rdi
-	call	_Z15insertHashtableP9Hashtablei
+	call	_Z15insertHashtableR9Hashtablei
 	leaq	-32(%rbp), %rax
 	movl	$23, %esi
 	movq	%rax, %rdi
-	call	_Z15insertHashtableP9Hashtablei
+	call	_Z15insertHashtableR9Hashtablei
 	leaq	-32(%rbp), %rax
 	movl	$17, %esi
 	movq	%rax, %rdi
-	call	_Z15insertHashtableP9Hashtablei
+	call	_Z15insertHashtableR9Hashtablei
 	leaq	-32(%rbp), %rax
 	movl	$35, %esi
 	movq	%rax, %rdi
-	call	_Z15insertHashtableP9Hashtablei
+	call	_Z15insertHashtableR9Hashtablei
 	leaq	-32(%rbp), %rax
 	movl	$12, %esi
 	movq	%rax, %rdi
-	call	_Z15insertHashtableP9Hashtablei
-	movq	-32(%rbp), %rdx
-	movq	-24(%rbp), %rax
-	movq	%rdx, %rdi
-	movq	%rax, %rsi
-	call	_Z14printHashtable9Hashtable
+	call	_Z15insertHashtableR9Hashtablei
+	leaq	-32(%rbp), %rax
+	movq	%rax, %rdi
+	call	_Z14printHashtableR9Hashtable
 	leaq	-32(%rbp), %rax
 	movl	$97, %esi
 	movq	%rax, %rdi
-	call	_Z12findHashnodeP9Hashtablei
+	call	_Z12findHashnodeR9Hashtablei
 	movl	%eax, -4(%rbp)
 	movl	$.LC7, %esi
 	movl	$_ZSt4cout, %edi
@@ -668,16 +664,14 @@ main:
 	leaq	-32(%rbp), %rax
 	movl	%edx, %esi
 	movq	%rax, %rdi
-	call	_Z13eraseHashnodeP9Hashtablei
-	movq	-32(%rbp), %rdx
-	movq	-24(%rbp), %rax
-	movq	%rdx, %rdi
-	movq	%rax, %rsi
-	call	_Z14printHashtable9Hashtable
+	call	_Z13eraseHashnodeR9Hashtablei
+	leaq	-32(%rbp), %rax
+	movq	%rax, %rdi
+	call	_Z14printHashtableR9Hashtable
 	leaq	-32(%rbp), %rax
 	movl	$96, %esi
 	movq	%rax, %rdi
-	call	_Z12findHashnodeP9Hashtablei
+	call	_Z12findHashnodeR9Hashtablei
 	movl	%eax, -4(%rbp)
 	movl	$.LC8, %esi
 	movl	$_ZSt4cout, %edi
@@ -689,11 +683,9 @@ main:
 	movl	$_ZSt4endlIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_, %esi
 	movq	%rax, %rdi
 	call	_ZNSolsEPFRSoS_E
-	movq	-32(%rbp), %rdx
-	movq	-24(%rbp), %rax
-	movq	%rdx, %rdi
-	movq	%rax, %rsi
-	call	_Z14printHashtable9Hashtable
+	leaq	-32(%rbp), %rax
+	movq	%rax, %rdi
+	call	_Z14printHashtableR9Hashtable
 	movl	$0, %eax
 	leave
 	.cfi_def_cfa 7, 8
@@ -730,8 +722,8 @@ _Z41__static_initialization_and_destruction_0ii:
 	.cfi_endproc
 .LFE991:
 	.size	_Z41__static_initialization_and_destruction_0ii, .-_Z41__static_initialization_and_destruction_0ii
-	.type	_GLOBAL__sub_I__Z13initHashtableP9Hashtablei, @function
-_GLOBAL__sub_I__Z13initHashtableP9Hashtablei:
+	.type	_GLOBAL__sub_I__Z13initHashtableR9Hashtablei, @function
+_GLOBAL__sub_I__Z13initHashtableR9Hashtablei:
 .LFB992:
 	.cfi_startproc
 	pushq	%rbp
@@ -747,36 +739,36 @@ _GLOBAL__sub_I__Z13initHashtableP9Hashtablei:
 	ret
 	.cfi_endproc
 .LFE992:
-	.size	_GLOBAL__sub_I__Z13initHashtableP9Hashtablei, .-_GLOBAL__sub_I__Z13initHashtableP9Hashtablei
+	.size	_GLOBAL__sub_I__Z13initHashtableR9Hashtablei, .-_GLOBAL__sub_I__Z13initHashtableR9Hashtablei
 	.section	.init_array,"aw"
 	.align 8
-	.quad	_GLOBAL__sub_I__Z13initHashtableP9Hashtablei
+	.quad	_GLOBAL__sub_I__Z13initHashtableR9Hashtablei
 	.section	.rodata
 	.align 32
-	.type	_ZZ13initHashtableP9HashtableiE19__PRETTY_FUNCTION__, @object
-	.size	_ZZ13initHashtableP9HashtableiE19__PRETTY_FUNCTION__, 36
-_ZZ13initHashtableP9HashtableiE19__PRETTY_FUNCTION__:
-	.string	"void initHashtable(Hashtable*, int)"
+	.type	_ZZ13initHashtableR9HashtableiE19__PRETTY_FUNCTION__, @object
+	.size	_ZZ13initHashtableR9HashtableiE19__PRETTY_FUNCTION__, 36
+_ZZ13initHashtableR9HashtableiE19__PRETTY_FUNCTION__:
+	.string	"void initHashtable(Hashtable&, int)"
 	.align 32
-	.type	_ZZ16destroyHashtableP9HashtableE19__PRETTY_FUNCTION__, @object
-	.size	_ZZ16destroyHashtableP9HashtableE19__PRETTY_FUNCTION__, 34
-_ZZ16destroyHashtableP9HashtableE19__PRETTY_FUNCTION__:
-	.string	"void destroyHashtable(Hashtable*)"
+	.type	_ZZ16destroyHashtableR9HashtableE19__PRETTY_FUNCTION__, @object
+	.size	_ZZ16destroyHashtableR9HashtableE19__PRETTY_FUNCTION__, 34
+_ZZ16destroyHashtableR9HashtableE19__PRETTY_FUNCTION__:
+	.string	"void destroyHashtable(Hashtable&)"
 	.align 16
-	.type	_ZZ13judgecapacityP9HashtableE19__PRETTY_FUNCTION__, @object
-	.size	_ZZ13judgecapacityP9HashtableE19__PRETTY_FUNCTION__, 31
-_ZZ13judgecapacityP9HashtableE19__PRETTY_FUNCTION__:
-	.string	"void judgecapacity(Hashtable*)"
+	.type	_ZZ13judgecapacityR9HashtableE19__PRETTY_FUNCTION__, @object
+	.size	_ZZ13judgecapacityR9HashtableE19__PRETTY_FUNCTION__, 31
+_ZZ13judgecapacityR9HashtableE19__PRETTY_FUNCTION__:
+	.string	"void judgecapacity(Hashtable&)"
 	.align 32
-	.type	_ZZ15insertHashtableP9HashtableiE19__PRETTY_FUNCTION__, @object
-	.size	_ZZ15insertHashtableP9HashtableiE19__PRETTY_FUNCTION__, 48
-_ZZ15insertHashtableP9HashtableiE19__PRETTY_FUNCTION__:
-	.string	"Hashtable* insertHashtable(Hashtable*, keytype)"
+	.type	_ZZ15insertHashtableR9HashtableiE19__PRETTY_FUNCTION__, @object
+	.size	_ZZ15insertHashtableR9HashtableiE19__PRETTY_FUNCTION__, 48
+_ZZ15insertHashtableR9HashtableiE19__PRETTY_FUNCTION__:
+	.string	"Hashtable& insertHashtable(Hashtable&, keytype)"
 	.align 32
-	.type	_ZZ12findHashnodeP9HashtableiE19__PRETTY_FUNCTION__, @object
-	.size	_ZZ12findHashnodeP9HashtableiE19__PRETTY_FUNCTION__, 38
-_ZZ12findHashnodeP9HashtableiE19__PRETTY_FUNCTION__:
-	.string	"int findHashnode(Hashtable*, keytype)"
+	.type	_ZZ12findHashnodeR9HashtableiE19__PRETTY_FUNCTION__, @object
+	.size	_ZZ12findHashnodeR9HashtableiE19__PRETTY_FUNCTION__, 38
+_ZZ12findHashnodeR9HashtableiE19__PRETTY_FUNCTION__:
+	.string	"int findHashnode(Hashtable&, keytype)"
 	.hidden	__dso_handle
 	.ident	"GCC: (GNU) 4.8.5 20150623 (Red Hat 4.8.5-28)"
 	.section	.note.GNU-stack,"",@progbits

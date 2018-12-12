@@ -19390,55 +19390,60 @@ typedef struct Hashtable
     int len;
 }Hashtable;
 
-void initHashtable(Hashtable* ht,int len);
-void judgecapacity(Hashtable* ht);
-void destroyHashtable(Hashtable* ht);
-int findHashnode(Hashtable* ht,int key);
-Hashtable* eraseHashnode(Hashtable* ht,int adders);
-Hashtable* insertHashtable(Hashtable* ht,keytype key);
+void initHashtable(Hashtable& ht,int len);
+void judgecapacity(Hashtable& ht);
+void destroyHashtable(Hashtable& ht);
+int findHashnode(Hashtable& ht,int key);
+Hashtable& eraseHashnode(Hashtable& ht,int adders);
+Hashtable& insertHashtable(Hashtable& ht,keytype key);
 # 2 "test.cc" 2
 
 using namespace std;
-void initHashtable(Hashtable* ht,int len)
+void initHashtable(Hashtable& ht,int len)
 {
-    ((ht) ? static_cast<void> (0) : __assert_fail ("ht", "test.cc", 6, __PRETTY_FUNCTION__));
+    ((&ht) ? static_cast<void> (0) : __assert_fail ("&ht", "test.cc", 6, __PRETTY_FUNCTION__));
     ((len>0) ? static_cast<void> (0) : __assert_fail ("len>0", "test.cc", 7, __PRETTY_FUNCTION__));
-    ht->table=new Hashnode[(sizeof(Hashnode)*len)];
-    ht->size=0;
-    ht->len=len;
+    ht.table=new Hashnode[(sizeof(Hashnode)*len)];
+    ht.size=0;
+    ht.len=len;
 
     for(int i=0;i<len;++i)
-        ht->table[i]._state=EMPTY;
+        ht.table[i]._state=EMPTY;
 }
 
-void destroyHashtable(Hashtable* ht)
+void destroyHashtable(Hashtable& ht)
 {
-    ((ht) ? static_cast<void> (0) : __assert_fail ("ht", "test.cc", 18, __PRETTY_FUNCTION__));
-    delete ht->table;
-    ht->table=nullptr;
-    ht->size=ht->len=0;
-    ht=nullptr;
+    ((&ht) ? static_cast<void> (0) : __assert_fail ("&ht", "test.cc", 18, __PRETTY_FUNCTION__));
+    delete ht.table;
+    ht.table=nullptr;
+    ht.size=ht.len=0;
+
 }
 
-void judgecapacity(Hashtable* ht)
+void judgecapacity(Hashtable& ht)
 {
-    ((ht) ? static_cast<void> (0) : __assert_fail ("ht", "test.cc", 27, __PRETTY_FUNCTION__));
-    if((ht->size*10)/ht->len>=7)
+    ((&ht) ? static_cast<void> (0) : __assert_fail ("&ht", "test.cc", 27, __PRETTY_FUNCTION__));
+    if((ht.size*10)/ht.len>=7)
     {
-       int len=2*ht->len;
+       int len=2*ht.len;
        Hashtable newhash;
-       initHashtable(&newhash,len);
-       for(int i=0;i<ht->len;++i)
+       initHashtable(newhash,len);
+       for(int i=0;i<ht.len;++i)
        {
-           if(ht->table[i]._state==EXIST)
-               insertHashtable(&newhash,ht->table[i].key);
+           if(ht.table[i]._state==EXIST)
+               insertHashtable(newhash,ht.table[i].key);
        }
 
 
+
+
+
+
+
        destroyHashtable(ht);
-       ht->table=newhash.table;
-       ht->len=newhash.len;
-       ht->size=newhash.size;
+       ht.table=newhash.table;
+       ht.len=newhash.len;
+       ht.size=newhash.size;
     }
 }
 
@@ -19448,59 +19453,59 @@ int sureadders(int len,int key)
     return adders;
 }
 
-Hashtable* insertHashtable(Hashtable* ht,keytype key)
+Hashtable& insertHashtable(Hashtable& ht,keytype key)
 {
-    ((ht) ? static_cast<void> (0) : __assert_fail ("ht", "test.cc", 55, __PRETTY_FUNCTION__));
-    ((key>=0) ? static_cast<void> (0) : __assert_fail ("key>=0", "test.cc", 56, __PRETTY_FUNCTION__));
+    ((&ht) ? static_cast<void> (0) : __assert_fail ("&ht", "test.cc", 60, __PRETTY_FUNCTION__));
+    ((key>=0) ? static_cast<void> (0) : __assert_fail ("key>=0", "test.cc", 61, __PRETTY_FUNCTION__));
     judgecapacity(ht);
-    int adders=sureadders(ht->len,key);
-    while(ht->table[adders]._state==EXIST)
+    int adders=sureadders(ht.len,key);
+    while(ht.table[adders]._state==EXIST)
     {
-        if(ht->table[adders].key==key)
+        if(ht.table[adders].key==key)
             return ht;
         adders++;
-        adders%=ht->len;
+        adders%=ht.len;
     }
-    ht->table[adders].key=key;
-    ht->table[adders]._state=EXIST;
-    ht->size++;
+    ht.table[adders].key=key;
+    ht.table[adders]._state=EXIST;
+    ht.size++;
     return ht;
 }
 
-Hashtable* eraseHashnode(Hashtable* ht,int adders)
+Hashtable& eraseHashnode(Hashtable& ht,int adders)
 {
-    ht->table[adders]._state=DELETE;
+    ht.table[adders]._state=DELETE;
     return ht;
 }
 
-int findHashnode(Hashtable* ht,keytype key)
+int findHashnode(Hashtable& ht,keytype key)
 {
-    ((ht) ? static_cast<void> (0) : __assert_fail ("ht", "test.cc", 80, __PRETTY_FUNCTION__));
-    ((key>=0) ? static_cast<void> (0) : __assert_fail ("key>=0", "test.cc", 81, __PRETTY_FUNCTION__));
-    int adders=sureadders(ht->len,key);
-    while(ht->table[adders]._state!=EMPTY)
+    ((&ht) ? static_cast<void> (0) : __assert_fail ("&ht", "test.cc", 85, __PRETTY_FUNCTION__));
+    ((key>=0) ? static_cast<void> (0) : __assert_fail ("key>=0", "test.cc", 86, __PRETTY_FUNCTION__));
+    int adders=sureadders(ht.len,key);
+    while(ht.table[adders]._state!=EMPTY)
     {
-        if(ht->table[adders]._state==EXIST)
+        if(ht.table[adders]._state==EXIST)
         {
-            if(ht->table[adders].key==key)
+            if(ht.table[adders].key==key)
                 return adders;
             else
             {
                 adders++;
-                adders%=ht->len;
+                adders%=ht.len;
             }
 
         }
         else
         {
             adders++;
-            adders%=ht->len;
+            adders%=ht.len;
         }
     }
         return -1;
 }
 
-void printHashtable(Hashtable ht)
+void printHashtable(Hashtable& ht)
 {
     for(int i=0;i<ht.len;++i)
     {
@@ -19523,7 +19528,7 @@ int size(Hashtable& ht)
     return ht.size;
 }
 
-void test(Hashtable* ht)
+void test(Hashtable& ht)
 {
     initHashtable(ht,7);
 }
@@ -19531,21 +19536,21 @@ void test(Hashtable* ht)
 int main()
 {
     Hashtable ht;
-    test(&ht);
-    insertHashtable(&ht,97);
-    insertHashtable(&ht,3);
-    insertHashtable(&ht,67);
-    insertHashtable(&ht,0);
-    insertHashtable(&ht,23);
-    insertHashtable(&ht,17);
-    insertHashtable(&ht,35);
-    insertHashtable(&ht,12);
+    test(ht);
+    insertHashtable(ht,97);
+    insertHashtable(ht,3);
+    insertHashtable(ht,67);
+    insertHashtable(ht,0);
+    insertHashtable(ht,23);
+    insertHashtable(ht,17);
+    insertHashtable(ht,35);
+    insertHashtable(ht,12);
     printHashtable(ht);
-    int adders=findHashnode(&ht,97);
+    int adders=findHashnode(ht,97);
     cout<<"97's adders is :"<<adders<<endl;
-    eraseHashnode(&ht,adders);
+    eraseHashnode(ht,adders);
     printHashtable(ht);
-    adders=findHashnode(&ht,96);
+    adders=findHashnode(ht,96);
     cout<<"96's adders is :"<<adders<<endl;
     printHashtable(ht);
     return 0;

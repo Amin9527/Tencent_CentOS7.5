@@ -28,9 +28,12 @@ typedef struct Hashtable
     int len;
 }Hashtable;
 
-void initHashtable(Hashtable* ht,int len);
-void judgecapacity(Hashtable* ht);
-void destroyHashtable(Hashtable* ht);
-int findHashnode(Hashtable* ht,int key);
-Hashtable* eraseHashnode(Hashtable* ht,int adders);
-Hashtable* insertHashtable(Hashtable* ht,keytype key);
+void initHashtable(Hashtable& ht,int len);
+void judgecapacity(Hashtable& ht);
+void destroyHashtable(Hashtable& ht);
+int findHashnode(Hashtable& ht,int key);
+Hashtable& eraseHashnode(Hashtable& ht,int adders);
+Hashtable& insertHashtable(Hashtable& ht,keytype key);
+
+
+
