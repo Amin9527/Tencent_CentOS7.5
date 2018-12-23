@@ -5,17 +5,66 @@
 
 using namespace std;
 
+//--------------------------继承-------
+
+class person
+{
+    public:
+        person(string _name="gaoxing"):name(_name){cout<<"person()"<<endl;}
+        //person(){cout<<"person()"<<endl;}
+        void display()
+        {
+            cout<<"name: "<<name<<endl;
+        }
+    private:
+        string name="zhangmin";
+};
+
+class student:public person
+{
+    public:
+        student(string _name="messi",string _adders="erdos")  //派生类的构造函数会自动调用基类的构造函数
+            :person(_name),  //基类的构造函数
+            adders(_adders)
+            {cout<<"student()"<<endl;}
+        void display()    //派生类中的同名函数会隐藏基类中的同名函数（也叫重定义）
+        {
+            person::display();
+            cout<<"adders: "<<adders<<endl;
+        }
+    private:
+        string adders;
+};
+
+class teacher:private person
+{
+    public:
+        teacher(string _job="teacher"):job(_job){}
+        void display()
+        {
+            person::display();
+            cout<<"job: "<<job<<endl;
+        }
+    private:
+        string job;
+};
+
 int main()
 {
-    int arr[5]={1,2,3,4,5};
-    vector<int> v1(arr,arr+5);
-    v1.erase(v1.begin()+2);
-    for(size_t i=0;i<v1.size();++i)
-        cout<<v1[i]<<" ";
-    cout<<endl;
-    cout<<v1.size()<<endl;
+    //person p("zm");
+    //p.display();
+    
+    student s("zm","beijing");
+    //s.person::display(); //在派生类当中调用基类的同名函数（加基类作用域）
+    s.display();
+
+    teacher t;
+    //t.person::display(); //private继承方式派生类不能访问基类成员
+    t.display();
     return 0;
 }
+
+
 
 //-----------------------类中的const关键字-----------
 

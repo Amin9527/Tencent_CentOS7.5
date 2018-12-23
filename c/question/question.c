@@ -1,5 +1,22 @@
-#include<iostream>
+#include<stdio.h>
 
+int main()
+{
+    int a[10];
+    int *p=&a[2];
+    printf("%p\n",&a[1]);
+    printf("%p\n",p-1);
+    printf("%p\n",a-1);
+    //printf("%p\n",a--);
+    printf("%p\n",p--);
+    return 0;
+}
+
+
+
+
+
+/*
 using namespace std;
 
 int (*fun)(int,int);
@@ -16,4 +33,4 @@ int main()
     cout<<ret<<endl;
     return 0;
 }
-
+*/
