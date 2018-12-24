@@ -5,8 +5,65 @@
 
 using namespace std;
 
-//--------------------------继承-------
+//-------------------------继承-------
 
+class A
+{
+    public:
+       //A(int _num=0,string _str="abcdef"):num(_num),str(_str){cout<<"A()"<<endl;}
+
+        void display()
+        {
+            cout<<"num: "<<num<<endl;
+            cout<<"str: "<<str<<endl;
+        }
+        int num=1;
+        string str="zhangmin";
+        ~A()
+        {
+            cout<<"~A()"<<endl;
+        }
+};
+
+class B:public A
+{
+    public:
+        //B(int _num,string _str,int _id):A(_num,_str),id(_id){cout<<"B()"<<endl;}
+        void display()
+        {
+            A::display();
+            cout<<"id: "<<id<<endl;
+        }
+        int id=1;
+        ~B()  //派生类会自动调用基类的析构函数
+        {
+            cout<<"~B()"<<endl;
+        }
+};
+
+int main()
+{
+    //A a(11,"zhangmin");
+    A a;
+    a.display();
+    cout<<endl;
+
+    //B b(1,"gaoxing",2);
+    B b;
+    b.num=2;
+    b.str="gaoxing";
+    b.display();
+    b.num=2;
+    b.str="gaoxing";
+    cout<<endl;
+
+    a.display();
+    return 0;
+}
+
+
+//--------------------------继承访问属性-------
+/*
 class person
 {
     public:
@@ -16,6 +73,9 @@ class person
         {
             cout<<"name: "<<name<<endl;
         }
+
+        int num=119;
+
     private:
         string name="zhangmin";
 };
@@ -39,14 +99,28 @@ class student:public person
 class teacher:private person
 {
     public:
-        teacher(string _job="teacher"):job(_job){}
+        teacher(string _job="teacher"):job(_job){cout<<"teacher()"<<endl;}
         void display()
         {
             person::display();
-            cout<<"job: "<<job<<endl;
+            cout<<num<<endl;
+            //cout<<"name: "<<name<<endl;
         }
     private:
         string job;
+};
+
+class worker:protected person
+{
+    public:
+        worker(int _id=1):ID(_id){cout<<"worker()"<<endl;}
+        void display()
+        {
+            cout<<"num: "<<num<<endl;
+            cout<<"ID: "<<ID<<endl;
+        }
+    private:
+        int ID;
 };
 
 int main()
@@ -56,15 +130,26 @@ int main()
     
     student s("zm","beijing");
     //s.person::display(); //在派生类当中调用基类的同名函数（加基类作用域）
+    cout<<s.num<<endl;
     s.display();
+    cout<<endl;
 
     teacher t;
-    //t.person::display(); //private继承方式派生类不能访问基类成员
+    //t.person::display(); //private继承方式，基类public、protected属性成员 派生类为private属性
+                           //基类private属性成员 派生类不能访问成员
     t.display();
+    cout<<endl;
+
+    worker w(1);
+    //w.person::display();  //protected继承方式，基类public属性成员为protected属性，类外面不能直接调用
+    //cout<<w.num<<endl;    
+    w.display();
+    cout<<endl;
+
     return 0;
 }
 
-
+*/
 
 //-----------------------类中的const关键字-----------
 
