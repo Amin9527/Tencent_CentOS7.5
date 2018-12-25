@@ -10,46 +10,48 @@ using namespace std;
 class A
 {
     public:
-       //A(int _num=0,string _str="abcdef"):num(_num),str(_str){cout<<"A()"<<endl;}
-
+      A(int _num=0,char* _str="abcdef"):num(_num),str(_str)
+       {
+           cout<<"A()"<<endl;
+       }
         void display()
         {
             cout<<"num: "<<num<<endl;
             cout<<"str: "<<str<<endl;
         }
-        int num=1;
-        string str="zhangmin";
         ~A()
         {
             cout<<"~A()"<<endl;
         }
+        char* str;
+        int num;
 };
 
 class B:public A
 {
     public:
-        //B(int _num,string _str,int _id):A(_num,_str),id(_id){cout<<"B()"<<endl;}
+        B(int _num,char* _str,int _id):A(_num,_str),id(_id){cout<<"B()"<<endl;}
         void display()
         {
             A::display();
             cout<<"id: "<<id<<endl;
         }
-        int id=1;
         ~B()  //派生类会自动调用基类的析构函数
         {
             cout<<"~B()"<<endl;
         }
+        int id;
 };
 
 int main()
 {
-    //A a(11,"zhangmin");
-    A a;
+    A a(11,"zhangmin");
+    //A a;
     a.display();
     cout<<endl;
 
-    //B b(1,"gaoxing",2);
-    B b;
+    B b(1,"gaoxing",2);
+    //B b;
     b.num=2;
     b.str="gaoxing";
     b.display();
