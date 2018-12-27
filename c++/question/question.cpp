@@ -5,8 +5,19 @@
 
 using namespace std;
 
-//-------------------------继承-------
+int main(int argc,char* argv[])
+{
+    cout<<"argc: "<<argc<<endl;
+    cout<<"argv: "<<argv[0]<<endl;
+    cout<<"argv: "<<argv[1]<<endl;
+    cout<<"argv: "<<argv[2]<<endl;
+    cout<<"argv: "<<argv[3]<<endl;
+    cout<<"argv: "<<argv[4]<<endl;
+    return 0;
+}
 
+//-------------------------继承-------
+/*
 class A
 {
     public:
@@ -62,7 +73,7 @@ int main()
     a.display();
     return 0;
 }
-
+*/
 
 //--------------------------继承访问属性-------
 /*

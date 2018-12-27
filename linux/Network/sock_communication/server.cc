@@ -49,8 +49,8 @@ int main()
     cout<<"Plase wait the client's connection..."<<endl;
 
     //接收请求
-    if((connect_fd=accept(sock_fd,(struct sockaddr*)nullptr,nullptr))<0)//参数一对端文件描述符，参数二三对端协议地址，不感兴趣设空
-    {
+    if((connect_fd=accept(sock_fd,(struct sockaddr*)nullptr,nullptr))<0)//参数一文件描述符，参数二三对端协议地址，不感兴趣设空
+    {                                                                   //返回新的文件描述符（真正通信的套接字）
         cout<<"accept error!"<<endl;
         exit(0);
     }
