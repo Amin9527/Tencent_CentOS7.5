@@ -1,20 +1,25 @@
 #include<stdio.h>
 
+//---------------------大小端检测--
+
+/*
+
 int main()
 {
-    int a[10];
-    int *p=&a[2];
-    printf("%p\n",&a[1]);
-    printf("%p\n",p-1);
-    printf("%p\n",a-1);
-    //printf("%p\n",a--);
-    printf("%p\n",p--);
+    union Amin
+    {
+        int i;
+        char ch;
+    }zm;
+
+    zm.i=1;
+    printf("%d\n",zm.ch);
     return 0;
 }
 
+*/
 
-
-
+//------------------------函数指针
 
 /*
 using namespace std;
