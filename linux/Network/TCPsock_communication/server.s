@@ -54,9 +54,7 @@ main:
 	movl	$0, %esi
 	movq	%rax, %rdi
 	call	memset
-	movl	$0, %edi
-	call	htonl
-	movl	%eax, -28(%rbp)
+	movl	$0, -28(%rbp)
 	movw	$2, -32(%rbp)
 	movw	$1225, -30(%rbp)
 	leaq	-32(%rbp), %rcx

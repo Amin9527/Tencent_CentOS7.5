@@ -1,9 +1,9 @@
-# 1 "server.cc"
+# 1 "client.cc"
 # 1 "<built-in>"
 # 1 "<command-line>"
 # 1 "/usr/include/stdc-predef.h" 1 3 4
 # 1 "<command-line>" 2
-# 1 "server.cc"
+# 1 "client.cc"
 # 1 "/usr/include/c++/4.8.2/iostream" 1 3
 # 36 "/usr/include/c++/4.8.2/iostream" 3
        
@@ -17559,7 +17559,7 @@ namespace std __attribute__ ((__visibility__ ("default")))
 
 
 }
-# 2 "server.cc" 2
+# 2 "client.cc" 2
 # 1 "/usr/include/sys/types.h" 1 3 4
 # 27 "/usr/include/sys/types.h" 3 4
 extern "C" {
@@ -17800,7 +17800,7 @@ typedef __fsblkcnt64_t fsblkcnt64_t;
 typedef __fsfilcnt64_t fsfilcnt64_t;
 # 273 "/usr/include/sys/types.h" 3 4
 }
-# 3 "server.cc" 2
+# 3 "client.cc" 2
 # 1 "/usr/include/sys/socket.h" 1 3 4
 # 25 "/usr/include/sys/socket.h" 3 4
 extern "C" {
@@ -18240,914 +18240,7 @@ extern int sockatmark (int __fd) throw ();
 extern int isfdtype (int __fd, int __fdtype) throw ();
 # 284 "/usr/include/sys/socket.h" 3 4
 }
-# 4 "server.cc" 2
-# 1 "/usr/include/string.h" 1 3 4
-# 27 "/usr/include/string.h" 3 4
-extern "C" {
-
-
-
-
-# 1 "/usr/lib/gcc/x86_64-redhat-linux/4.8.5/include/stddef.h" 1 3 4
-# 33 "/usr/include/string.h" 2 3 4
-
-
-
-
-
-
-
-
-
-extern void *memcpy (void *__restrict __dest, const void *__restrict __src,
-       size_t __n) throw () __attribute__ ((__nonnull__ (1, 2)));
-
-
-extern void *memmove (void *__dest, const void *__src, size_t __n)
-     throw () __attribute__ ((__nonnull__ (1, 2)));
-
-
-
-
-
-
-extern void *memccpy (void *__restrict __dest, const void *__restrict __src,
-        int __c, size_t __n)
-     throw () __attribute__ ((__nonnull__ (1, 2)));
-
-
-
-
-
-extern void *memset (void *__s, int __c, size_t __n) throw () __attribute__ ((__nonnull__ (1)));
-
-
-extern int memcmp (const void *__s1, const void *__s2, size_t __n)
-     throw () __attribute__ ((__pure__)) __attribute__ ((__nonnull__ (1, 2)));
-
-
-
-extern "C++"
-{
-extern void *memchr (void *__s, int __c, size_t __n)
-      throw () __asm ("memchr") __attribute__ ((__pure__)) __attribute__ ((__nonnull__ (1)));
-extern const void *memchr (const void *__s, int __c, size_t __n)
-      throw () __asm ("memchr") __attribute__ ((__pure__)) __attribute__ ((__nonnull__ (1)));
-# 90 "/usr/include/string.h" 3 4
-}
-
-
-
-
-
-
-
-
-
-
-extern "C++" void *rawmemchr (void *__s, int __c)
-     throw () __asm ("rawmemchr") __attribute__ ((__pure__)) __attribute__ ((__nonnull__ (1)));
-extern "C++" const void *rawmemchr (const void *__s, int __c)
-     throw () __asm ("rawmemchr") __attribute__ ((__pure__)) __attribute__ ((__nonnull__ (1)));
-
-
-
-
-
-
-
-extern "C++" void *memrchr (void *__s, int __c, size_t __n)
-      throw () __asm ("memrchr") __attribute__ ((__pure__)) __attribute__ ((__nonnull__ (1)));
-extern "C++" const void *memrchr (const void *__s, int __c, size_t __n)
-      throw () __asm ("memrchr") __attribute__ ((__pure__)) __attribute__ ((__nonnull__ (1)));
-
-
-
-
-
-
-
-
-
-extern char *strcpy (char *__restrict __dest, const char *__restrict __src)
-     throw () __attribute__ ((__nonnull__ (1, 2)));
-
-extern char *strncpy (char *__restrict __dest,
-        const char *__restrict __src, size_t __n)
-     throw () __attribute__ ((__nonnull__ (1, 2)));
-
-
-extern char *strcat (char *__restrict __dest, const char *__restrict __src)
-     throw () __attribute__ ((__nonnull__ (1, 2)));
-
-extern char *strncat (char *__restrict __dest, const char *__restrict __src,
-        size_t __n) throw () __attribute__ ((__nonnull__ (1, 2)));
-
-
-extern int strcmp (const char *__s1, const char *__s2)
-     throw () __attribute__ ((__pure__)) __attribute__ ((__nonnull__ (1, 2)));
-
-extern int strncmp (const char *__s1, const char *__s2, size_t __n)
-     throw () __attribute__ ((__pure__)) __attribute__ ((__nonnull__ (1, 2)));
-
-
-extern int strcoll (const char *__s1, const char *__s2)
-     throw () __attribute__ ((__pure__)) __attribute__ ((__nonnull__ (1, 2)));
-
-extern size_t strxfrm (char *__restrict __dest,
-         const char *__restrict __src, size_t __n)
-     throw () __attribute__ ((__nonnull__ (2)));
-
-# 162 "/usr/include/string.h" 3 4
-extern int strcoll_l (const char *__s1, const char *__s2, __locale_t __l)
-     throw () __attribute__ ((__pure__)) __attribute__ ((__nonnull__ (1, 2, 3)));
-
-extern size_t strxfrm_l (char *__dest, const char *__src, size_t __n,
-    __locale_t __l) throw () __attribute__ ((__nonnull__ (2, 4)));
-
-
-
-
-
-extern char *strdup (const char *__s)
-     throw () __attribute__ ((__malloc__)) __attribute__ ((__nonnull__ (1)));
-
-
-
-
-
-
-extern char *strndup (const char *__string, size_t __n)
-     throw () __attribute__ ((__malloc__)) __attribute__ ((__nonnull__ (1)));
-# 207 "/usr/include/string.h" 3 4
-
-
-
-extern "C++"
-{
-extern char *strchr (char *__s, int __c)
-     throw () __asm ("strchr") __attribute__ ((__pure__)) __attribute__ ((__nonnull__ (1)));
-extern const char *strchr (const char *__s, int __c)
-     throw () __asm ("strchr") __attribute__ ((__pure__)) __attribute__ ((__nonnull__ (1)));
-# 230 "/usr/include/string.h" 3 4
-}
-
-
-
-
-
-
-extern "C++"
-{
-extern char *strrchr (char *__s, int __c)
-     throw () __asm ("strrchr") __attribute__ ((__pure__)) __attribute__ ((__nonnull__ (1)));
-extern const char *strrchr (const char *__s, int __c)
-     throw () __asm ("strrchr") __attribute__ ((__pure__)) __attribute__ ((__nonnull__ (1)));
-# 257 "/usr/include/string.h" 3 4
-}
-
-
-
-
-
-
-
-
-
-
-extern "C++" char *strchrnul (char *__s, int __c)
-     throw () __asm ("strchrnul") __attribute__ ((__pure__)) __attribute__ ((__nonnull__ (1)));
-extern "C++" const char *strchrnul (const char *__s, int __c)
-     throw () __asm ("strchrnul") __attribute__ ((__pure__)) __attribute__ ((__nonnull__ (1)));
-
-
-
-
-
-
-
-
-
-extern size_t strcspn (const char *__s, const char *__reject)
-     throw () __attribute__ ((__pure__)) __attribute__ ((__nonnull__ (1, 2)));
-
-
-extern size_t strspn (const char *__s, const char *__accept)
-     throw () __attribute__ ((__pure__)) __attribute__ ((__nonnull__ (1, 2)));
-
-
-extern "C++"
-{
-extern char *strpbrk (char *__s, const char *__accept)
-     throw () __asm ("strpbrk") __attribute__ ((__pure__)) __attribute__ ((__nonnull__ (1, 2)));
-extern const char *strpbrk (const char *__s, const char *__accept)
-     throw () __asm ("strpbrk") __attribute__ ((__pure__)) __attribute__ ((__nonnull__ (1, 2)));
-# 309 "/usr/include/string.h" 3 4
-}
-
-
-
-
-
-
-extern "C++"
-{
-extern char *strstr (char *__haystack, const char *__needle)
-     throw () __asm ("strstr") __attribute__ ((__pure__)) __attribute__ ((__nonnull__ (1, 2)));
-extern const char *strstr (const char *__haystack, const char *__needle)
-     throw () __asm ("strstr") __attribute__ ((__pure__)) __attribute__ ((__nonnull__ (1, 2)));
-# 336 "/usr/include/string.h" 3 4
-}
-
-
-
-
-
-
-
-extern char *strtok (char *__restrict __s, const char *__restrict __delim)
-     throw () __attribute__ ((__nonnull__ (2)));
-
-
-
-
-extern char *__strtok_r (char *__restrict __s,
-    const char *__restrict __delim,
-    char **__restrict __save_ptr)
-     throw () __attribute__ ((__nonnull__ (2, 3)));
-
-extern char *strtok_r (char *__restrict __s, const char *__restrict __delim,
-         char **__restrict __save_ptr)
-     throw () __attribute__ ((__nonnull__ (2, 3)));
-
-
-
-
-
-extern "C++" char *strcasestr (char *__haystack, const char *__needle)
-     throw () __asm ("strcasestr") __attribute__ ((__pure__)) __attribute__ ((__nonnull__ (1, 2)));
-extern "C++" const char *strcasestr (const char *__haystack,
-         const char *__needle)
-     throw () __asm ("strcasestr") __attribute__ ((__pure__)) __attribute__ ((__nonnull__ (1, 2)));
-# 378 "/usr/include/string.h" 3 4
-extern void *memmem (const void *__haystack, size_t __haystacklen,
-       const void *__needle, size_t __needlelen)
-     throw () __attribute__ ((__pure__)) __attribute__ ((__nonnull__ (1, 3)));
-
-
-
-extern void *__mempcpy (void *__restrict __dest,
-   const void *__restrict __src, size_t __n)
-     throw () __attribute__ ((__nonnull__ (1, 2)));
-extern void *mempcpy (void *__restrict __dest,
-        const void *__restrict __src, size_t __n)
-     throw () __attribute__ ((__nonnull__ (1, 2)));
-
-
-
-
-
-extern size_t strlen (const char *__s)
-     throw () __attribute__ ((__pure__)) __attribute__ ((__nonnull__ (1)));
-
-
-
-
-
-extern size_t strnlen (const char *__string, size_t __maxlen)
-     throw () __attribute__ ((__pure__)) __attribute__ ((__nonnull__ (1)));
-
-
-
-
-
-extern char *strerror (int __errnum) throw ();
-
-# 434 "/usr/include/string.h" 3 4
-extern char *strerror_r (int __errnum, char *__buf, size_t __buflen)
-     throw () __attribute__ ((__nonnull__ (2))) ;
-
-
-
-
-
-extern char *strerror_l (int __errnum, __locale_t __l) throw ();
-
-
-
-
-
-extern void __bzero (void *__s, size_t __n) throw () __attribute__ ((__nonnull__ (1)));
-
-
-
-extern void bcopy (const void *__src, void *__dest, size_t __n)
-     throw () __attribute__ ((__nonnull__ (1, 2)));
-
-
-extern void bzero (void *__s, size_t __n) throw () __attribute__ ((__nonnull__ (1)));
-
-
-extern int bcmp (const void *__s1, const void *__s2, size_t __n)
-     throw () __attribute__ ((__pure__)) __attribute__ ((__nonnull__ (1, 2)));
-
-
-
-extern "C++"
-{
-extern char *index (char *__s, int __c)
-     throw () __asm ("index") __attribute__ ((__pure__)) __attribute__ ((__nonnull__ (1)));
-extern const char *index (const char *__s, int __c)
-     throw () __asm ("index") __attribute__ ((__pure__)) __attribute__ ((__nonnull__ (1)));
-# 483 "/usr/include/string.h" 3 4
-}
-
-
-
-
-
-
-
-extern "C++"
-{
-extern char *rindex (char *__s, int __c)
-     throw () __asm ("rindex") __attribute__ ((__pure__)) __attribute__ ((__nonnull__ (1)));
-extern const char *rindex (const char *__s, int __c)
-     throw () __asm ("rindex") __attribute__ ((__pure__)) __attribute__ ((__nonnull__ (1)));
-# 511 "/usr/include/string.h" 3 4
-}
-
-
-
-
-
-
-
-extern int ffs (int __i) throw () __attribute__ ((__const__));
-
-
-
-
-extern int ffsl (long int __l) throw () __attribute__ ((__const__));
-
-__extension__ extern int ffsll (long long int __ll)
-     throw () __attribute__ ((__const__));
-
-
-
-
-extern int strcasecmp (const char *__s1, const char *__s2)
-     throw () __attribute__ ((__pure__)) __attribute__ ((__nonnull__ (1, 2)));
-
-
-extern int strncasecmp (const char *__s1, const char *__s2, size_t __n)
-     throw () __attribute__ ((__pure__)) __attribute__ ((__nonnull__ (1, 2)));
-
-
-
-
-
-extern int strcasecmp_l (const char *__s1, const char *__s2,
-    __locale_t __loc)
-     throw () __attribute__ ((__pure__)) __attribute__ ((__nonnull__ (1, 2, 3)));
-
-extern int strncasecmp_l (const char *__s1, const char *__s2,
-     size_t __n, __locale_t __loc)
-     throw () __attribute__ ((__pure__)) __attribute__ ((__nonnull__ (1, 2, 4)));
-
-
-
-
-
-extern char *strsep (char **__restrict __stringp,
-       const char *__restrict __delim)
-     throw () __attribute__ ((__nonnull__ (1, 2)));
-
-
-
-
-extern char *strsignal (int __sig) throw ();
-
-
-extern char *__stpcpy (char *__restrict __dest, const char *__restrict __src)
-     throw () __attribute__ ((__nonnull__ (1, 2)));
-extern char *stpcpy (char *__restrict __dest, const char *__restrict __src)
-     throw () __attribute__ ((__nonnull__ (1, 2)));
-
-
-
-extern char *__stpncpy (char *__restrict __dest,
-   const char *__restrict __src, size_t __n)
-     throw () __attribute__ ((__nonnull__ (1, 2)));
-extern char *stpncpy (char *__restrict __dest,
-        const char *__restrict __src, size_t __n)
-     throw () __attribute__ ((__nonnull__ (1, 2)));
-
-
-
-
-extern int strverscmp (const char *__s1, const char *__s2)
-     throw () __attribute__ ((__pure__)) __attribute__ ((__nonnull__ (1, 2)));
-
-
-extern char *strfry (char *__string) throw () __attribute__ ((__nonnull__ (1)));
-
-
-extern void *memfrob (void *__s, size_t __n) throw () __attribute__ ((__nonnull__ (1)));
-
-
-
-
-
-
-
-extern "C++" char *basename (char *__filename)
-     throw () __asm ("basename") __attribute__ ((__nonnull__ (1)));
-extern "C++" const char *basename (const char *__filename)
-     throw () __asm ("basename") __attribute__ ((__nonnull__ (1)));
-# 642 "/usr/include/string.h" 3 4
-}
-# 5 "server.cc" 2
-# 1 "/usr/include/netinet/in.h" 1 3 4
-# 23 "/usr/include/netinet/in.h" 3 4
-# 1 "/usr/lib/gcc/x86_64-redhat-linux/4.8.5/include/stdint.h" 1 3 4
-# 9 "/usr/lib/gcc/x86_64-redhat-linux/4.8.5/include/stdint.h" 3 4
-# 1 "/usr/include/stdint.h" 1 3 4
-# 27 "/usr/include/stdint.h" 3 4
-# 1 "/usr/include/bits/wordsize.h" 1 3 4
-# 28 "/usr/include/stdint.h" 2 3 4
-# 48 "/usr/include/stdint.h" 3 4
-typedef unsigned char uint8_t;
-typedef unsigned short int uint16_t;
-
-typedef unsigned int uint32_t;
-
-
-
-typedef unsigned long int uint64_t;
-# 65 "/usr/include/stdint.h" 3 4
-typedef signed char int_least8_t;
-typedef short int int_least16_t;
-typedef int int_least32_t;
-
-typedef long int int_least64_t;
-
-
-
-
-
-
-typedef unsigned char uint_least8_t;
-typedef unsigned short int uint_least16_t;
-typedef unsigned int uint_least32_t;
-
-typedef unsigned long int uint_least64_t;
-# 90 "/usr/include/stdint.h" 3 4
-typedef signed char int_fast8_t;
-
-typedef long int int_fast16_t;
-typedef long int int_fast32_t;
-typedef long int int_fast64_t;
-# 103 "/usr/include/stdint.h" 3 4
-typedef unsigned char uint_fast8_t;
-
-typedef unsigned long int uint_fast16_t;
-typedef unsigned long int uint_fast32_t;
-typedef unsigned long int uint_fast64_t;
-# 119 "/usr/include/stdint.h" 3 4
-typedef long int intptr_t;
-
-
-typedef unsigned long int uintptr_t;
-# 134 "/usr/include/stdint.h" 3 4
-typedef long int intmax_t;
-typedef unsigned long int uintmax_t;
-# 10 "/usr/lib/gcc/x86_64-redhat-linux/4.8.5/include/stdint.h" 2 3 4
-# 24 "/usr/include/netinet/in.h" 2 3 4
-
-
-
-
-extern "C" {
-
-
-typedef uint32_t in_addr_t;
-struct in_addr
-  {
-    in_addr_t s_addr;
-  };
-
-
-# 1 "/usr/include/bits/in.h" 1 3 4
-# 120 "/usr/include/bits/in.h" 3 4
-struct ip_opts
-  {
-    struct in_addr ip_dst;
-    char ip_opts[40];
-  };
-
-
-struct ip_mreqn
-  {
-    struct in_addr imr_multiaddr;
-    struct in_addr imr_address;
-    int imr_ifindex;
-  };
-
-
-struct in_pktinfo
-  {
-    int ipi_ifindex;
-    struct in_addr ipi_spec_dst;
-    struct in_addr ipi_addr;
-  };
-# 39 "/usr/include/netinet/in.h" 2 3 4
-
-
-enum
-  {
-    IPPROTO_IP = 0,
-
-    IPPROTO_ICMP = 1,
-
-    IPPROTO_IGMP = 2,
-
-    IPPROTO_IPIP = 4,
-
-    IPPROTO_TCP = 6,
-
-    IPPROTO_EGP = 8,
-
-    IPPROTO_PUP = 12,
-
-    IPPROTO_UDP = 17,
-
-    IPPROTO_IDP = 22,
-
-    IPPROTO_TP = 29,
-
-    IPPROTO_DCCP = 33,
-
-    IPPROTO_IPV6 = 41,
-
-    IPPROTO_RSVP = 46,
-
-    IPPROTO_GRE = 47,
-
-    IPPROTO_ESP = 50,
-
-    IPPROTO_AH = 51,
-
-    IPPROTO_MTP = 92,
-
-    IPPROTO_BEETPH = 94,
-
-    IPPROTO_ENCAP = 98,
-
-    IPPROTO_PIM = 103,
-
-    IPPROTO_COMP = 108,
-
-    IPPROTO_SCTP = 132,
-
-    IPPROTO_UDPLITE = 136,
-
-    IPPROTO_RAW = 255,
-
-    IPPROTO_MAX
-  };
-
-
-
-
-
-enum
-  {
-    IPPROTO_HOPOPTS = 0,
-
-    IPPROTO_ROUTING = 43,
-
-    IPPROTO_FRAGMENT = 44,
-
-    IPPROTO_ICMPV6 = 58,
-
-    IPPROTO_NONE = 59,
-
-    IPPROTO_DSTOPTS = 60,
-
-    IPPROTO_MH = 135
-
-  };
-
-
-
-typedef uint16_t in_port_t;
-
-
-enum
-  {
-    IPPORT_ECHO = 7,
-    IPPORT_DISCARD = 9,
-    IPPORT_SYSTAT = 11,
-    IPPORT_DAYTIME = 13,
-    IPPORT_NETSTAT = 15,
-    IPPORT_FTP = 21,
-    IPPORT_TELNET = 23,
-    IPPORT_SMTP = 25,
-    IPPORT_TIMESERVER = 37,
-    IPPORT_NAMESERVER = 42,
-    IPPORT_WHOIS = 43,
-    IPPORT_MTP = 57,
-
-    IPPORT_TFTP = 69,
-    IPPORT_RJE = 77,
-    IPPORT_FINGER = 79,
-    IPPORT_TTYLINK = 87,
-    IPPORT_SUPDUP = 95,
-
-
-    IPPORT_EXECSERVER = 512,
-    IPPORT_LOGINSERVER = 513,
-    IPPORT_CMDSERVER = 514,
-    IPPORT_EFSSERVER = 520,
-
-
-    IPPORT_BIFFUDP = 512,
-    IPPORT_WHOSERVER = 513,
-    IPPORT_ROUTESERVER = 520,
-
-
-    IPPORT_RESERVED = 1024,
-
-
-    IPPORT_USERRESERVED = 5000
-  };
-# 210 "/usr/include/netinet/in.h" 3 4
-struct in6_addr
-  {
-    union
-      {
- uint8_t __u6_addr8[16];
-
- uint16_t __u6_addr16[8];
- uint32_t __u6_addr32[4];
-
-      } __in6_u;
-
-
-
-
-
-  };
-
-
-extern const struct in6_addr in6addr_any;
-extern const struct in6_addr in6addr_loopback;
-# 238 "/usr/include/netinet/in.h" 3 4
-struct sockaddr_in
-  {
-    sa_family_t sin_family;
-    in_port_t sin_port;
-    struct in_addr sin_addr;
-
-
-    unsigned char sin_zero[sizeof (struct sockaddr) -
-      (sizeof (unsigned short int)) -
-      sizeof (in_port_t) -
-      sizeof (struct in_addr)];
-  };
-
-
-
-struct sockaddr_in6
-  {
-    sa_family_t sin6_family;
-    in_port_t sin6_port;
-    uint32_t sin6_flowinfo;
-    struct in6_addr sin6_addr;
-    uint32_t sin6_scope_id;
-  };
-
-
-
-
-struct ip_mreq
-  {
-
-    struct in_addr imr_multiaddr;
-
-
-    struct in_addr imr_interface;
-  };
-
-struct ip_mreq_source
-  {
-
-    struct in_addr imr_multiaddr;
-
-
-    struct in_addr imr_interface;
-
-
-    struct in_addr imr_sourceaddr;
-  };
-
-
-
-
-struct ipv6_mreq
-  {
-
-    struct in6_addr ipv6mr_multiaddr;
-
-
-    unsigned int ipv6mr_interface;
-  };
-
-
-
-
-struct group_req
-  {
-
-    uint32_t gr_interface;
-
-
-    struct sockaddr_storage gr_group;
-  };
-
-struct group_source_req
-  {
-
-    uint32_t gsr_interface;
-
-
-    struct sockaddr_storage gsr_group;
-
-
-    struct sockaddr_storage gsr_source;
-  };
-
-
-
-struct ip_msfilter
-  {
-
-    struct in_addr imsf_multiaddr;
-
-
-    struct in_addr imsf_interface;
-
-
-    uint32_t imsf_fmode;
-
-
-    uint32_t imsf_numsrc;
-
-    struct in_addr imsf_slist[1];
-  };
-
-
-
-
-
-struct group_filter
-  {
-
-    uint32_t gf_interface;
-
-
-    struct sockaddr_storage gf_group;
-
-
-    uint32_t gf_fmode;
-
-
-    uint32_t gf_numsrc;
-
-    struct sockaddr_storage gf_slist[1];
-};
-# 375 "/usr/include/netinet/in.h" 3 4
-extern uint32_t ntohl (uint32_t __netlong) throw () __attribute__ ((__const__));
-extern uint16_t ntohs (uint16_t __netshort)
-     throw () __attribute__ ((__const__));
-extern uint32_t htonl (uint32_t __hostlong)
-     throw () __attribute__ ((__const__));
-extern uint16_t htons (uint16_t __hostshort)
-     throw () __attribute__ ((__const__));
-
-
-
-
-# 1 "/usr/include/bits/byteswap.h" 1 3 4
-# 387 "/usr/include/netinet/in.h" 2 3 4
-# 502 "/usr/include/netinet/in.h" 3 4
-extern int bindresvport (int __sockfd, struct sockaddr_in *__sock_in) throw ();
-
-
-extern int bindresvport6 (int __sockfd, struct sockaddr_in6 *__sock_in)
-     throw ();
-# 532 "/usr/include/netinet/in.h" 3 4
-struct cmsghdr;
-
-
-
-struct in6_pktinfo
-  {
-    struct in6_addr ipi6_addr;
-    unsigned int ipi6_ifindex;
-  };
-
-
-struct ip6_mtuinfo
-  {
-    struct sockaddr_in6 ip6m_addr;
-    uint32_t ip6m_mtu;
-  };
-
-
-
-extern int inet6_option_space (int __nbytes)
-     throw () __attribute__ ((__deprecated__));
-extern int inet6_option_init (void *__bp, struct cmsghdr **__cmsgp,
-         int __type) throw () __attribute__ ((__deprecated__));
-extern int inet6_option_append (struct cmsghdr *__cmsg,
-    const uint8_t *__typep, int __multx,
-    int __plusy) throw () __attribute__ ((__deprecated__));
-extern uint8_t *inet6_option_alloc (struct cmsghdr *__cmsg, int __datalen,
-        int __multx, int __plusy)
-     throw () __attribute__ ((__deprecated__));
-extern int inet6_option_next (const struct cmsghdr *__cmsg,
-         uint8_t **__tptrp)
-     throw () __attribute__ ((__deprecated__));
-extern int inet6_option_find (const struct cmsghdr *__cmsg,
-         uint8_t **__tptrp, int __type)
-     throw () __attribute__ ((__deprecated__));
-
-
-
-extern int inet6_opt_init (void *__extbuf, socklen_t __extlen) throw ();
-extern int inet6_opt_append (void *__extbuf, socklen_t __extlen, int __offset,
-        uint8_t __type, socklen_t __len, uint8_t __align,
-        void **__databufp) throw ();
-extern int inet6_opt_finish (void *__extbuf, socklen_t __extlen, int __offset)
-     throw ();
-extern int inet6_opt_set_val (void *__databuf, int __offset, void *__val,
-         socklen_t __vallen) throw ();
-extern int inet6_opt_next (void *__extbuf, socklen_t __extlen, int __offset,
-      uint8_t *__typep, socklen_t *__lenp,
-      void **__databufp) throw ();
-extern int inet6_opt_find (void *__extbuf, socklen_t __extlen, int __offset,
-      uint8_t __type, socklen_t *__lenp,
-      void **__databufp) throw ();
-extern int inet6_opt_get_val (void *__databuf, int __offset, void *__val,
-         socklen_t __vallen) throw ();
-
-
-
-extern socklen_t inet6_rth_space (int __type, int __segments) throw ();
-extern void *inet6_rth_init (void *__bp, socklen_t __bp_len, int __type,
-        int __segments) throw ();
-extern int inet6_rth_add (void *__bp, const struct in6_addr *__addr) throw ();
-extern int inet6_rth_reverse (const void *__in, void *__out) throw ();
-extern int inet6_rth_segments (const void *__bp) throw ();
-extern struct in6_addr *inet6_rth_getaddr (const void *__bp, int __index)
-     throw ();
-
-
-
-
-
-extern int getipv4sourcefilter (int __s, struct in_addr __interface_addr,
-    struct in_addr __group, uint32_t *__fmode,
-    uint32_t *__numsrc, struct in_addr *__slist)
-     throw ();
-
-
-extern int setipv4sourcefilter (int __s, struct in_addr __interface_addr,
-    struct in_addr __group, uint32_t __fmode,
-    uint32_t __numsrc,
-    const struct in_addr *__slist)
-     throw ();
-
-
-
-extern int getsourcefilter (int __s, uint32_t __interface_addr,
-       const struct sockaddr *__group,
-       socklen_t __grouplen, uint32_t *__fmode,
-       uint32_t *__numsrc,
-       struct sockaddr_storage *__slist) throw ();
-
-
-extern int setsourcefilter (int __s, uint32_t __interface_addr,
-       const struct sockaddr *__group,
-       socklen_t __grouplen, uint32_t __fmode,
-       uint32_t __numsrc,
-       const struct sockaddr_storage *__slist) throw ();
-
-
-}
-# 6 "server.cc" 2
+# 4 "client.cc" 2
 # 1 "/usr/include/unistd.h" 1 3 4
 # 27 "/usr/include/unistd.h" 3 4
 extern "C" {
@@ -19165,6 +18258,8 @@ extern "C" {
 # 226 "/usr/include/unistd.h" 3 4
 # 1 "/usr/lib/gcc/x86_64-redhat-linux/4.8.5/include/stddef.h" 1 3 4
 # 227 "/usr/include/unistd.h" 2 3 4
+# 267 "/usr/include/unistd.h" 3 4
+typedef __intptr_t intptr_t;
 # 287 "/usr/include/unistd.h" 3 4
 extern int access (const char *__name, int __type) throw () __attribute__ ((__nonnull__ (1)));
 
@@ -20470,7 +19565,988 @@ extern void swab (const void *__restrict __from, void *__restrict __to,
     ssize_t __n) throw () __attribute__ ((__nonnull__ (1, 2)));
 # 1172 "/usr/include/unistd.h" 3 4
 }
-# 7 "server.cc" 2
+# 5 "client.cc" 2
+# 1 "/usr/include/netinet/in.h" 1 3 4
+# 23 "/usr/include/netinet/in.h" 3 4
+# 1 "/usr/lib/gcc/x86_64-redhat-linux/4.8.5/include/stdint.h" 1 3 4
+# 9 "/usr/lib/gcc/x86_64-redhat-linux/4.8.5/include/stdint.h" 3 4
+# 1 "/usr/include/stdint.h" 1 3 4
+# 27 "/usr/include/stdint.h" 3 4
+# 1 "/usr/include/bits/wordsize.h" 1 3 4
+# 28 "/usr/include/stdint.h" 2 3 4
+# 48 "/usr/include/stdint.h" 3 4
+typedef unsigned char uint8_t;
+typedef unsigned short int uint16_t;
+
+typedef unsigned int uint32_t;
+
+
+
+typedef unsigned long int uint64_t;
+# 65 "/usr/include/stdint.h" 3 4
+typedef signed char int_least8_t;
+typedef short int int_least16_t;
+typedef int int_least32_t;
+
+typedef long int int_least64_t;
+
+
+
+
+
+
+typedef unsigned char uint_least8_t;
+typedef unsigned short int uint_least16_t;
+typedef unsigned int uint_least32_t;
+
+typedef unsigned long int uint_least64_t;
+# 90 "/usr/include/stdint.h" 3 4
+typedef signed char int_fast8_t;
+
+typedef long int int_fast16_t;
+typedef long int int_fast32_t;
+typedef long int int_fast64_t;
+# 103 "/usr/include/stdint.h" 3 4
+typedef unsigned char uint_fast8_t;
+
+typedef unsigned long int uint_fast16_t;
+typedef unsigned long int uint_fast32_t;
+typedef unsigned long int uint_fast64_t;
+# 122 "/usr/include/stdint.h" 3 4
+typedef unsigned long int uintptr_t;
+# 134 "/usr/include/stdint.h" 3 4
+typedef long int intmax_t;
+typedef unsigned long int uintmax_t;
+# 10 "/usr/lib/gcc/x86_64-redhat-linux/4.8.5/include/stdint.h" 2 3 4
+# 24 "/usr/include/netinet/in.h" 2 3 4
+
+
+
+
+extern "C" {
+
+
+typedef uint32_t in_addr_t;
+struct in_addr
+  {
+    in_addr_t s_addr;
+  };
+
+
+# 1 "/usr/include/bits/in.h" 1 3 4
+# 120 "/usr/include/bits/in.h" 3 4
+struct ip_opts
+  {
+    struct in_addr ip_dst;
+    char ip_opts[40];
+  };
+
+
+struct ip_mreqn
+  {
+    struct in_addr imr_multiaddr;
+    struct in_addr imr_address;
+    int imr_ifindex;
+  };
+
+
+struct in_pktinfo
+  {
+    int ipi_ifindex;
+    struct in_addr ipi_spec_dst;
+    struct in_addr ipi_addr;
+  };
+# 39 "/usr/include/netinet/in.h" 2 3 4
+
+
+enum
+  {
+    IPPROTO_IP = 0,
+
+    IPPROTO_ICMP = 1,
+
+    IPPROTO_IGMP = 2,
+
+    IPPROTO_IPIP = 4,
+
+    IPPROTO_TCP = 6,
+
+    IPPROTO_EGP = 8,
+
+    IPPROTO_PUP = 12,
+
+    IPPROTO_UDP = 17,
+
+    IPPROTO_IDP = 22,
+
+    IPPROTO_TP = 29,
+
+    IPPROTO_DCCP = 33,
+
+    IPPROTO_IPV6 = 41,
+
+    IPPROTO_RSVP = 46,
+
+    IPPROTO_GRE = 47,
+
+    IPPROTO_ESP = 50,
+
+    IPPROTO_AH = 51,
+
+    IPPROTO_MTP = 92,
+
+    IPPROTO_BEETPH = 94,
+
+    IPPROTO_ENCAP = 98,
+
+    IPPROTO_PIM = 103,
+
+    IPPROTO_COMP = 108,
+
+    IPPROTO_SCTP = 132,
+
+    IPPROTO_UDPLITE = 136,
+
+    IPPROTO_RAW = 255,
+
+    IPPROTO_MAX
+  };
+
+
+
+
+
+enum
+  {
+    IPPROTO_HOPOPTS = 0,
+
+    IPPROTO_ROUTING = 43,
+
+    IPPROTO_FRAGMENT = 44,
+
+    IPPROTO_ICMPV6 = 58,
+
+    IPPROTO_NONE = 59,
+
+    IPPROTO_DSTOPTS = 60,
+
+    IPPROTO_MH = 135
+
+  };
+
+
+
+typedef uint16_t in_port_t;
+
+
+enum
+  {
+    IPPORT_ECHO = 7,
+    IPPORT_DISCARD = 9,
+    IPPORT_SYSTAT = 11,
+    IPPORT_DAYTIME = 13,
+    IPPORT_NETSTAT = 15,
+    IPPORT_FTP = 21,
+    IPPORT_TELNET = 23,
+    IPPORT_SMTP = 25,
+    IPPORT_TIMESERVER = 37,
+    IPPORT_NAMESERVER = 42,
+    IPPORT_WHOIS = 43,
+    IPPORT_MTP = 57,
+
+    IPPORT_TFTP = 69,
+    IPPORT_RJE = 77,
+    IPPORT_FINGER = 79,
+    IPPORT_TTYLINK = 87,
+    IPPORT_SUPDUP = 95,
+
+
+    IPPORT_EXECSERVER = 512,
+    IPPORT_LOGINSERVER = 513,
+    IPPORT_CMDSERVER = 514,
+    IPPORT_EFSSERVER = 520,
+
+
+    IPPORT_BIFFUDP = 512,
+    IPPORT_WHOSERVER = 513,
+    IPPORT_ROUTESERVER = 520,
+
+
+    IPPORT_RESERVED = 1024,
+
+
+    IPPORT_USERRESERVED = 5000
+  };
+# 210 "/usr/include/netinet/in.h" 3 4
+struct in6_addr
+  {
+    union
+      {
+ uint8_t __u6_addr8[16];
+
+ uint16_t __u6_addr16[8];
+ uint32_t __u6_addr32[4];
+
+      } __in6_u;
+
+
+
+
+
+  };
+
+
+extern const struct in6_addr in6addr_any;
+extern const struct in6_addr in6addr_loopback;
+# 238 "/usr/include/netinet/in.h" 3 4
+struct sockaddr_in
+  {
+    sa_family_t sin_family;
+    in_port_t sin_port;
+    struct in_addr sin_addr;
+
+
+    unsigned char sin_zero[sizeof (struct sockaddr) -
+      (sizeof (unsigned short int)) -
+      sizeof (in_port_t) -
+      sizeof (struct in_addr)];
+  };
+
+
+
+struct sockaddr_in6
+  {
+    sa_family_t sin6_family;
+    in_port_t sin6_port;
+    uint32_t sin6_flowinfo;
+    struct in6_addr sin6_addr;
+    uint32_t sin6_scope_id;
+  };
+
+
+
+
+struct ip_mreq
+  {
+
+    struct in_addr imr_multiaddr;
+
+
+    struct in_addr imr_interface;
+  };
+
+struct ip_mreq_source
+  {
+
+    struct in_addr imr_multiaddr;
+
+
+    struct in_addr imr_interface;
+
+
+    struct in_addr imr_sourceaddr;
+  };
+
+
+
+
+struct ipv6_mreq
+  {
+
+    struct in6_addr ipv6mr_multiaddr;
+
+
+    unsigned int ipv6mr_interface;
+  };
+
+
+
+
+struct group_req
+  {
+
+    uint32_t gr_interface;
+
+
+    struct sockaddr_storage gr_group;
+  };
+
+struct group_source_req
+  {
+
+    uint32_t gsr_interface;
+
+
+    struct sockaddr_storage gsr_group;
+
+
+    struct sockaddr_storage gsr_source;
+  };
+
+
+
+struct ip_msfilter
+  {
+
+    struct in_addr imsf_multiaddr;
+
+
+    struct in_addr imsf_interface;
+
+
+    uint32_t imsf_fmode;
+
+
+    uint32_t imsf_numsrc;
+
+    struct in_addr imsf_slist[1];
+  };
+
+
+
+
+
+struct group_filter
+  {
+
+    uint32_t gf_interface;
+
+
+    struct sockaddr_storage gf_group;
+
+
+    uint32_t gf_fmode;
+
+
+    uint32_t gf_numsrc;
+
+    struct sockaddr_storage gf_slist[1];
+};
+# 375 "/usr/include/netinet/in.h" 3 4
+extern uint32_t ntohl (uint32_t __netlong) throw () __attribute__ ((__const__));
+extern uint16_t ntohs (uint16_t __netshort)
+     throw () __attribute__ ((__const__));
+extern uint32_t htonl (uint32_t __hostlong)
+     throw () __attribute__ ((__const__));
+extern uint16_t htons (uint16_t __hostshort)
+     throw () __attribute__ ((__const__));
+
+
+
+
+# 1 "/usr/include/bits/byteswap.h" 1 3 4
+# 387 "/usr/include/netinet/in.h" 2 3 4
+# 502 "/usr/include/netinet/in.h" 3 4
+extern int bindresvport (int __sockfd, struct sockaddr_in *__sock_in) throw ();
+
+
+extern int bindresvport6 (int __sockfd, struct sockaddr_in6 *__sock_in)
+     throw ();
+# 532 "/usr/include/netinet/in.h" 3 4
+struct cmsghdr;
+
+
+
+struct in6_pktinfo
+  {
+    struct in6_addr ipi6_addr;
+    unsigned int ipi6_ifindex;
+  };
+
+
+struct ip6_mtuinfo
+  {
+    struct sockaddr_in6 ip6m_addr;
+    uint32_t ip6m_mtu;
+  };
+
+
+
+extern int inet6_option_space (int __nbytes)
+     throw () __attribute__ ((__deprecated__));
+extern int inet6_option_init (void *__bp, struct cmsghdr **__cmsgp,
+         int __type) throw () __attribute__ ((__deprecated__));
+extern int inet6_option_append (struct cmsghdr *__cmsg,
+    const uint8_t *__typep, int __multx,
+    int __plusy) throw () __attribute__ ((__deprecated__));
+extern uint8_t *inet6_option_alloc (struct cmsghdr *__cmsg, int __datalen,
+        int __multx, int __plusy)
+     throw () __attribute__ ((__deprecated__));
+extern int inet6_option_next (const struct cmsghdr *__cmsg,
+         uint8_t **__tptrp)
+     throw () __attribute__ ((__deprecated__));
+extern int inet6_option_find (const struct cmsghdr *__cmsg,
+         uint8_t **__tptrp, int __type)
+     throw () __attribute__ ((__deprecated__));
+
+
+
+extern int inet6_opt_init (void *__extbuf, socklen_t __extlen) throw ();
+extern int inet6_opt_append (void *__extbuf, socklen_t __extlen, int __offset,
+        uint8_t __type, socklen_t __len, uint8_t __align,
+        void **__databufp) throw ();
+extern int inet6_opt_finish (void *__extbuf, socklen_t __extlen, int __offset)
+     throw ();
+extern int inet6_opt_set_val (void *__databuf, int __offset, void *__val,
+         socklen_t __vallen) throw ();
+extern int inet6_opt_next (void *__extbuf, socklen_t __extlen, int __offset,
+      uint8_t *__typep, socklen_t *__lenp,
+      void **__databufp) throw ();
+extern int inet6_opt_find (void *__extbuf, socklen_t __extlen, int __offset,
+      uint8_t __type, socklen_t *__lenp,
+      void **__databufp) throw ();
+extern int inet6_opt_get_val (void *__databuf, int __offset, void *__val,
+         socklen_t __vallen) throw ();
+
+
+
+extern socklen_t inet6_rth_space (int __type, int __segments) throw ();
+extern void *inet6_rth_init (void *__bp, socklen_t __bp_len, int __type,
+        int __segments) throw ();
+extern int inet6_rth_add (void *__bp, const struct in6_addr *__addr) throw ();
+extern int inet6_rth_reverse (const void *__in, void *__out) throw ();
+extern int inet6_rth_segments (const void *__bp) throw ();
+extern struct in6_addr *inet6_rth_getaddr (const void *__bp, int __index)
+     throw ();
+
+
+
+
+
+extern int getipv4sourcefilter (int __s, struct in_addr __interface_addr,
+    struct in_addr __group, uint32_t *__fmode,
+    uint32_t *__numsrc, struct in_addr *__slist)
+     throw ();
+
+
+extern int setipv4sourcefilter (int __s, struct in_addr __interface_addr,
+    struct in_addr __group, uint32_t __fmode,
+    uint32_t __numsrc,
+    const struct in_addr *__slist)
+     throw ();
+
+
+
+extern int getsourcefilter (int __s, uint32_t __interface_addr,
+       const struct sockaddr *__group,
+       socklen_t __grouplen, uint32_t *__fmode,
+       uint32_t *__numsrc,
+       struct sockaddr_storage *__slist) throw ();
+
+
+extern int setsourcefilter (int __s, uint32_t __interface_addr,
+       const struct sockaddr *__group,
+       socklen_t __grouplen, uint32_t __fmode,
+       uint32_t __numsrc,
+       const struct sockaddr_storage *__slist) throw ();
+
+
+}
+# 6 "client.cc" 2
+# 1 "/usr/include/string.h" 1 3 4
+# 27 "/usr/include/string.h" 3 4
+extern "C" {
+
+
+
+
+# 1 "/usr/lib/gcc/x86_64-redhat-linux/4.8.5/include/stddef.h" 1 3 4
+# 33 "/usr/include/string.h" 2 3 4
+
+
+
+
+
+
+
+
+
+extern void *memcpy (void *__restrict __dest, const void *__restrict __src,
+       size_t __n) throw () __attribute__ ((__nonnull__ (1, 2)));
+
+
+extern void *memmove (void *__dest, const void *__src, size_t __n)
+     throw () __attribute__ ((__nonnull__ (1, 2)));
+
+
+
+
+
+
+extern void *memccpy (void *__restrict __dest, const void *__restrict __src,
+        int __c, size_t __n)
+     throw () __attribute__ ((__nonnull__ (1, 2)));
+
+
+
+
+
+extern void *memset (void *__s, int __c, size_t __n) throw () __attribute__ ((__nonnull__ (1)));
+
+
+extern int memcmp (const void *__s1, const void *__s2, size_t __n)
+     throw () __attribute__ ((__pure__)) __attribute__ ((__nonnull__ (1, 2)));
+
+
+
+extern "C++"
+{
+extern void *memchr (void *__s, int __c, size_t __n)
+      throw () __asm ("memchr") __attribute__ ((__pure__)) __attribute__ ((__nonnull__ (1)));
+extern const void *memchr (const void *__s, int __c, size_t __n)
+      throw () __asm ("memchr") __attribute__ ((__pure__)) __attribute__ ((__nonnull__ (1)));
+# 90 "/usr/include/string.h" 3 4
+}
+
+
+
+
+
+
+
+
+
+
+extern "C++" void *rawmemchr (void *__s, int __c)
+     throw () __asm ("rawmemchr") __attribute__ ((__pure__)) __attribute__ ((__nonnull__ (1)));
+extern "C++" const void *rawmemchr (const void *__s, int __c)
+     throw () __asm ("rawmemchr") __attribute__ ((__pure__)) __attribute__ ((__nonnull__ (1)));
+
+
+
+
+
+
+
+extern "C++" void *memrchr (void *__s, int __c, size_t __n)
+      throw () __asm ("memrchr") __attribute__ ((__pure__)) __attribute__ ((__nonnull__ (1)));
+extern "C++" const void *memrchr (const void *__s, int __c, size_t __n)
+      throw () __asm ("memrchr") __attribute__ ((__pure__)) __attribute__ ((__nonnull__ (1)));
+
+
+
+
+
+
+
+
+
+extern char *strcpy (char *__restrict __dest, const char *__restrict __src)
+     throw () __attribute__ ((__nonnull__ (1, 2)));
+
+extern char *strncpy (char *__restrict __dest,
+        const char *__restrict __src, size_t __n)
+     throw () __attribute__ ((__nonnull__ (1, 2)));
+
+
+extern char *strcat (char *__restrict __dest, const char *__restrict __src)
+     throw () __attribute__ ((__nonnull__ (1, 2)));
+
+extern char *strncat (char *__restrict __dest, const char *__restrict __src,
+        size_t __n) throw () __attribute__ ((__nonnull__ (1, 2)));
+
+
+extern int strcmp (const char *__s1, const char *__s2)
+     throw () __attribute__ ((__pure__)) __attribute__ ((__nonnull__ (1, 2)));
+
+extern int strncmp (const char *__s1, const char *__s2, size_t __n)
+     throw () __attribute__ ((__pure__)) __attribute__ ((__nonnull__ (1, 2)));
+
+
+extern int strcoll (const char *__s1, const char *__s2)
+     throw () __attribute__ ((__pure__)) __attribute__ ((__nonnull__ (1, 2)));
+
+extern size_t strxfrm (char *__restrict __dest,
+         const char *__restrict __src, size_t __n)
+     throw () __attribute__ ((__nonnull__ (2)));
+
+# 162 "/usr/include/string.h" 3 4
+extern int strcoll_l (const char *__s1, const char *__s2, __locale_t __l)
+     throw () __attribute__ ((__pure__)) __attribute__ ((__nonnull__ (1, 2, 3)));
+
+extern size_t strxfrm_l (char *__dest, const char *__src, size_t __n,
+    __locale_t __l) throw () __attribute__ ((__nonnull__ (2, 4)));
+
+
+
+
+
+extern char *strdup (const char *__s)
+     throw () __attribute__ ((__malloc__)) __attribute__ ((__nonnull__ (1)));
+
+
+
+
+
+
+extern char *strndup (const char *__string, size_t __n)
+     throw () __attribute__ ((__malloc__)) __attribute__ ((__nonnull__ (1)));
+# 207 "/usr/include/string.h" 3 4
+
+
+
+extern "C++"
+{
+extern char *strchr (char *__s, int __c)
+     throw () __asm ("strchr") __attribute__ ((__pure__)) __attribute__ ((__nonnull__ (1)));
+extern const char *strchr (const char *__s, int __c)
+     throw () __asm ("strchr") __attribute__ ((__pure__)) __attribute__ ((__nonnull__ (1)));
+# 230 "/usr/include/string.h" 3 4
+}
+
+
+
+
+
+
+extern "C++"
+{
+extern char *strrchr (char *__s, int __c)
+     throw () __asm ("strrchr") __attribute__ ((__pure__)) __attribute__ ((__nonnull__ (1)));
+extern const char *strrchr (const char *__s, int __c)
+     throw () __asm ("strrchr") __attribute__ ((__pure__)) __attribute__ ((__nonnull__ (1)));
+# 257 "/usr/include/string.h" 3 4
+}
+
+
+
+
+
+
+
+
+
+
+extern "C++" char *strchrnul (char *__s, int __c)
+     throw () __asm ("strchrnul") __attribute__ ((__pure__)) __attribute__ ((__nonnull__ (1)));
+extern "C++" const char *strchrnul (const char *__s, int __c)
+     throw () __asm ("strchrnul") __attribute__ ((__pure__)) __attribute__ ((__nonnull__ (1)));
+
+
+
+
+
+
+
+
+
+extern size_t strcspn (const char *__s, const char *__reject)
+     throw () __attribute__ ((__pure__)) __attribute__ ((__nonnull__ (1, 2)));
+
+
+extern size_t strspn (const char *__s, const char *__accept)
+     throw () __attribute__ ((__pure__)) __attribute__ ((__nonnull__ (1, 2)));
+
+
+extern "C++"
+{
+extern char *strpbrk (char *__s, const char *__accept)
+     throw () __asm ("strpbrk") __attribute__ ((__pure__)) __attribute__ ((__nonnull__ (1, 2)));
+extern const char *strpbrk (const char *__s, const char *__accept)
+     throw () __asm ("strpbrk") __attribute__ ((__pure__)) __attribute__ ((__nonnull__ (1, 2)));
+# 309 "/usr/include/string.h" 3 4
+}
+
+
+
+
+
+
+extern "C++"
+{
+extern char *strstr (char *__haystack, const char *__needle)
+     throw () __asm ("strstr") __attribute__ ((__pure__)) __attribute__ ((__nonnull__ (1, 2)));
+extern const char *strstr (const char *__haystack, const char *__needle)
+     throw () __asm ("strstr") __attribute__ ((__pure__)) __attribute__ ((__nonnull__ (1, 2)));
+# 336 "/usr/include/string.h" 3 4
+}
+
+
+
+
+
+
+
+extern char *strtok (char *__restrict __s, const char *__restrict __delim)
+     throw () __attribute__ ((__nonnull__ (2)));
+
+
+
+
+extern char *__strtok_r (char *__restrict __s,
+    const char *__restrict __delim,
+    char **__restrict __save_ptr)
+     throw () __attribute__ ((__nonnull__ (2, 3)));
+
+extern char *strtok_r (char *__restrict __s, const char *__restrict __delim,
+         char **__restrict __save_ptr)
+     throw () __attribute__ ((__nonnull__ (2, 3)));
+
+
+
+
+
+extern "C++" char *strcasestr (char *__haystack, const char *__needle)
+     throw () __asm ("strcasestr") __attribute__ ((__pure__)) __attribute__ ((__nonnull__ (1, 2)));
+extern "C++" const char *strcasestr (const char *__haystack,
+         const char *__needle)
+     throw () __asm ("strcasestr") __attribute__ ((__pure__)) __attribute__ ((__nonnull__ (1, 2)));
+# 378 "/usr/include/string.h" 3 4
+extern void *memmem (const void *__haystack, size_t __haystacklen,
+       const void *__needle, size_t __needlelen)
+     throw () __attribute__ ((__pure__)) __attribute__ ((__nonnull__ (1, 3)));
+
+
+
+extern void *__mempcpy (void *__restrict __dest,
+   const void *__restrict __src, size_t __n)
+     throw () __attribute__ ((__nonnull__ (1, 2)));
+extern void *mempcpy (void *__restrict __dest,
+        const void *__restrict __src, size_t __n)
+     throw () __attribute__ ((__nonnull__ (1, 2)));
+
+
+
+
+
+extern size_t strlen (const char *__s)
+     throw () __attribute__ ((__pure__)) __attribute__ ((__nonnull__ (1)));
+
+
+
+
+
+extern size_t strnlen (const char *__string, size_t __maxlen)
+     throw () __attribute__ ((__pure__)) __attribute__ ((__nonnull__ (1)));
+
+
+
+
+
+extern char *strerror (int __errnum) throw ();
+
+# 434 "/usr/include/string.h" 3 4
+extern char *strerror_r (int __errnum, char *__buf, size_t __buflen)
+     throw () __attribute__ ((__nonnull__ (2))) ;
+
+
+
+
+
+extern char *strerror_l (int __errnum, __locale_t __l) throw ();
+
+
+
+
+
+extern void __bzero (void *__s, size_t __n) throw () __attribute__ ((__nonnull__ (1)));
+
+
+
+extern void bcopy (const void *__src, void *__dest, size_t __n)
+     throw () __attribute__ ((__nonnull__ (1, 2)));
+
+
+extern void bzero (void *__s, size_t __n) throw () __attribute__ ((__nonnull__ (1)));
+
+
+extern int bcmp (const void *__s1, const void *__s2, size_t __n)
+     throw () __attribute__ ((__pure__)) __attribute__ ((__nonnull__ (1, 2)));
+
+
+
+extern "C++"
+{
+extern char *index (char *__s, int __c)
+     throw () __asm ("index") __attribute__ ((__pure__)) __attribute__ ((__nonnull__ (1)));
+extern const char *index (const char *__s, int __c)
+     throw () __asm ("index") __attribute__ ((__pure__)) __attribute__ ((__nonnull__ (1)));
+# 483 "/usr/include/string.h" 3 4
+}
+
+
+
+
+
+
+
+extern "C++"
+{
+extern char *rindex (char *__s, int __c)
+     throw () __asm ("rindex") __attribute__ ((__pure__)) __attribute__ ((__nonnull__ (1)));
+extern const char *rindex (const char *__s, int __c)
+     throw () __asm ("rindex") __attribute__ ((__pure__)) __attribute__ ((__nonnull__ (1)));
+# 511 "/usr/include/string.h" 3 4
+}
+
+
+
+
+
+
+
+extern int ffs (int __i) throw () __attribute__ ((__const__));
+
+
+
+
+extern int ffsl (long int __l) throw () __attribute__ ((__const__));
+
+__extension__ extern int ffsll (long long int __ll)
+     throw () __attribute__ ((__const__));
+
+
+
+
+extern int strcasecmp (const char *__s1, const char *__s2)
+     throw () __attribute__ ((__pure__)) __attribute__ ((__nonnull__ (1, 2)));
+
+
+extern int strncasecmp (const char *__s1, const char *__s2, size_t __n)
+     throw () __attribute__ ((__pure__)) __attribute__ ((__nonnull__ (1, 2)));
+
+
+
+
+
+extern int strcasecmp_l (const char *__s1, const char *__s2,
+    __locale_t __loc)
+     throw () __attribute__ ((__pure__)) __attribute__ ((__nonnull__ (1, 2, 3)));
+
+extern int strncasecmp_l (const char *__s1, const char *__s2,
+     size_t __n, __locale_t __loc)
+     throw () __attribute__ ((__pure__)) __attribute__ ((__nonnull__ (1, 2, 4)));
+
+
+
+
+
+extern char *strsep (char **__restrict __stringp,
+       const char *__restrict __delim)
+     throw () __attribute__ ((__nonnull__ (1, 2)));
+
+
+
+
+extern char *strsignal (int __sig) throw ();
+
+
+extern char *__stpcpy (char *__restrict __dest, const char *__restrict __src)
+     throw () __attribute__ ((__nonnull__ (1, 2)));
+extern char *stpcpy (char *__restrict __dest, const char *__restrict __src)
+     throw () __attribute__ ((__nonnull__ (1, 2)));
+
+
+
+extern char *__stpncpy (char *__restrict __dest,
+   const char *__restrict __src, size_t __n)
+     throw () __attribute__ ((__nonnull__ (1, 2)));
+extern char *stpncpy (char *__restrict __dest,
+        const char *__restrict __src, size_t __n)
+     throw () __attribute__ ((__nonnull__ (1, 2)));
+
+
+
+
+extern int strverscmp (const char *__s1, const char *__s2)
+     throw () __attribute__ ((__pure__)) __attribute__ ((__nonnull__ (1, 2)));
+
+
+extern char *strfry (char *__string) throw () __attribute__ ((__nonnull__ (1)));
+
+
+extern void *memfrob (void *__s, size_t __n) throw () __attribute__ ((__nonnull__ (1)));
+
+
+
+
+
+
+
+extern "C++" char *basename (char *__filename)
+     throw () __asm ("basename") __attribute__ ((__nonnull__ (1)));
+extern "C++" const char *basename (const char *__filename)
+     throw () __asm ("basename") __attribute__ ((__nonnull__ (1)));
+# 642 "/usr/include/string.h" 3 4
+}
+# 7 "client.cc" 2
+# 1 "/usr/include/arpa/inet.h" 1 3 4
+# 30 "/usr/include/arpa/inet.h" 3 4
+extern "C" {
+
+
+
+extern in_addr_t inet_addr (const char *__cp) throw ();
+
+
+extern in_addr_t inet_lnaof (struct in_addr __in) throw ();
+
+
+
+extern struct in_addr inet_makeaddr (in_addr_t __net, in_addr_t __host)
+     throw ();
+
+
+extern in_addr_t inet_netof (struct in_addr __in) throw ();
+
+
+
+extern in_addr_t inet_network (const char *__cp) throw ();
+
+
+
+extern char *inet_ntoa (struct in_addr __in) throw ();
+
+
+
+
+extern int inet_pton (int __af, const char *__restrict __cp,
+        void *__restrict __buf) throw ();
+
+
+
+
+extern const char *inet_ntop (int __af, const void *__restrict __cp,
+         char *__restrict __buf, socklen_t __len)
+     throw ();
+
+
+
+
+
+
+extern int inet_aton (const char *__cp, struct in_addr *__inp) throw ();
+
+
+
+extern char *inet_neta (in_addr_t __net, char *__buf, size_t __len) throw ();
+
+
+
+
+extern char *inet_net_ntop (int __af, const void *__cp, int __bits,
+       char *__buf, size_t __len) throw ();
+
+
+
+
+extern int inet_net_pton (int __af, const char *__cp,
+     void *__buf, size_t __len) throw ();
+
+
+
+
+extern unsigned int inet_nsap_addr (const char *__cp,
+        unsigned char *__buf, int __len) throw ();
+
+
+
+extern char *inet_nsap_ntoa (int __len, const unsigned char *__cp,
+        char *__buf) throw ();
+
+
+}
+# 8 "client.cc" 2
 # 1 "/usr/include/stdio.h" 1 3 4
 # 29 "/usr/include/stdio.h" 3 4
 extern "C" {
@@ -21243,7 +21319,7 @@ extern int ftrylockfile (FILE *__stream) throw () ;
 extern void funlockfile (FILE *__stream) throw ();
 # 943 "/usr/include/stdio.h" 3 4
 }
-# 8 "server.cc" 2
+# 9 "client.cc" 2
 # 1 "/usr/include/stdlib.h" 1 3 4
 # 32 "/usr/include/stdlib.h" 3 4
 # 1 "/usr/lib/gcc/x86_64-redhat-linux/4.8.5/include/stddef.h" 1 3 4
@@ -21981,73 +22057,64 @@ extern int getloadavg (double __loadavg[], int __nelem)
 # 952 "/usr/include/stdlib.h" 2 3 4
 # 964 "/usr/include/stdlib.h" 3 4
 }
-# 9 "server.cc" 2
+# 10 "client.cc" 2
 
 using namespace std;
 
 
 
 
-
 int main()
 {
-    int sock_fd,connect_fd;
-    char buf[4096],sendbuf[4096];
-    struct sockaddr_in servaddr;
+    int sock_fd;
+    struct sockaddr_in cliaddr;
+    char sendbuf[4096],receivebuf[4096];
 
-
-    if((sock_fd=socket(2,SOCK_STREAM,0))==-1)
+    if((sock_fd=socket(2,SOCK_STREAM,0))<0)
     {
-        cout<<"serv_socket error!"<<endl;
+        cout<<"socket error!"<<endl;
+        exit(0);
+    }
+
+    memset(&cliaddr,0,sizeof(cliaddr));
+    cliaddr.sin_family=2;
+    cliaddr.sin_port=1225;
+
+
+
+    if(inet_pton(2,"188.131.171.47",&cliaddr.sin_addr)<=0)
+    {
+        cout<<"inet_pton error!"<<endl;
         exit(0);
     }
 
 
-    memset(&servaddr,0,sizeof(servaddr));
-    servaddr.sin_addr.s_addr=htonl(((in_addr_t) 0x00000000));
-    servaddr.sin_family=2;
-    servaddr.sin_port=1225;
-
-
-    if(bind(sock_fd,(struct sockaddr*)&servaddr,sizeof(servaddr))<0)
+    if(connect(sock_fd,(struct sockaddr*)&cliaddr,sizeof(cliaddr))<0)
     {
-        cout<<"bind error!"<<endl;
+        cout<<"connect error!"<<endl;
         exit(0);
     }
 
-
-    if(listen(sock_fd,11)<0)
+    while(1)
     {
-        cout<<"listen error!"<<endl;
-        exit(0);
-    }
-
-    cout<<"Plase wait the client's connection..."<<endl;
-
-
-    if((connect_fd=accept(sock_fd,(struct sockaddr*)nullptr,nullptr))<0)
-    {
-        cout<<"accept error!"<<endl;
-        exit(0);
-    }
-
-    int len;
-    while((len=recv(connect_fd,buf,4096,0))>0)
-    {
-        buf[len]='\0';
-        cout<<"The client say: "<<buf<<endl;
-        cout<<"Send msg to client: ";
+        cout<<"Send msg to server: ";
         fgets(sendbuf,4096,stdin);
-        if(send(connect_fd,sendbuf,strlen(sendbuf)-1,0)<0)
+        if(send(sock_fd,sendbuf,strlen(sendbuf)-1,0)<0)
         {
             cout<<"send error!"<<endl;
             exit(0);
         }
+
+        int rec_len;
+        if((rec_len=recv(sock_fd,receivebuf,4096,0))==-1)
+        {
+            cout<<"recv error!"<<endl;
+            exit(0);
+        }
+
+        receivebuf[rec_len]='\0';
+        cout<<"The server say: "<<receivebuf<<endl;
     }
-
-    close(connect_fd);
     close(sock_fd);
-
-
     return 0;
 }
