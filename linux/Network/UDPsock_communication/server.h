@@ -35,10 +35,26 @@ class Server
 
         bool Recvfrom()
         {
-            char recvbuf[1024],sendbuf[1024];
+            struct sockaddr_in Seraddr;
+            char recvbuf[1024];
+            socklen_t len=sizeof(Seraddr);
             while(1)
-            :
+            {
+                ssize_t size=recvfrom(sock_fd,recvbuf,1023,0,(struct sockaddr*)&Seraddr,&len);
+                if(size<0)
+                {
+                    cout<<"recvfrom"<<endl;
+                    return 0;
+                }
+                recvbuf[size]=0;
+                cout<<recvbuf<<endl;
             }
+        }
+
+        bool Sendto()
+        {
+            struct sockaddr_in Seraddr;
+            
         }
     private:
         int sock_fd;

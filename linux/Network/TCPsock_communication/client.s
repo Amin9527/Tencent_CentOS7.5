@@ -95,11 +95,10 @@ main:
 	movl	$.LC4, %esi
 	movl	$_ZSt4cout, %edi
 	call	_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_PKc
-	movq	stdin(%rip), %rdx
 	leaq	-8224(%rbp), %rax
-	movl	$4096, %esi
-	movq	%rax, %rdi
-	call	fgets
+	movq	%rax, %rsi
+	movl	$_ZSt3cin, %edi
+	call	_ZStrsIcSt11char_traitsIcEERSt13basic_istreamIT_T0_ES6_PS3_
 	leaq	-8224(%rbp), %rax
 	movq	%rax, %rdi
 	call	strlen

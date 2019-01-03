@@ -13,17 +13,17 @@ using namespace std;
 
 #define MAXMSG 1024
 
-int main()
+int main(int argc , char *argv[])
 {
     int sock_fd;
     char recvbuf[MAXMSG],sendbuf[MAXMSG];
     struct sockaddr_in addr;
     memset(&addr,0,sizeof(addr));
     addr.sin_family=AF_INET;
-    //addr.sin_addr.s_addr=inet_addr(argv[1]);
-    addr.sin_addr.s_addr=inet_addr("188.131.171.47");
-    //addr.sin_port=(unsigned short)*argv[2];
-    addr.sin_port=htons(1109);
+    addr.sin_addr.s_addr=inet_addr(argv[1]);
+    //addr.sin_addr.s_addr=inet_addr("188.131.171.47");
+    addr.sin_port=htons(atoi(argv[2]));
+    //addr.sin_port=htons(1109);
     if((sock_fd=socket(AF_INET,SOCK_STREAM,0)==-1))
     {
         perror("socket");

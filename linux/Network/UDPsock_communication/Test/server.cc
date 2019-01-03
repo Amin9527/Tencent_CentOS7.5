@@ -7,7 +7,7 @@
 #include<string>
 #include<string.h>
 #include<unistd.h>
-#include<stdio.h>
+//#include<stdio.h>
 
 using namespace std;
 

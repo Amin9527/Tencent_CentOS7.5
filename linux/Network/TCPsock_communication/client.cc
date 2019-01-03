@@ -46,7 +46,8 @@ int main()
     while(1)
     {
         cout<<"Send msg to server: ";
-        fgets(sendbuf,MAX_LEN,stdin);
+        cin>>sendbuf;
+        //fgets(sendbuf,MAX_LEN,stdin);
         if(send(sock_fd,sendbuf,strlen(sendbuf)-1,0)<0)
         {
             cout<<"send error!"<<endl;

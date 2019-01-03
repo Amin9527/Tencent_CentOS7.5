@@ -3,12 +3,10 @@
 	.comm	_ZStL8__ioinit,1,1
 	.section	.rodata
 .LC0:
-	.string	"188.131.171.47"
-.LC1:
 	.string	"socket"
-.LC2:
+.LC1:
 	.string	"send to server: "
-.LC3:
+.LC2:
 	.string	"The server sya: "
 	.text
 	.globl	main
@@ -21,17 +19,28 @@ main:
 	.cfi_offset 6, -16
 	movq	%rsp, %rbp
 	.cfi_def_cfa_register 6
-	subq	$2096, %rsp
+	subq	$2112, %rsp
+	movl	%edi, -2100(%rbp)
+	movq	%rsi, -2112(%rbp)
 	leaq	-32(%rbp), %rax
 	movl	$16, %edx
 	movl	$0, %esi
 	movq	%rax, %rdi
 	call	memset
 	movw	$2, -32(%rbp)
-	movl	$.LC0, %edi
+	movq	-2112(%rbp), %rax
+	addq	$8, %rax
+	movq	(%rax), %rax
+	movq	%rax, %rdi
 	call	inet_addr
 	movl	%eax, -28(%rbp)
-	movl	$1109, %edi
+	movq	-2112(%rbp), %rax
+	addq	$16, %rax
+	movq	(%rax), %rax
+	movq	%rax, %rdi
+	call	atoi
+	movzwl	%ax, %eax
+	movl	%eax, %edi
 	call	htons
 	movw	%ax, -30(%rbp)
 	movl	$0, %edx
@@ -46,13 +55,13 @@ main:
 	setne	%al
 	testb	%al, %al
 	je	.L2
-	movl	$.LC1, %edi
+	movl	$.LC0, %edi
 	call	perror
 	movl	$1, %edi
 	call	exit
 .L2:
 	movl	$16, -36(%rbp)
-	movl	$.LC2, %esi
+	movl	$.LC1, %esi
 	movl	$_ZSt4cout, %edi
 	call	_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_PKc
 	leaq	-1072(%rbp), %rax
@@ -80,7 +89,7 @@ main:
 	movl	%eax, %edi
 	call	recvfrom
 	movb	$0, -1073(%rbp)
-	movl	$.LC3, %esi
+	movl	$.LC2, %esi
 	movl	$_ZSt4cout, %edi
 	call	_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_PKc
 	leaq	-2096(%rbp), %rdx

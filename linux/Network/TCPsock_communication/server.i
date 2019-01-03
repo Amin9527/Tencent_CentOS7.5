@@ -19148,6 +19148,83 @@ extern int setsourcefilter (int __s, uint32_t __interface_addr,
 
 }
 # 6 "server.cc" 2
+# 1 "/usr/include/arpa/inet.h" 1 3 4
+# 30 "/usr/include/arpa/inet.h" 3 4
+extern "C" {
+
+
+
+extern in_addr_t inet_addr (const char *__cp) throw ();
+
+
+extern in_addr_t inet_lnaof (struct in_addr __in) throw ();
+
+
+
+extern struct in_addr inet_makeaddr (in_addr_t __net, in_addr_t __host)
+     throw ();
+
+
+extern in_addr_t inet_netof (struct in_addr __in) throw ();
+
+
+
+extern in_addr_t inet_network (const char *__cp) throw ();
+
+
+
+extern char *inet_ntoa (struct in_addr __in) throw ();
+
+
+
+
+extern int inet_pton (int __af, const char *__restrict __cp,
+        void *__restrict __buf) throw ();
+
+
+
+
+extern const char *inet_ntop (int __af, const void *__restrict __cp,
+         char *__restrict __buf, socklen_t __len)
+     throw ();
+
+
+
+
+
+
+extern int inet_aton (const char *__cp, struct in_addr *__inp) throw ();
+
+
+
+extern char *inet_neta (in_addr_t __net, char *__buf, size_t __len) throw ();
+
+
+
+
+extern char *inet_net_ntop (int __af, const void *__cp, int __bits,
+       char *__buf, size_t __len) throw ();
+
+
+
+
+extern int inet_net_pton (int __af, const char *__cp,
+     void *__buf, size_t __len) throw ();
+
+
+
+
+extern unsigned int inet_nsap_addr (const char *__cp,
+        unsigned char *__buf, int __len) throw ();
+
+
+
+extern char *inet_nsap_ntoa (int __len, const unsigned char *__cp,
+        char *__buf) throw ();
+
+
+}
+# 7 "server.cc" 2
 # 1 "/usr/include/unistd.h" 1 3 4
 # 27 "/usr/include/unistd.h" 3 4
 extern "C" {
@@ -20470,7 +20547,7 @@ extern void swab (const void *__restrict __from, void *__restrict __to,
     ssize_t __n) throw () __attribute__ ((__nonnull__ (1, 2)));
 # 1172 "/usr/include/unistd.h" 3 4
 }
-# 7 "server.cc" 2
+# 8 "server.cc" 2
 # 1 "/usr/include/stdio.h" 1 3 4
 # 29 "/usr/include/stdio.h" 3 4
 extern "C" {
@@ -21243,7 +21320,7 @@ extern int ftrylockfile (FILE *__stream) throw () ;
 extern void funlockfile (FILE *__stream) throw ();
 # 943 "/usr/include/stdio.h" 3 4
 }
-# 8 "server.cc" 2
+# 9 "server.cc" 2
 # 1 "/usr/include/stdlib.h" 1 3 4
 # 32 "/usr/include/stdlib.h" 3 4
 # 1 "/usr/lib/gcc/x86_64-redhat-linux/4.8.5/include/stddef.h" 1 3 4
@@ -21981,7 +22058,7 @@ extern int getloadavg (double __loadavg[], int __nelem)
 # 952 "/usr/include/stdlib.h" 2 3 4
 # 964 "/usr/include/stdlib.h" 3 4
 }
-# 9 "server.cc" 2
+# 10 "server.cc" 2
 
 using namespace std;
 
@@ -21989,8 +22066,13 @@ using namespace std;
 
 
 
-int main()
+int main(int argc , char *argv[])
 {
+    if(argc!=3)
+    {
+        perror("argc");
+        exit(0);
+    }
     int sock_fd,connect_fd;
     char buf[4096],sendbuf[4096];
     struct sockaddr_in servaddr;
@@ -22004,10 +22086,11 @@ int main()
 
 
     memset(&servaddr,0,sizeof(servaddr));
-    servaddr.sin_addr.s_addr=((in_addr_t) 0x00000000);
-    servaddr.sin_family=2;
-    servaddr.sin_port=1225;
 
+    servaddr.sin_addr.s_addr=inet_addr(argv[1]);
+    servaddr.sin_family=2;
+
+    servaddr.sin_port=htons(atoi(argv[2]));
 
     if(bind(sock_fd,(struct sockaddr*)&servaddr,sizeof(servaddr))<0)
     {

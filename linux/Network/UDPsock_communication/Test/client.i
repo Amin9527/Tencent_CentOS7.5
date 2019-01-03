@@ -22066,17 +22066,17 @@ using namespace std;
 
 
 
-int main()
+int main(int argc , char *argv[])
 {
     int sock_fd;
     char recvbuf[1024],sendbuf[1024];
     struct sockaddr_in addr;
     memset(&addr,0,sizeof(addr));
     addr.sin_family=2;
+    addr.sin_addr.s_addr=inet_addr(argv[1]);
 
-    addr.sin_addr.s_addr=inet_addr("188.131.171.47");
+    addr.sin_port=htons(atoi(argv[2]));
 
-    addr.sin_port=htons(1109);
     if((sock_fd=socket(2,SOCK_STREAM,0)==-1))
     {
         perror("socket");

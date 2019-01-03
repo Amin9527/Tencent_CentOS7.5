@@ -3,6 +3,7 @@
 #include<sys/socket.h>  //socket()
 #include<string.h>
 #include<netinet/in.h>
+#include<arpa/inet.h>
 #include<unistd.h>
 #include<stdio.h>
 #include<stdlib.h>
@@ -13,8 +14,13 @@ using namespace std;
 #define MAX_LEN 4096
 
 
-int main()
+int main(int argc , char *argv[])
 {
+    if(argc!=3)
+    {
+        perror("argc");
+        exit(0);
+    }
     int sock_fd,connect_fd;
     char buf[MAX_LEN],sendbuf[MAX_LEN];
     struct sockaddr_in servaddr; //创建服务器端网络地址结构体
@@ -28,10 +34,11 @@ int main()
 
 
     memset(&servaddr,0,sizeof(servaddr)); //初始化--清零
-    servaddr.sin_addr.s_addr=htonl(INADDR_ANY);//IP地址设置为INADDR_ANY，让系统自动获取本机的IP地址，htonl()将32位数由主机转网络
+    //servaddr.sin_addr.s_addr=htonl(INADDR_ANY);//IP地址设置为INADDR_ANY，让系统自动获取本机的IP地址，htonl()将32位数由主机转网络
+    servaddr.sin_addr.s_addr=inet_addr(argv[1]);
     servaddr.sin_family=AF_INET;  //设置通信协议--IPV4通信
-    servaddr.sin_port=PORT_ID;  //设置端口号
-
+    //servaddr.sin_port=PORT_ID;  //设置端口号
+    servaddr.sin_port=htons(atoi(argv[2]));
     //绑定端口号
     if(bind(sock_fd,(struct sockaddr*)&servaddr,sizeof(servaddr))<0)//参数一套接字的文件描述符，参数二网络结构体，参数三结构体大小
     {

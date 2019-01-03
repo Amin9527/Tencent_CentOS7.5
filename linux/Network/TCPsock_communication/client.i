@@ -22088,7 +22088,6 @@ int main()
         exit(0);
     }
 
-
     if(connect(sock_fd,(struct sockaddr*)&cliaddr,sizeof(cliaddr))<0)
     {
         cout<<"connect error!"<<endl;
@@ -22098,7 +22097,8 @@ int main()
     while(1)
     {
         cout<<"Send msg to server: ";
-        fgets(sendbuf,4096,stdin);
+        cin>>sendbuf;
+
         if(send(sock_fd,sendbuf,strlen(sendbuf)-1,0)<0)
         {
             cout<<"send error!"<<endl;
