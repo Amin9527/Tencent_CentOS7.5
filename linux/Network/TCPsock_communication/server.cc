@@ -68,8 +68,9 @@ int main(int argc , char *argv[])
         buf[len]='\0';
         cout<<"The client say: "<<buf<<endl;
         cout<<"Send msg to client: ";
-        fgets(sendbuf,MAX_LEN,stdin);
-        if(send(connect_fd,sendbuf,strlen(sendbuf)-1,0)<0)
+        //fgets(sendbuf,MAX_LEN,stdin);
+        cin>>sendbuf;
+        if(send(connect_fd,sendbuf,strlen(sendbuf),0)<0)
         {
             cout<<"send error!"<<endl;
             exit(0);

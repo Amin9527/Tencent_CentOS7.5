@@ -13,8 +13,13 @@ using namespace std;
 #define MAX_LEN 4096
 #define PORT_ID 1225
 
-int main()
+int main(int argc , char *argv[])
 {
+    if(argc!=3)
+    {
+        perror("argc error!");
+        exit(0);
+    }
     int sock_fd;
     struct sockaddr_in cliaddr;
     char sendbuf[MAX_LEN],receivebuf[MAX_LEN];
@@ -27,11 +32,11 @@ int main()
 
     memset(&cliaddr,0,sizeof(cliaddr));
     cliaddr.sin_family=AF_INET;
-    cliaddr.sin_port=PORT_ID;
+    cliaddr.sin_port=htons(atoi(argv[2]));
 
 
     //将点分十进制的IP地址转换为用于网络传输的二进制数值格式，存入参数三
-    if(inet_pton(AF_INET,"188.131.171.47",&cliaddr.sin_addr)<=0) //参数一IPV4，IPV6都可以，函数成功返回1，输入无效表达式返回0，错误-1
+    if(inet_pton(AF_INET,argv[1],&cliaddr.sin_addr)<=0) //参数一IPV4，IPV6都可以，函数成功返回1，输入无效表达式返回0，错误-1
     {
         cout<<"inet_pton error!"<<endl;
         exit(0);
@@ -48,7 +53,7 @@ int main()
         cout<<"Send msg to server: ";
         cin>>sendbuf;
         //fgets(sendbuf,MAX_LEN,stdin);
-        if(send(sock_fd,sendbuf,strlen(sendbuf)-1,0)<0)
+        if(send(sock_fd,sendbuf,strlen(sendbuf),0)<0)
         {
             cout<<"send error!"<<endl;
             exit(0);

@@ -3,9 +3,9 @@
 	.comm	_ZStL8__ioinit,1,1
 	.section	.rodata
 .LC0:
-	.string	"socket error!"
+	.string	"argc error!"
 .LC1:
-	.string	"188.131.171.47"
+	.string	"socket error!"
 .LC2:
 	.string	"inet_pton error!"
 .LC3:
@@ -29,7 +29,16 @@ main:
 	.cfi_offset 6, -16
 	movq	%rsp, %rbp
 	.cfi_def_cfa_register 6
-	subq	$8224, %rsp
+	subq	$8240, %rsp
+	movl	%edi, -8228(%rbp)
+	movq	%rsi, -8240(%rbp)
+	cmpl	$3, -8228(%rbp)
+	je	.L2
+	movl	$.LC0, %edi
+	call	perror
+	movl	$0, %edi
+	call	exit
+.L2:
 	movl	$0, %edx
 	movl	$1, %esi
 	movl	$2, %edi
@@ -38,34 +47,8 @@ main:
 	movl	-4(%rbp), %eax
 	shrl	$31, %eax
 	testb	%al, %al
-	je	.L2
-	movl	$.LC0, %esi
-	movl	$_ZSt4cout, %edi
-	call	_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_PKc
-	movl	$_ZSt4endlIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_, %esi
-	movq	%rax, %rdi
-	call	_ZNSolsEPFRSoS_E
-	movl	$0, %edi
-	call	exit
-.L2:
-	leaq	-32(%rbp), %rax
-	movl	$16, %edx
-	movl	$0, %esi
-	movq	%rax, %rdi
-	call	memset
-	movw	$2, -32(%rbp)
-	movw	$1225, -30(%rbp)
-	leaq	-32(%rbp), %rax
-	addq	$4, %rax
-	movq	%rax, %rdx
-	movl	$.LC1, %esi
-	movl	$2, %edi
-	call	inet_pton
-	testl	%eax, %eax
-	setle	%al
-	testb	%al, %al
 	je	.L3
-	movl	$.LC2, %esi
+	movl	$.LC1, %esi
 	movl	$_ZSt4cout, %edi
 	call	_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_PKc
 	movl	$_ZSt4endlIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_, %esi
@@ -74,16 +57,34 @@ main:
 	movl	$0, %edi
 	call	exit
 .L3:
-	leaq	-32(%rbp), %rcx
-	movl	-4(%rbp), %eax
+	leaq	-32(%rbp), %rax
 	movl	$16, %edx
-	movq	%rcx, %rsi
+	movl	$0, %esi
+	movq	%rax, %rdi
+	call	memset
+	movw	$2, -32(%rbp)
+	movq	-8240(%rbp), %rax
+	addq	$16, %rax
+	movq	(%rax), %rax
+	movq	%rax, %rdi
+	call	atoi
+	movzwl	%ax, %eax
 	movl	%eax, %edi
-	call	connect
-	shrl	$31, %eax
+	call	htons
+	movw	%ax, -30(%rbp)
+	movq	-8240(%rbp), %rax
+	addq	$8, %rax
+	movq	(%rax), %rax
+	leaq	-32(%rbp), %rdx
+	addq	$4, %rdx
+	movq	%rax, %rsi
+	movl	$2, %edi
+	call	inet_pton
+	testl	%eax, %eax
+	setle	%al
 	testb	%al, %al
 	je	.L4
-	movl	$.LC3, %esi
+	movl	$.LC2, %esi
 	movl	$_ZSt4cout, %edi
 	call	_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_PKc
 	movl	$_ZSt4endlIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_, %esi
@@ -92,6 +93,24 @@ main:
 	movl	$0, %edi
 	call	exit
 .L4:
+	leaq	-32(%rbp), %rcx
+	movl	-4(%rbp), %eax
+	movl	$16, %edx
+	movq	%rcx, %rsi
+	movl	%eax, %edi
+	call	connect
+	shrl	$31, %eax
+	testb	%al, %al
+	je	.L5
+	movl	$.LC3, %esi
+	movl	$_ZSt4cout, %edi
+	call	_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_PKc
+	movl	$_ZSt4endlIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_, %esi
+	movq	%rax, %rdi
+	call	_ZNSolsEPFRSoS_E
+	movl	$0, %edi
+	call	exit
+.L5:
 	movl	$.LC4, %esi
 	movl	$_ZSt4cout, %edi
 	call	_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_PKc
@@ -102,7 +121,7 @@ main:
 	leaq	-8224(%rbp), %rax
 	movq	%rax, %rdi
 	call	strlen
-	leaq	-1(%rax), %rdx
+	movq	%rax, %rdx
 	leaq	-8224(%rbp), %rsi
 	movl	-4(%rbp), %eax
 	movl	$0, %ecx
@@ -110,7 +129,7 @@ main:
 	call	send
 	shrq	$63, %rax
 	testb	%al, %al
-	je	.L5
+	je	.L6
 	movl	$.LC5, %esi
 	movl	$_ZSt4cout, %edi
 	call	_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_PKc
@@ -119,7 +138,7 @@ main:
 	call	_ZNSolsEPFRSoS_E
 	movl	$0, %edi
 	call	exit
-.L5:
+.L6:
 	leaq	-4128(%rbp), %rsi
 	movl	-4(%rbp), %eax
 	movl	$0, %ecx
@@ -130,7 +149,7 @@ main:
 	cmpl	$-1, -8(%rbp)
 	sete	%al
 	testb	%al, %al
-	je	.L6
+	je	.L7
 	movl	$.LC6, %esi
 	movl	$_ZSt4cout, %edi
 	call	_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_PKc
@@ -139,7 +158,7 @@ main:
 	call	_ZNSolsEPFRSoS_E
 	movl	$0, %edi
 	call	exit
-.L6:
+.L7:
 	movl	-8(%rbp), %eax
 	cltq
 	movb	$0, -4128(%rbp,%rax)
@@ -153,7 +172,7 @@ main:
 	movl	$_ZSt4endlIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_, %esi
 	movq	%rax, %rdi
 	call	_ZNSolsEPFRSoS_E
-	jmp	.L4
+	jmp	.L5
 	.cfi_endproc
 .LFE971:
 	.size	main, .-main
@@ -170,16 +189,16 @@ _Z41__static_initialization_and_destruction_0ii:
 	movl	%edi, -4(%rbp)
 	movl	%esi, -8(%rbp)
 	cmpl	$1, -4(%rbp)
-	jne	.L7
+	jne	.L8
 	cmpl	$65535, -8(%rbp)
-	jne	.L7
+	jne	.L8
 	movl	$_ZStL8__ioinit, %edi
 	call	_ZNSt8ios_base4InitC1Ev
 	movl	$__dso_handle, %edx
 	movl	$_ZStL8__ioinit, %esi
 	movl	$_ZNSt8ios_base4InitD1Ev, %edi
 	call	__cxa_atexit
-.L7:
+.L8:
 	leave
 	.cfi_def_cfa 7, 8
 	ret

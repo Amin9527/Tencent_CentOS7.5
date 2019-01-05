@@ -22064,8 +22064,13 @@ using namespace std;
 
 
 
-int main()
+int main(int argc , char *argv[])
 {
+    if(argc!=3)
+    {
+        perror("argc error!");
+        exit(0);
+    }
     int sock_fd;
     struct sockaddr_in cliaddr;
     char sendbuf[4096],receivebuf[4096];
@@ -22078,11 +22083,11 @@ int main()
 
     memset(&cliaddr,0,sizeof(cliaddr));
     cliaddr.sin_family=2;
-    cliaddr.sin_port=1225;
+    cliaddr.sin_port=htons(atoi(argv[2]));
 
 
 
-    if(inet_pton(2,"188.131.171.47",&cliaddr.sin_addr)<=0)
+    if(inet_pton(2,argv[1],&cliaddr.sin_addr)<=0)
     {
         cout<<"inet_pton error!"<<endl;
         exit(0);
@@ -22099,7 +22104,7 @@ int main()
         cout<<"Send msg to server: ";
         cin>>sendbuf;
 
-        if(send(sock_fd,sendbuf,strlen(sendbuf)-1,0)<0)
+        if(send(sock_fd,sendbuf,strlen(sendbuf),0)<0)
         {
             cout<<"send error!"<<endl;
             exit(0);

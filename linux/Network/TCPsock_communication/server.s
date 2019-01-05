@@ -158,15 +158,14 @@ main:
 	movl	$.LC7, %esi
 	movl	$_ZSt4cout, %edi
 	call	_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_PKc
-	movq	stdin(%rip), %rdx
 	leaq	-4128(%rbp), %rax
-	movl	$4096, %esi
-	movq	%rax, %rdi
-	call	fgets
+	movq	%rax, %rsi
+	movl	$_ZSt3cin, %edi
+	call	_ZStrsIcSt11char_traitsIcEERSt13basic_istreamIT_T0_ES6_PS3_
 	leaq	-4128(%rbp), %rax
 	movq	%rax, %rdi
 	call	strlen
-	leaq	-1(%rax), %rdx
+	movq	%rax, %rdx
 	leaq	-4128(%rbp), %rsi
 	movl	-8(%rbp), %eax
 	movl	$0, %ecx
