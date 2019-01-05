@@ -7,7 +7,7 @@
 #include<string>
 #include<string.h>
 #include<unistd.h>
-//#include<stdio.h>
+#include<stdio.h>
 
 using namespace std;
 
@@ -24,7 +24,7 @@ int main(int argc , char *argv[])
     int sock_fd;
     struct sockaddr_in addr;
     memset(&addr,0,sizeof(addr)); 
-    if((sock_fd=socket(AF_INET,SOCK_STREAM,0))==-1)
+    if((sock_fd=socket(AF_INET,SOCK_DGRAM,0))==-1)
     {
         perror("socket");
         exit(0);
@@ -42,13 +42,20 @@ int main(int argc , char *argv[])
         exit(1);
     }
 
-    while(1)
+    for(;;)
     {
         struct sockaddr_in server;
         socklen_t len=sizeof(server);
+        int ret;
+        ret=recvfrom(sock_fd,recvbuf,MAXMESG-1,0,(struct sockaddr*)&server,&len);
+        //recv(sock_fd,recvbuf,MAXMESG-1,0);
         cout<<"The client sya: ";
-        recvfrom(sock_fd,recvbuf,MAXMESG-1,0,(struct sockaddr*)&server,&len);
-        recvbuf[MAXMESG-1]=0;
+        if(ret<0)
+        {
+            perror("recvfrom error!");
+            exit(3);
+        }
+        recvbuf[ret]=0;
         cout<<recvbuf<<endl;
         cout<<"send mesg: ";
         cin>>sendbuf;
