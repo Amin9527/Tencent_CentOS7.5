@@ -22082,7 +22082,7 @@ int main(int argc , char *argv[])
 
     addr.sin_port=htons(atoi(argv[2]));
 
-    if((sock_fd=socket(2,SOCK_DGRAM,0)==-1))
+    if((sock_fd=socket(2,SOCK_DGRAM,0))==-1)
     {
         perror("socket");
         exit(1);
@@ -22093,8 +22093,13 @@ int main(int argc , char *argv[])
         socklen_t len=sizeof(addr);
         cout<<"send to server: ";
         cin>>sendbuf;
-        sendto(sock_fd,sendbuf,1024 -1,0,(struct sockaddr*)&addr,len);
-        int ret=recvfrom(sock_fd,recvbuf,1024 -1,0,(struct sockaddr*)&addr,&len);
+        int sendret=sendto(sock_fd,sendbuf,1024 -1,0,(struct sockaddr*)&addr,sizeof(addr));
+        if(sendret<0)
+        {
+            perror("send error!");
+            exit(3);
+        }
+        int ret=recvfrom(sock_fd,recvbuf,1024 -1,0,nullptr,nullptr);
         if(ret<0)
         {
             perror("recvfrom error!");

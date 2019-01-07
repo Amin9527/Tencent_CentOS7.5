@@ -22102,12 +22102,13 @@ int main(int argc , char *argv[])
         exit(1);
     }
 
-    for(;;)
+    while(1)
     {
         struct sockaddr_in server;
         socklen_t len=sizeof(server);
         int ret;
         ret=recvfrom(sock_fd,recvbuf,1024 -1,0,(struct sockaddr*)&server,&len);
+
 
         cout<<"The client sya: ";
         if(ret<0)

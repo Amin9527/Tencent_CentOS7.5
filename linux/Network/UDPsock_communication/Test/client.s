@@ -9,8 +9,10 @@
 .LC2:
 	.string	"send to server: "
 .LC3:
-	.string	"recvfrom error!"
+	.string	"send error!"
 .LC4:
+	.string	"recvfrom error!"
+.LC5:
 	.string	"The server sya: "
 	.text
 	.globl	main
@@ -23,10 +25,10 @@ main:
 	.cfi_offset 6, -16
 	movq	%rsp, %rbp
 	.cfi_def_cfa_register 6
-	subq	$2112, %rsp
-	movl	%edi, -2100(%rbp)
-	movq	%rsi, -2112(%rbp)
-	cmpl	$3, -2100(%rbp)
+	subq	$2096, %rsp
+	movl	%edi, -2084(%rbp)
+	movq	%rsi, -2096(%rbp)
+	cmpl	$3, -2084(%rbp)
 	je	.L2
 	movl	$.LC0, %edi
 	call	perror
@@ -39,13 +41,13 @@ main:
 	movq	%rax, %rdi
 	call	memset
 	movw	$2, -32(%rbp)
-	movq	-2112(%rbp), %rax
+	movq	-2096(%rbp), %rax
 	addq	$8, %rax
 	movq	(%rax), %rax
 	movq	%rax, %rdi
 	call	inet_addr
 	movl	%eax, -28(%rbp)
-	movq	-2112(%rbp), %rax
+	movq	-2096(%rbp), %rax
 	addq	$16, %rax
 	movq	(%rax), %rax
 	movq	%rax, %rdi
@@ -58,12 +60,9 @@ main:
 	movl	$2, %esi
 	movl	$2, %edi
 	call	socket
-	cmpl	$-1, %eax
-	sete	%al
-	movzbl	%al, %eax
 	movl	%eax, -4(%rbp)
-	cmpl	$0, -4(%rbp)
-	setne	%al
+	cmpl	$-1, -4(%rbp)
+	sete	%al
 	testb	%al, %al
 	je	.L3
 	movl	$.LC1, %edi
@@ -71,49 +70,54 @@ main:
 	movl	$1, %edi
 	call	exit
 .L3:
-	movl	$16, -36(%rbp)
+	movl	$16, -8(%rbp)
 	movl	$.LC2, %esi
 	movl	$_ZSt4cout, %edi
 	call	_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_PKc
-	leaq	-1072(%rbp), %rax
+	leaq	-1056(%rbp), %rax
 	movq	%rax, %rsi
 	movl	$_ZSt3cin, %edi
 	call	_ZStrsIcSt11char_traitsIcEERSt13basic_istreamIT_T0_ES6_PS3_
-	movl	-36(%rbp), %ecx
 	leaq	-32(%rbp), %rdx
-	leaq	-1072(%rbp), %rsi
+	leaq	-1056(%rbp), %rsi
 	movl	-4(%rbp), %eax
-	movl	%ecx, %r9d
+	movl	$16, %r9d
 	movq	%rdx, %r8
 	movl	$0, %ecx
 	movl	$1023, %edx
 	movl	%eax, %edi
 	call	sendto
-	leaq	-36(%rbp), %rcx
-	leaq	-32(%rbp), %rdx
-	leaq	-2096(%rbp), %rsi
+	movl	%eax, -12(%rbp)
+	cmpl	$0, -12(%rbp)
+	jns	.L4
+	movl	$.LC3, %edi
+	call	perror
+	movl	$3, %edi
+	call	exit
+.L4:
+	leaq	-2080(%rbp), %rsi
 	movl	-4(%rbp), %eax
-	movq	%rcx, %r9
-	movq	%rdx, %r8
+	movl	$0, %r9d
+	movl	$0, %r8d
 	movl	$0, %ecx
 	movl	$1023, %edx
 	movl	%eax, %edi
 	call	recvfrom
-	movl	%eax, -8(%rbp)
-	cmpl	$0, -8(%rbp)
-	jns	.L4
-	movl	$.LC3, %edi
+	movl	%eax, -16(%rbp)
+	cmpl	$0, -16(%rbp)
+	jns	.L5
+	movl	$.LC4, %edi
 	call	perror
 	movl	$4, %edi
 	call	exit
-.L4:
-	movl	-8(%rbp), %eax
+.L5:
+	movl	-16(%rbp), %eax
 	cltq
-	movb	$0, -2096(%rbp,%rax)
-	movl	$.LC4, %esi
+	movb	$0, -2080(%rbp,%rax)
+	movl	$.LC5, %esi
 	movl	$_ZSt4cout, %edi
 	call	_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_PKc
-	leaq	-2096(%rbp), %rdx
+	leaq	-2080(%rbp), %rdx
 	movq	%rdx, %rsi
 	movq	%rax, %rdi
 	call	_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_PKc
@@ -137,16 +141,16 @@ _Z41__static_initialization_and_destruction_0ii:
 	movl	%edi, -4(%rbp)
 	movl	%esi, -8(%rbp)
 	cmpl	$1, -4(%rbp)
-	jne	.L5
+	jne	.L6
 	cmpl	$65535, -8(%rbp)
-	jne	.L5
+	jne	.L6
 	movl	$_ZStL8__ioinit, %edi
 	call	_ZNSt8ios_base4InitC1Ev
 	movl	$__dso_handle, %edx
 	movl	$_ZStL8__ioinit, %esi
 	movl	$_ZNSt8ios_base4InitD1Ev, %edi
 	call	__cxa_atexit
-.L5:
+.L6:
 	leave
 	.cfi_def_cfa 7, 8
 	ret

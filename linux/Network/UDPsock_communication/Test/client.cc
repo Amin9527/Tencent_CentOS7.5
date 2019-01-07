@@ -29,7 +29,7 @@ int main(int argc , char *argv[])
     //addr.sin_addr.s_addr=inet_addr("188.131.171.47");
     addr.sin_port=htons(atoi(argv[2]));
     //addr.sin_port=htons(1109);
-    if((sock_fd=socket(AF_INET,SOCK_DGRAM,0)==-1))
+    if((sock_fd=socket(AF_INET,SOCK_DGRAM,0))==-1)
     {
         perror("socket");
         exit(1);
@@ -48,8 +48,13 @@ int main(int argc , char *argv[])
         socklen_t len=sizeof(addr);
         cout<<"send to server: ";
         cin>>sendbuf;
-        sendto(sock_fd,sendbuf,MAXMSG-1,0,(struct sockaddr*)&addr,len);
-        int ret=recvfrom(sock_fd,recvbuf,MAXMSG-1,0,(struct sockaddr*)&addr,&len);
+        int sendret=sendto(sock_fd,sendbuf,MAXMSG-1,0,(struct sockaddr*)&addr,sizeof(addr));
+        if(sendret<0)
+        {
+            perror("send error!");
+            exit(3);
+        }
+        int ret=recvfrom(sock_fd,recvbuf,MAXMSG-1,0,nullptr,nullptr);
         if(ret<0)
         {
             perror("recvfrom error!");
