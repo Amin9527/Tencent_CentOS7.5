@@ -5,6 +5,34 @@
 
 using namespace std;
 
+int main()
+{
+    int *zm=new int[3];
+    
+    //zm=NULL;
+    //delete zm;   //空指针可以释放
+   
+    zm[1]=2;
+    for(int i=0;i<3;++i)
+    {
+        cout<<zm[i]<<" ";
+    }
+    cout<<endl;
+
+    delete[] zm;    
+    //for(int i=0;i<3;++i)
+    //{
+    //    cout<<zm[i]<<" ";
+    //}
+
+    zm=nullptr;
+    
+    return 0;
+}
+
+
+//-----------------------main函数参数---
+/*
 int main(int argc,char* argv[])
 {
     cout<<"argc: "<<argc<<endl;
@@ -15,7 +43,7 @@ int main(int argc,char* argv[])
     cout<<"argv: "<<argv[4]<<endl;
     return 0;
 }
-
+*/
 //-------------------------继承-------
 /*
 class A
