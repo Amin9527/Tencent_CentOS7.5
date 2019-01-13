@@ -17573,10 +17573,13 @@ class Smartptr
         T& operator*(){return *_ptr;}
 
 
+        Smartptr(const Smartptr<T>&)=delete;
+
+        Smartptr<T>& operator=(const Smartptr<T>&)=delete;
     private:
 
-        Smartptr(const Smartptr<T>&);
-        Smartptr<T>& operator=(const Smartptr<T>&);
+
+
     private:
         T *_ptr;
 };
@@ -17585,12 +17588,6 @@ int main()
 {
     char* ptr=new char[3];
     Smartptr<char> zm(ptr);
-
-
-
-
-
-
-
+# 38 "test.cc"
     return 0;
 }
