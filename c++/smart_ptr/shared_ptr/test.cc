@@ -1,4 +1,6 @@
 #include<iostream>
+#include<mutex>
+#include<thread>
 
 using namespace std;
 
@@ -9,7 +11,7 @@ class Sharedptr
 {
     public:
         
-        Sharedptr(T* ptr=nullptr):_ptr(ptr),_count(new int(1))
+        Sharedptr(T* ptr=nullptr):_ptr(ptr),_count(new int(1)),_pmutex(new mutex)
         {
             cout<<"Sharedptr()"<<endl;
         }
@@ -18,7 +20,7 @@ class Sharedptr
         T& operator*(){return *_ptr;}
         T& operator[](int number){return *(_ptr+number);}
 
-        Sharedptr(const Sharedptr<T>& p):_ptr(p._ptr),_count(p._count)
+        Sharedptr(const Sharedptr<T>& p):_ptr(p._ptr),_count(p._count),_pmutex(p._pmutex)
         {
             if(_ptr)
                 Addcount();
@@ -31,6 +33,7 @@ class Sharedptr
             Release();
             _ptr=p._ptr;
             _count=p._count;
+            _pmutex=p._pmutex;
             if(_ptr)
                 Addcount();
             return *this;
@@ -38,7 +41,9 @@ class Sharedptr
 
         int Subcount()
         {
+            _pmutex->lock();
             return --(*_count);
+            _pmutex->unlock();
         }
 
         int Getcount()
@@ -48,7 +53,9 @@ class Sharedptr
 
         int Addcount()
         {
+            _pmutex->lock();
             return ++(*_count);
+            _pmutex->unlock();
         }
 
         void Print()
@@ -67,11 +74,13 @@ class Sharedptr
             {
                 delete _ptr;
                 delete _count;
+                delete _pmutex;
             }
         }
     private:
         T *_ptr;
         int *_count;  //添加引用计数
+        mutex *_pmutex;
 };
 
 int main()
