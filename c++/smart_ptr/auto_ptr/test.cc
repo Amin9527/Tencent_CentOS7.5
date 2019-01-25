@@ -11,7 +11,7 @@ class zm
         T& operator*(){return *_zm;}  //智能指针要具有像指针一样的性质，需要重载*、->
         T* operator->(){return _zm;}
 
-        zm(const zm& a):_zm(a._zm)
+        zm(const zm<T>& a):_zm(a._zm)
         {
             _zm=nullptr;
         }

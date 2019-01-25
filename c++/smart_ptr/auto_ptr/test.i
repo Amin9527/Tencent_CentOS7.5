@@ -17572,7 +17572,7 @@ class zm
         T& operator*(){return *_zm;}
         T* operator->(){return _zm;}
 
-        zm(const zm& a):_zm(a._zm)
+        zm(const zm<T>& a):_zm(a._zm)
         {
             _zm=nullptr;
         }

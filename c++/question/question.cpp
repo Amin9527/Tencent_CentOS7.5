@@ -5,6 +5,13 @@
 
 using namespace std;
 
+class ListNode
+{
+    public:
+}
+
+//----------------------------
+/*
 int main()
 {
     int *zm=new int[3];
@@ -29,7 +36,7 @@ int main()
     
     return 0;
 }
-
+*/
 
 //-----------------------main函数参数---
 /*
