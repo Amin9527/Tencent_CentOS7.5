@@ -5,11 +5,37 @@
 
 using namespace std;
 
-class ListNode
+class test
 {
     public:
+        static void a()
+        {}
+    private:
+};
+int main()
+{
+    test A;
+    A.a();
+    return 0;
 }
 
+//----------------------
+/*
+int main()
+{
+    char arr1[]="abc";
+    char arr2[]="abc";
+    char *p1="abc";
+    char *p2="abc";
+    cout<<"arr1:"<<arr1<<endl;
+    cout<<"&arr1:"<<&arr1<<endl;
+    cout<<"arr2:"<<arr2<<endl;
+    cout<<"&arr2:"<<&arr2<<endl;
+    cout<<"&p1:"<<&p1<<endl;
+    cout<<"&p2:"<<&p2<<endl;
+    return 0;
+}
+*/
 //----------------------------
 /*
 int main()
@@ -104,12 +130,10 @@ int main()
     b.num=2;
     b.str="gaoxing";
     cout<<endl;
-
     a.display();
     return 0;
 }
 */
-
 //--------------------------继承访问属性-------
 /*
 class person
@@ -183,7 +207,7 @@ int main()
     cout<<endl;
 
     teacher t;
-    //t.person::display(); //private继承方式，基类public、protected属性成员 派生类为private属性
+    //t.person::display(); //private继承方式，基类public、protected属性成员 在派生类为private属性
                            //基类private属性成员 派生类不能访问成员
     t.display();
     cout<<endl;
@@ -286,12 +310,13 @@ int main()
 }
 */
 //------------------------------------内存对齐
-
-//#pragma pack(4)   //
 /*
+#pragma pack(4)
+
 int main()
 {
     cout<<sizeof(int)<<endl;  //结果为4，说明该linux为32位操作系统
+    cout<<sizeof(long int)<<endl;
     class object
     {
         short i;        //2  (起始位偏移量0)
