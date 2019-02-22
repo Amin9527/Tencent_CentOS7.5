@@ -1,6 +1,99 @@
+#ifndef __M_UTILS_H__
+#define __M_UTILS_H__
 #include<iostream>
+#include<unordered_map>
+#include<string>
+#include<vector>
+#include<unistd.h>
+#include<stdio.h>
+#include<stdlib.h>
+#include<netinet/in.h>
+#include<arpa/inet.h>
+#include<sys/socket.h>
+#include<sys/stat.h>
+#include<errno.h>
+#include<string.h>
+
 #define WWWROOT "www"
 #define MAX_PATH 256
+#define MAX_HTTPHDR 4096
+
+#define LOG(...) do{fprintf(stdout,__VA_ARGS__);fflush(stdout);}while(0)
+
+class RequestInfo
+{
+    //包含HttpRequest解析出的请求信息
+    public:
+        std::string _method;  //请求方法
+        std::string _version;  //协议版本
+        std::string _path_info;  //资源路径
+        std::string _path_phys;  //资源实际路径
+        std::string _query_string;  //查询字符串
+        std::unordered_map<std::string , std::string> _hdr_list; //整个头部信息中的键值对
+        struct stat _st;
+    public:
+        std::string _err_code;  //错误号码
+    public:
+        void SetError(const std::string &code)
+        {
+            _err_code = code;
+        }
+    public:
+        bool RequestIsCGI() //判断请求类型
+        {
+            return true;
+        }
+};
+
+class HttpRequest
+{
+    //http数据的接收接口
+    //http数据的解析接口
+    //对外提供能够获取处理结果的接口
+    private:
+        int _cli_sock;
+        std::string _http_header;
+    public:
+        HttpRequest(int sock):_cli_sock(sock){}
+        bool RecvHttpHeader(RequestInfo &info) //接收http请求头
+        {
+            char buf[MAX_HTTPHDR];
+            while(1)
+            {
+
+                int ret = recv(_cli_sock, buf, MAX_HTTPHDR, MSG_PEEK); //参数MSG_PEEK，只读不拿，不删除数据，数据还在
+                if(ret <= 0) //=0,对端关闭连接
+                {
+                    if(errno == EINTR || errno == EAGAIN) //EINTR被信号打断
+                    {
+                        continue;
+                    }
+                    info.SetError("500");
+                    return false;
+                }
+                char *ptr = strstr(buf, "\r\n\r\n");
+                if((strstr(buf, "\r\n\r\n") == NULL) && (ret == MAX_HTTPHDR))
+                {
+                    info.SetError("413");
+                    return false;
+                }
+                else if(ret < MAX_HTTPHDR)
+                {
+                    usleep(1000);
+                    continue;
+                }
+                int hdr_len = ptr - buf;
+                _http_header.assign(buf, hdr_len); //截取字符串，在buf里截取hdr_len长度的字符串
+                recv(_cli_sock, buf, hdr_len + 4, 0);
+                break;
+            }
+            return true;
+        }
+        bool ParseHttpHeader(); //解析http请求头
+        RequestInfo& GetRequestInfo(); //向外提供解析结果
+};
+
+
 
 bool PathIsLegal(std::string &path , RequestInfo &info)
 {
@@ -48,3 +141,5 @@ class Utils
             return num;
         }
 };
+
+#endif
