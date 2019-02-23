@@ -12,18 +12,19 @@ class HttpServer
         int _serv_sock;
         ThreadPool *_tp;
     private:
-        static bool (HttpHandler)(int sock)//http任务的处理函数
+        static bool HttpHandler(int sock)//http任务的处理函数
         {
             RequestInfo info;     //实例化包含头部信息的对象
             HttpRequest req(sock); //实例化解析头部信息的对象
             HttpResponse rsp(sock); //实例化处理请求的对象
            
-            if(req.RecvHttpHeader(info) == false) //接收http请求头
+            if(req.RecvHttpHeader() == false) //接收http请求头
             {
                 goto out;
             }
 
-            if(req.ParseHttpHeader(info) == false) //解析http请求头
+            
+            if(req.ParseHttpHeader() == false) //解析http请求头
             {
                 goto out;
             }
@@ -48,12 +49,12 @@ class HttpServer
         HttpServer():_serv_sock(-1),_tp(NULL){}
         
         //完成tcp服务器socket的初始化，线程池初始化
-        bool HttpServerInit()
+        bool HttpServerInit(std::string &ip , int port)
         {
             _serv_sock = socket(AF_INET,SOCK_STREAM,IPPROTO_TCP);
             if(_serv_sock<0)
             {
-                //LOG("sock error");
+                LOG("sock error");
                 return false;
             }
             sockaddr_in lst_addr;
@@ -63,26 +64,28 @@ class HttpServer
             socklen_t len = sizeof(sockaddr_in);
             if(bind(_serv_sock,(sockaddr*)&lst_addr,len)<0)
             {
-                //LOG("bind error :%s\n",strerror(errno));
+                LOG("bind error :%s\n",strerror(errno));
                 close(_serv_sock);
                 return false;
             }
 
             if(listen(_serv_sock,MAX_LISTEN)<0)
             {
-                //LOG("listen error: %s\n",strerror(errno));
+                LOG("listen error: %s\n",strerror(errno));
                 close(_serv_sock);
                 return false;
             }
 
             _tp = new ThreadPool(MAX_THREAD);  //创建线程池
-            if(_tp == NULL)
+            if(_tp == nullptr)
             {
-                //LOG("thread pool malloc error\n");
+                LOG("thread pool malloc error\n");
                 return false;
             }
             _tp->ThreadPoolInit();  //初始化线程池
+            return true;
 
+        }
             //开始获取客户端新连接--创建任务，任务入队
             bool Start()
             {
@@ -90,23 +93,23 @@ class HttpServer
                 {
                     sockaddr_in cli_addr;
                     socklen_t len = sizeof(sockaddr_in);
-                    int cli_sock = accept(_serv_sock,(sockaddr*)&addr,&len);
-                    if(cli_addr < 0)
+                    int cli_sock = accept(_serv_sock,(sockaddr*)&cli_addr,&len);
+                    if(cli_sock < 0)
                     {
                         LOG("accept error: %s\n",strerror(errno));
                         continue;
                     }
 
-                HttpTask ht;
-                ht.SetHttpTask(sock , HttpHandler);
-                _tp->PushTask(ht);
+                    HttpTask ht;
+                    ht.SetHttpTask(cli_sock , HttpHandler);
+                    _tp->PushTask(ht);
                 }
                 return true;
             }
-    }
 };
 int main(int argc, char* argv[])
 {
+    argc =3;
     std::string ip = argv[1];
     int port = atoi(argv[2]);
     HttpServer hs;
@@ -115,22 +118,14 @@ int main(int argc, char* argv[])
     hs.Start();
 }
 
-/*
-
-
-class Head
-{
-
-};
-
 
 
 
 
 //-------------------------------------------处理错误响应
-
+/*
 #include<time.h>
-#include<sstream>  //stringstream
+#include<iostream>  //stringstream
 
 std::unordered_map<str::string , std::string> g_err_desc = {
     {"200" , "OK"},
@@ -201,7 +196,7 @@ bool ErrHandler(RequestInfo &info)
     rsp_header += "Content-Length: " + cont_len + "\r\n\r\n";
     rsp_header
 }
-
+*/
 
 //------------------------------
 //Utils中
@@ -405,7 +400,6 @@ bool ProcessFile(RequestInfo &info)
 */
 
 /*
-
 //CGI请求处理
 bool ProcessCGI(RequestInfo &info)
 {
@@ -454,19 +448,27 @@ bool ProcessCGI(RequestInfo &info)
     //走下来的就是父进程
     //1.通过in管道将正文数据传递给子进程
     auto it = info._hdr_list.find("Content-Length");
+
+    //没有找到Content-Length则不需要
     if(it != info._hdr_list.end())
     {
         char buf[MAX_BUF]={0};
         int64_t content_len = Utils::StrToDigit(it->second);
-        int rlen = recv(_cli_sock,buf,MAX_BUF,0);
-        if(rlen < 0)
+
+        int tlen = 0;
+        while(tlen < content_len)
         {
-            //响应错误信息给客户端
-            return false;
-        }
-        if(write(in[1],buf,rlen) < 0)
-        {
-            return false;
+            int rlen = recv(_cli_sock,buf,MAX_BUF,0);
+            if(rlen < 0)
+            {
+                //响应错误信息给客户端
+                return false;
+            }
+            if(write(in[1],buf,rlen) < 0)
+            {
+                return false;
+            }
+
         }
     }
     //2.通过out管道读取子进程的处理结果直到返回0
@@ -501,5 +503,4 @@ bool ProcessCGI(RequestInfo &info)
 }
 
 };
-
 */

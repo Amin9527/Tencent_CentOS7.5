@@ -1,7 +1,8 @@
 #include<iostream>
 #include<queue>
+//#include"utils.hpp"
+#include<unistd.h>
 #include<pthread.h>
-#include"utils.hpp"
 
 typedef bool (*Handler)(int socket);
 
@@ -26,7 +27,7 @@ class HttpTask
 
         void handler()
         {
-            TaskHandler(_cli_sock);
+            TaskHandler(_cli_sock);  //任务处理函数
         }
 };
 
@@ -43,23 +44,31 @@ class ThreadPool
         pthread_mutex_t _lock; //锁
         pthread_cond_t _cond;  //条件变量
 
-	private:
-        static void *thr_start(void *arg)
+    private:
+        static void* thr_start(void* arg)  //自定义处理函数
         {
-            ThreadPool *tp = (ThreadPool*)arg;
-            tp->QueueLock();
-            while(tp->QueueIsEmpty())
+            pthread_detach(pthread_self()); //线程分离，pthread_self()返回当前线程自己的pid
+            ThreadPool* tp = (ThreadPool*)arg;
+            while(1)
             {
-                tp->ThreadWait();
+
+                //std::cout<<"new thread!"<<std::endl;
+                
+                tp->QueueLock();  //线程访问任务队列时 上锁
+                while(tp->QueueIsEmpty()) //如果任务队列为空
+                {
+                    tp->ThreadWait(); //阻塞等待
+                }
+
+                HttpTask ht = tp->QueueFront(); //如果不为空，取出队列头部任务
+                tp->QueuePop();  //将任务移出队列
+                tp->QueueUnLock(); //解锁
+                ht.handler(); //执行处理函数
             }
 
-            HttpTask ht = tp->QueueFront();
-            tp->QueuePop();
-            tp->QueueUnLock();
-            ht.handler();
-            return NULL;
+            return nullptr;
         }
-	public:
+    public:
 
         ThreadPool(int max_thr):_max_thr(max_thr){}
 
@@ -88,28 +97,29 @@ class ThreadPool
             return _task_queue.front();
         }
 
-		void ThreadPoolInit()
+        bool ThreadPoolInit()  //初始化
         {
-            pthread_mutex_init(&_lock,nullptr);
-            pthread_cond_init(&_cond,nullptr);
-            pthread_t tid;
-            for(int i=0;i<_max_thr;++i)
+            pthread_mutex_init(&_lock,nullptr); //初始化锁
+            pthread_cond_init(&_cond,nullptr); //初始化条件变量
+            for(int i=0;i<_max_thr;++i)   //创建五个_max_thr个线程
             {
-                int ret =pthread_create(&tid,NULL,thr_start,this);
-                if(ret!=0)
-                {
-                    std::cout<<"thread create error"<<std::endl;
-                    //return false;
-                }
-                pthread_detach(tid);
+                pthread_t tid;
+                int ret =pthread_create(&tid,nullptr,thr_start,(void*)this); //自定义处理函数，传入的参数为this指针
+                  if(ret != 0) //成功返回0
+                  {
+                      std::cout<<"thread create error"<<std::endl;
+                      return false;
+                  }
             }
+            return true;
         }
 
-        bool PushTask(HttpTask &tt)
+        bool PushTask(HttpTask &tt) //向任务队列加入任务
         {
-            QueueLock();
+            QueueLock();  //上锁
             _task_queue.push(tt);
-            QueueUnLock();
+            QueueUnLock(); 
+            pthread_cond_signal(&_cond); //放入任务后发送条件信号变量
             return true;
         }
 
@@ -130,8 +140,10 @@ class ThreadPool
 
         void ThreadPoolStop()
         {
-            pthread_mutex_destroy(&_lock);
+            pthread_mutex_destroy(&_lock); //销毁
             pthread_cond_destroy(&_cond);
         }
 };
+
+
 

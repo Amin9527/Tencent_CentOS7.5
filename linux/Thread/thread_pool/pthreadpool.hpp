@@ -32,10 +32,10 @@ class Task
 class PthreadPool
 {
     private:    
-        int thread_sum;
-        queue<Task> t_queue;
-        pthread_mutex_t lock;
-        pthread_cond_t cond;
+        int thread_sum;      //线程总数
+        queue<Task> t_queue; //任务队列
+        pthread_mutex_t lock;//mutex锁
+        pthread_cond_t cond; //条件变量
     private:
         static void* thread_routine(void* arg)
         {
