@@ -34,16 +34,16 @@ class HttpServer
              
             if(info.RequestIsCGI())  //判断是否为CGI请求
             {
-                rsp.CGIHandler(info);  //CGI请求处理
+                //rsp.CGIHandler(info);  //CGI请求处理
             }
             else
             {
-                rsp.FileHandler(info);//文件请求处理（目录列表/文件下载）
+                //rsp.FileHandler(info);//文件请求处理（目录列表/文件下载）
                 rsp.InitResponse(info);
-                if(rsp.FileIsDir(info))
+                if(rsp.FileIsDir(info)) //判断是否为目录文件
                     rsp.ProcessList(info);
-                else
-                    rsp.ProcessFile(info);
+                //else
+                 //   rsp.ProcessFile(info);
             }
             
             close(sock);

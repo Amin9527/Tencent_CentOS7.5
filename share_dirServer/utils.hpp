@@ -6,6 +6,7 @@
 #include<string>
 #include<vector>
 #include<unistd.h>
+#include<dirent.h>  //
 #include<stdio.h>  //printf()、fprintf()
 #include<stdlib.h> //sleep()
 #include<netinet/in.h>
@@ -34,6 +35,17 @@ std::unordered_map<std::string , std::string> g_err_desc = {
     {"500" , "Internal Server Error"}
 };
 
+std::unordered_map<std::string, std::string> g_mime_type = {
+    {"txt",    "text/plain"},
+    {"html",   "text/html"},
+    {"htm",    "text/html"},
+    {"jpg",    "image/jpeg"},
+    {"zip",    "application/zip"},
+    {"mp3",    "audio/mpeg"},
+    {"mpeg",   "video/mpeg"},
+    {"unknow", "application/octet-stream"}
+};
+
 class Utils
 {
     public:
@@ -59,7 +71,7 @@ class Utils
             }
             return sum;
         }
-        
+
         static const std::string GetErrDesc(const std::string &code)
         {
             auto it = g_err_desc.find(code);
@@ -67,9 +79,9 @@ class Utils
             {
                 return "Unknow Error";
             }
-                return it->second;
+            return it->second;
         }
-       
+
         //将时间转换为一定格式的字符串
         static void TimeToGMT(time_t t , std::string &gmt)
         {
@@ -96,7 +108,7 @@ class Utils
             ss >> num;  //输出为数字
             return num;
         }
-        
+
         static void MakeETag(uint64_t size,int64_t ino,int64_t mtime,std::string &etag)
         {
             std::stringstream ss;
@@ -114,8 +126,8 @@ class Utils
         static void GetMime(const std::string &file , std::string &mime)
         {
             size_t pos;
-            pos = file.find_last_of(".");
-            if(pos == std:;string::npos)
+            pos = file.find_last_of("."); //找最后一个点
+            if(pos == std::string::npos)
             {
                 mime = g_mime_type["unknow"];
                 return;
@@ -125,10 +137,11 @@ class Utils
             if (it == g_mime_type.end())
             {
                 mime = g_mime_type["unknow"];
+                    return;
             }
             else
             {
-
+                mime = it -> second;
             }
         }
 };
@@ -215,7 +228,7 @@ class HttpRequest
             std::vector<std::string> v_first_line;
             Utils::Split(v_info[0], " ", v_first_line);
             //std::cout<<v_first_line.size()<<std::endl;
-            
+
             info._method = v_first_line[0];
             info._version = v_first_line[2];
             std::vector<std::string> v_path;
@@ -248,25 +261,25 @@ class HttpRequest
 
 /*
 
-bool PathIsLegal(std::string &path , RequestInfo &info)
-{
-    std::string file = WWWROOT + info._path_info;
-    if(stat(path.c_str() , &info._st) < 0)
-    {
-        info._err_code = "404";
-        return false;
-    }
-    char tmp[MAX_PATH] = {0};
-    realpath(file.c_str(),tmp);//tmp就是得到的绝对路径
-    info._path_phys = tmp;
-    if(info._path_phys.find(WWWROOT) == std::string::npos)
-    {
-        info._err_code = "403";
-        return false;
-    }
-    return true;
-}
-*/
+   bool PathIsLegal(std::string &path , RequestInfo &info)
+   {
+   std::string file = WWWROOT + info._path_info;
+   if(stat(path.c_str() , &info._st) < 0)
+   {
+   info._err_code = "404";
+   return false;
+   }
+   char tmp[MAX_PATH] = {0};
+   realpath(file.c_str(),tmp);//tmp就是得到的绝对路径
+   info._path_phys = tmp;
+   if(info._path_phys.find(WWWROOT) == std::string::npos)
+   {
+   info._err_code = "403";
+   return false;
+   }
+   return true;
+   }
+   */
 
 
 class HttpResponse
@@ -285,7 +298,7 @@ class HttpResponse
         bool InitResponse(RequestInfo req_info)
         {  
             //Last_Modified: 
-            Utils::DigitToStr(req_info._st.st_mtime,_mtime);
+            Utils::TimeToGMT(req_info._st.st_mtime,_mtime);
             //ETag: 
             Utils::MakeETag(req_info._st.st_size,req_info._st.st_ino,req_info._st.st_mtime,_etag);
             //Date:  
@@ -295,10 +308,20 @@ class HttpResponse
         }
 
         //文件是否为一个目录
-        bool FileIsDir(const RequestInfo& info)
+        bool FileIsDir(RequestInfo& info)
         {
             if(info._st.st_mode & S_IFDIR)
-                return true;
+            {
+                if(info._path_info.back() != '/')
+                {
+                    info._path_info.push_back('/');
+                }
+                if(info._path_phys.back() != '/')
+                {
+                    info._path_phys.push_back('/');
+                }
+            return true;
+            }
             return false;
         }
         //错误处理响应
@@ -329,180 +352,181 @@ class HttpResponse
             send(_cli_sock, rsp_body.c_str(), rsp_body.length(),0);
             return true;
         }
-/*
-//判断请求类型
-bool RequestIsCGI()
-{
-    if((_method == "GET" && !_query_string.empty()) || (_method == "POST"))
-    {
-
-    }
-}
-
-bool SendData(const std::string &buf)
-{
-    if(send(_cli_sock,buf.c_str(),buf.length(),0) < 0)
-    {
-        return false;
-    }
-    return true;
-}
-
-bool SendCData(std::string &buf)
-{
-    if(buf.empty())
-    {
-        SendData("0\r\n\r\n");
-    }
-    std::stringstream ss;
-    ss << std::hex <<buf.length()<<"\r\n";
-    
-    SendData(ss.str());
-    SendData(buf);
-    SebdData("\r\n");
-    
-    return true;
-}
-*/
-
-//文件列表功能
-bool ProcessList(RequestInfo &info)
-{
-
-    //组织头部:
-    //首行
-    //Content-Type：text/html\r\n
-    //ETag: \r\n
-    //Data: \r\n
-    //Transfer-Encoding: chunked\r\n  （分块传输）1.1才有
-    //Connection：close\r\n
-    //正文: 
-    //每一个目录下的文件都要组织一个html标签信息
-    std::string rsp_header;
-    rsp_header = info._version + "200 OK\r\n";
-    rsp_header += "Content-Type: text/html\r\n";
-    rsp_header += "Connection: close\r\n";
-    if(info._vesion == "HTTP/1.1")
-    {
-        rsp_header += "Transfer-Encoding: chunked\r\n";
-    }
-
-    rsp_header += "ETag: " + _etag + "\r\n";
-    rsp_header += "Last-Modified: " + info._path_info + "</title>";
-    rsp_header += "Date: " + _date + "\r\n\r\n";
-    SendData(rsp_header);
-
-    std::string rsp_body;
-    rsp_body = "<html><head>";
-
-    rsp_body += "<input type = 'file' name = 'FileUpLoad' />"; //设置一个上传按钮的框
-    rsp_body += "<input type = 'submit' value = '上传' />"; //按钮
-    rsp_body += "<from action = '/upload' method='post'>";
-    rsp_body += "<enctype = 'multipart/from-data'>";
-    rsp_body += "</from>";
-    rsp_body = "<html><head>";
-    rsp_body += "<title>" + info._path_info + "</title>";
-    rsp_body += "<meta charset = 'UTF-8'>";
-    rsp_body += "</head><body>";
-    rsp_body += "<h1>" + info._path_info + "</h1><hr /><ol>";//<hr />横线
-    //while(1)
-    //{
-        std::string path = info._path_phys;
-        std::string file_html;
-        struct dirent **p_dirent = NULL;
-        //获取目录下的每一个文件，组织html信息，chunke传输
-        int num = scandir(info._path_phys.c_str(),&p_dirent,0,alpthasort);
-        for(int i=0 ; i<num;i++)
+        /*
+        //判断请求类型
+        bool RequestIsCGI()
         {
-            std::string file = info._path_phys + p_dirent[i]->d_name;
-            struct stat st;
-            if(stat(file.c_str(),&st)<0)
-            {
-                continue;
-            }
-            std::string mtime;
-            Utils::TimeToGMT(st.st_mtime,mtime);
-            std::string mime;
-            Utils::GetMime(p_dirent[i]->d_name,mime);
-            std::string fsize;
-            Utils::DigitToStr(st.st_size / 1024,fsize);
-            file_html += "<li><strong><a href='"+ info._path_info;
-            file_html += p_dirent[i]->d_name;
-            file_html += "'>";
-            file_html += p_dirent[i]->d_name;
-            file_html += "</a></strong>";
-            file_html += "<br />";
-            file_html += "<small>";
-            file_html += "modified: " + mtime + "<br />";
-            file_html += mime + " - " + fsize + "kbytes";
-            file_html += "<br /><br /></small></li>";
-            SendCData(file_html);
+        if((_method == "GET" && !_query_string.empty()) || (_method == "POST"))
+        {
+
         }
-        file_html += "</li>";
-        SendCData(file_html);
-    //}
-    rsp_body = "<ol><hr /></body></html>";
-    SendCData(rsp_body);
-    SendCData("");
-    
-    return true;
-}
+        }
+        */
 
-/*
-//文件下载功能
-bool ProcessFile(RequestInfo &info)
-{
-    rsp_header += "Content-Length: " + _fsize + "\r\n";
+        bool SendData(const std::string &buf)
+        {
+            if(send(_cli_sock,buf.c_str(),buf.length(),0) < 0)
+            {
+                return false;
+            }
+            return true;
+        }
 
-    int fd = open(info._path_phys.c_str(),O_RDONLY);
-    if(fd < 0)
-    {
+        bool SendCData(const std::string &buf)
+        {
+            if(buf.empty())
+            {
+                SendData("0\r\n\r\n");
+            }
+            std::stringstream ss;
+            ss << std::hex <<buf.length()<<"\r\n";
+
+            SendData(ss.str());
+            SendData(buf);
+            SendData("\r\n");
+
+            return true;
+        }
+
+        //文件列表功能
+        bool ProcessList(RequestInfo &info)
+        {
+
+            //组织头部:
+            //首行
+            //Content-Type：text/html\r\n
+            //ETag: \r\n
+            //Data: \r\n
+            //Transfer-Encoding: chunked\r\n  （分块传输）1.1才有
+            //Connection：close\r\n
+            //正文: 
+            //每一个目录下的文件都要组织一个html标签信息
+            std::string rsp_header;
+            rsp_header = info._version + "200 OK\r\n";
+            rsp_header += "Content-Type: text/html\r\n";
+            rsp_header += "Connection: close\r\n";
+            if(info._version == "HTTP/1.1")
+            {
+                rsp_header += "Transfer-Encoding: chunked\r\n";
+            }
+
+            rsp_header += "ETag: " + _etag + "\r\n";
+            rsp_header += "Last-Modified: " + _mtime + "\r\n";
+            rsp_header += "Date: " + _date + "\r\n\r\n";
+            SendData(rsp_header);
+
+            std::string rsp_body;
+
+            /*
+            rsp_body += "<input type = 'file' name = 'FileUpLoad' />"; //设置一个上传按钮的框
+            rsp_body += "<input type = 'submit' value = '上传' />"; //按钮
+            rsp_body += "<from action = '/upload' method='post'>";
+            rsp_body += "<enctype = 'multipart/from-data'>";
+            rsp_body += "</from>";
+            */
+
+            rsp_body = "<html><head>";
+            rsp_body += "<title>Index of" + info._path_info + "</title>";
+            rsp_body += "<meta charset = 'UTF-8'>";
+            rsp_body += "</head><body>";
+            rsp_body += "<h1>Index of" + info._path_info + "</h1><hr /><ol>";//<hr />横线
+            SendCData(rsp_body);
+
+            std::string path = info._path_phys;
+
+            struct dirent **p_dirent = NULL;
+
+            //获取目录下的每一个文件，组织html信息，chunke传输
+            int num = scandir(info._path_phys.c_str(),&p_dirent,0,alphasort);
+            for(int i=0; i<num; i++)
+            {
+                std::string file_html;
+                std::string file = info._path_phys + p_dirent[i]->d_name;
+                struct stat st;
+                if(stat(file.c_str(),&st)<0)
+                {
+                    continue;
+                }
+                std::string mtime;
+                Utils::TimeToGMT(st.st_mtime,mtime);
+                std::string mime;
+                Utils::GetMime(p_dirent[i]->d_name,mime);
+                std::string fsize;
+                Utils::DigitToStr(st.st_size / 1024, fsize);
+                file_html += "<li><strong><a href='"+ info._path_info;
+                file_html += p_dirent[i]->d_name;
+                file_html += "'>";
+                file_html += p_dirent[i]->d_name;
+                file_html += "</a></strong>";
+                file_html += "<br />";
+                file_html += "<small>";
+                file_html += "modified: " + mtime + "<br />";  //"<br />" 换行
+                file_html += mime + " - " + fsize + " kbytes"; //
+                file_html += "<br /><br /></small></li>";
+                SendCData(file_html);
+            }
+            rsp_body = "</ol><hr /></body></html>";
+            SendCData(rsp_body);
+            SendCData("");
+
+            return true;
+        }
+
+        /*
+        //文件下载功能
+        bool ProcessFile(RequestInfo &info)
+        {
+        rsp_header += "Content-Length: " + _fsize + "\r\n";
+
+        int fd = open(info._path_phys.c_str(),O_RDONLY);
+        if(fd < 0)
+        {
         info._err_code = "400";
         ErrHandler(info);
         return false;
-    }
+        }
 
-    int rlen = 0;
-    char tmp[MAX_BUFF] //4096
-    while((rlen = read(fd,tmp,MAX_BUFF)) > 0)
-    {
+        int rlen = 0;
+        char tmp[MAX_BUFF] //4096
+        while((rlen = read(fd,tmp,MAX_BUFF)) > 0)
+        {
         tmp[rlen] = '\0';
         SendData(tmp);
 
-    }
-    close(fd);
-    return true;
-}
+        }
+        close(fd);
+        return true;
+        }
 
-*/
+        */
 
-/*
-//CGI请求处理
-bool ProcessCGI(RequestInfo &info)
-{
-    //使用外部程序完成CGI请求处理 --文件上传
-    //将http头信息和正文信息全部交给子进程
-    //使用环境变量传递头信息
-    //使用管道传递正文数据
-    //使用管道接收cgi程序的处理结果
-    //流程：创建管道，创建子进程，设置子进程环境变量，程序替换
-    int in[2]; //用于向子进程传递正文信息
-    int out[2]; //用于从子进程中读取处理结果
-    if(pipe(in) || pipe(out))
-    {
+        /*
+        //CGI请求处理
+        bool ProcessCGI(RequestInfo &info)
+        {
+        //使用外部程序完成CGI请求处理 --文件上传
+        //将http头信息和正文信息全部交给子进程
+        //使用环境变量传递头信息
+        //使用管道传递正文数据
+        //使用管道接收cgi程序的处理结果
+        //流程：创建管道，创建子进程，设置子进程环境变量，程序替换
+        int in[2]; //用于向子进程传递正文信息
+        int out[2]; //用于从子进程中读取处理结果
+        if(pipe(in) || pipe(out))
+        {
         info._err_code = "500";
         ErrHandler(info);
         return false;
-    }
-    int pid =fork();
-    if(pid  < 0)
-    {
+        }
+        int pid =fork();
+        if(pid  < 0)
+        {
         info._err_code ="500";
         ErrHandler(info);
         return false;
-    }
-    else if(pid == 0)
-    {
+        }
+        else if(pid == 0)
+        {
         //int setenv() 设置环境变量 #include<stdlib.h>
         setenv("METHOD",info._method.c_str(),1);
         setenv("VERSION",info._version.c_str(),1);
@@ -510,7 +534,7 @@ bool ProcessCGI(RequestInfo &info)
         setenv("QUERY_STRING",info._query_string.c_str(),1);
         for(auto it = info._hdr_list.begin();it != info._hdr_list.end();it++)
         {
-            setenv(it -> first.c_str(),it -> second.c_str(),1);
+        setenv(it -> first.c_str(),it -> second.c_str(),1);
         }
         close(in[1]);
         close(out[0]);
@@ -518,66 +542,66 @@ bool ProcessCGI(RequestInfo &info)
         dup2(out[1],1); //子进程直接打印处理结果传递给父进程
         execl(info._path_phys.c_str(),info._path_phys.c_str(),NULL);
         exit(0);
-    }
-    close(in[0]);
-    close(out[1]);
+        }
+        close(in[0]);
+        close(out[1]);
 
-    //走下来的就是父进程
-    //1.通过in管道将正文数据传递给子进程
-    auto it = info._hdr_list.find("Content-Length");
+        //走下来的就是父进程
+        //1.通过in管道将正文数据传递给子进程
+        auto it = info._hdr_list.find("Content-Length");
 
-    //没有找到Content-Length则不需要
-    if(it != info._hdr_list.end())
-    {
+        //没有找到Content-Length则不需要
+        if(it != info._hdr_list.end())
+        {
         char buf[MAX_BUF]={0};
         int64_t content_len = Utils::StrToDigit(it->second);
 
         int tlen = 0;
         while(tlen < content_len)
         {
-            int rlen = recv(_cli_sock,buf,MAX_BUF,0);
-            if(rlen < 0)
-            {
-                //响应错误信息给客户端
-                return false;
-            }
-            if(write(in[1],buf,rlen) < 0)
-            {
-                return false;
-            }
-
-        }
-    }
-    //2.通过out管道读取子进程的处理结果直到返回0
-    
-    //3.将处理结果组织http数据，响应给客户端
-      //组织头部信息
-    std::string rsp_header;
-    rsp_header = info._version + "200 OK\r\n";
-
-
-
-    SendData(rsp_header);
-
-
-    while(1)
-    {
-        char buf[MAX_BUF] = {0};
-        int rlen = read(out[0],buf,MAX_BUF);
-        if(rlen == 0)
+        int rlen = recv(_cli_sock,buf,MAX_BUF,0);
+        if(rlen < 0)
         {
-            break;
+        //响应错误信息给客户端
+        return false;
         }
-        send(_cli_sock,buf,rlen,0);
-    }
+        if(write(in[1],buf,rlen) < 0)
+        {
+        return false;
+        }
 
-    std::string rsp_body;
-    rsp_body = "<html><body><h1>UPLOAD SUCCESS!</h1></body></html>";
-    SendData(rsp_body);
-    close(in[0]);
-    close(out[1]);
-    return true;
+        }
 }
-*/(
+//2.通过out管道读取子进程的处理结果直到返回0
+
+//3.将处理结果组织http数据，响应给客户端
+//组织头部信息
+std::string rsp_header;
+rsp_header = info._version + "200 OK\r\n";
+
+
+
+SendData(rsp_header);
+
+
+while(1)
+{
+    char buf[MAX_BUF] = {0};
+    int rlen = read(out[0],buf,MAX_BUF);
+    if(rlen == 0)
+    {
+        break;
+    }
+    send(_cli_sock,buf,rlen,0);
+}
+
+std::string rsp_body;
+rsp_body = "<html><body><h1>UPLOAD SUCCESS!</h1></body></html>";
+SendData(rsp_body);
+close(in[0]);
+close(out[1]);
+return true;
+}
+*/
 };
 #endif
