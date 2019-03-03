@@ -3,6 +3,50 @@
 #include<string>
 #include<vector>
 
+//---------------单例模式
+//饿汉模式
+
+
+class Test1
+{
+    public:
+        static Test1* Getobj()
+        {
+            return &t1;
+        }
+    private:
+        static Test1 t1;
+    private:
+        Test1(){}
+        Test1(const Test1&){}
+        Test1& operator=(const Test1&);;
+};
+//懒汉模式
+
+
+class Test
+{
+    public:
+        static Test* Getobj()
+        {
+            if(t == nullptr)
+            {
+                t = new Test;
+            }
+            return t;
+        }
+    private:
+        Test(){}
+        Test(const Test&);
+        Test operator=(const Test&);
+
+        static Test *t;
+};
+
+Test *Test::t = nullptr;
+
+//--------静态函数
+/*
 using namespace std;
 
 class test
@@ -15,10 +59,10 @@ class test
 int main()
 {
     test A;
-    A.a();
+    A.a(); //类对象可以调用类中的静态函数，不能说静态函数属于该类，只是借用了该对象的类型
     return 0;
 }
-
+*/
 //----------------------
 /*
 int main()
