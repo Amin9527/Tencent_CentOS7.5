@@ -41,6 +41,11 @@ main:
 .LEHB1:
 	call	_ZN2zmIiEC1EPi
 .LEHE1:
+	leaq	-48(%rbp), %rdx
+	leaq	-80(%rbp), %rax
+	movq	%rdx, %rsi
+	movq	%rax, %rdi
+	call	_ZN2zmIiEaSERKS0_
 	leaq	-48(%rbp), %rax
 	movq	%rax, %rdi
 	call	_ZN2zmIiEdeEv
@@ -62,11 +67,11 @@ main:
 	movl	$0, -20(%rbp)
 	jmp	.L2
 .L3:
-	movl	-20(%rbp), %edx
-	leaq	-48(%rbp), %rax
-	movl	%edx, %esi
-	movq	%rax, %rdi
-	call	_ZN2zmIiEixEi
+	movl	-20(%rbp), %eax
+	cltq
+	leaq	0(,%rax,4), %rdx
+	movq	-32(%rbp), %rax
+	addq	%rdx, %rax
 	movl	(%rax), %eax
 	movl	%eax, %esi
 	movl	$_ZSt4cout, %edi
@@ -258,12 +263,53 @@ _ZN2zmIiEC2ERKS0_:
 	.size	_ZN2zmIiEC2ERKS0_, .-_ZN2zmIiEC2ERKS0_
 	.weak	_ZN2zmIiEC1ERKS0_
 	.set	_ZN2zmIiEC1ERKS0_,_ZN2zmIiEC2ERKS0_
+	.section	.text._ZN2zmIiEaSERKS0_,"axG",@progbits,_ZN2zmIiEaSERKS0_,comdat
+	.align 2
+	.weak	_ZN2zmIiEaSERKS0_
+	.type	_ZN2zmIiEaSERKS0_, @function
+_ZN2zmIiEaSERKS0_:
+.LFB988:
+	.cfi_startproc
+	pushq	%rbp
+	.cfi_def_cfa_offset 16
+	.cfi_offset 6, -16
+	movq	%rsp, %rbp
+	.cfi_def_cfa_register 6
+	subq	$16, %rsp
+	movq	%rdi, -8(%rbp)
+	movq	%rsi, -16(%rbp)
+	movq	-16(%rbp), %rax
+	cmpq	-8(%rbp), %rax
+	je	.L15
+	movq	-8(%rbp), %rax
+	movq	(%rax), %rax
+	testq	%rax, %rax
+	je	.L16
+	movq	-8(%rbp), %rax
+	movq	(%rax), %rax
+	movq	%rax, %rdi
+	call	_ZdlPv
+	movq	-8(%rbp), %rax
+	movq	$0, (%rax)
+.L16:
+	movq	-16(%rbp), %rax
+	movq	(%rax), %rdx
+	movq	-8(%rbp), %rax
+	movq	%rdx, (%rax)
+.L15:
+	movq	-8(%rbp), %rax
+	leave
+	.cfi_def_cfa 7, 8
+	ret
+	.cfi_endproc
+.LFE988:
+	.size	_ZN2zmIiEaSERKS0_, .-_ZN2zmIiEaSERKS0_
 	.section	.text._ZN2zmIiEdeEv,"axG",@progbits,_ZN2zmIiEdeEv,comdat
 	.align 2
 	.weak	_ZN2zmIiEdeEv
 	.type	_ZN2zmIiEdeEv, @function
 _ZN2zmIiEdeEv:
-.LFB988:
+.LFB989:
 	.cfi_startproc
 	pushq	%rbp
 	.cfi_def_cfa_offset 16
@@ -277,14 +323,14 @@ _ZN2zmIiEdeEv:
 	.cfi_def_cfa 7, 8
 	ret
 	.cfi_endproc
-.LFE988:
+.LFE989:
 	.size	_ZN2zmIiEdeEv, .-_ZN2zmIiEdeEv
 	.section	.text._ZN2zmIiEixEi,"axG",@progbits,_ZN2zmIiEixEi,comdat
 	.align 2
 	.weak	_ZN2zmIiEixEi
 	.type	_ZN2zmIiEixEi, @function
 _ZN2zmIiEixEi:
-.LFB991:
+.LFB992:
 	.cfi_startproc
 	pushq	%rbp
 	.cfi_def_cfa_offset 16
@@ -303,12 +349,12 @@ _ZN2zmIiEixEi:
 	.cfi_def_cfa 7, 8
 	ret
 	.cfi_endproc
-.LFE991:
+.LFE992:
 	.size	_ZN2zmIiEixEi, .-_ZN2zmIiEixEi
 	.text
 	.type	_Z41__static_initialization_and_destruction_0ii, @function
 _Z41__static_initialization_and_destruction_0ii:
-.LFB998:
+.LFB999:
 	.cfi_startproc
 	pushq	%rbp
 	.cfi_def_cfa_offset 16
@@ -319,25 +365,25 @@ _Z41__static_initialization_and_destruction_0ii:
 	movl	%edi, -4(%rbp)
 	movl	%esi, -8(%rbp)
 	cmpl	$1, -4(%rbp)
-	jne	.L18
+	jne	.L22
 	cmpl	$65535, -8(%rbp)
-	jne	.L18
+	jne	.L22
 	movl	$_ZStL8__ioinit, %edi
 	call	_ZNSt8ios_base4InitC1Ev
 	movl	$__dso_handle, %edx
 	movl	$_ZStL8__ioinit, %esi
 	movl	$_ZNSt8ios_base4InitD1Ev, %edi
 	call	__cxa_atexit
-.L18:
+.L22:
 	leave
 	.cfi_def_cfa 7, 8
 	ret
 	.cfi_endproc
-.LFE998:
+.LFE999:
 	.size	_Z41__static_initialization_and_destruction_0ii, .-_Z41__static_initialization_and_destruction_0ii
 	.type	_GLOBAL__sub_I_main, @function
 _GLOBAL__sub_I_main:
-.LFB999:
+.LFB1000:
 	.cfi_startproc
 	pushq	%rbp
 	.cfi_def_cfa_offset 16
@@ -351,7 +397,7 @@ _GLOBAL__sub_I_main:
 	.cfi_def_cfa 7, 8
 	ret
 	.cfi_endproc
-.LFE999:
+.LFE1000:
 	.size	_GLOBAL__sub_I_main, .-_GLOBAL__sub_I_main
 	.section	.init_array,"aw"
 	.align 8

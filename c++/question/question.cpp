@@ -1,8 +1,54 @@
-#include<iostream>
+#include<stdlib.h>
 #include<string.h>
+#include<iostream>
 #include<string>
 #include<vector>
 
+//输入字符串包含数字，空格，逗号，取出其中的数字
+
+std::vector<int> CurString(std::string str)
+{
+    std::vector<int> v;
+    size_t begin = 0;
+    size_t end = 0;
+    while(1)
+    {
+        end = str.find(',', begin);
+        if(end == std::string::npos)
+            break;
+        v.push_back(atoi(str.substr(begin, end).c_str()));
+        begin = end + 1;
+    }
+    v.push_back(atoi(str.substr(begin, std::string::npos).c_str()));
+    return v;
+    
+}
+
+int main()
+{
+    std::string str;
+    while(getline(std::cin, str))
+    {
+        //std::cout << str << std::endl;
+        std::vector<int> allint = CurString(str);
+
+        for(size_t i = 0; i < allint.size(); ++i)
+            std::cout << allint[i] << " ";
+        std::cout << std::endl;
+    }
+    return 0;
+}
+
+/*
+int main()
+{
+    std::string s = "zhangmin";
+    printf("%s\n",s.c_str());
+
+    return 0;
+}
+*/
+/*
 //---------------单例模式
 //饿汉模式
 
@@ -43,7 +89,8 @@ class Test
         static Test *t;
 };
 
-Test *Test::t = nullptr;
+Tst *Test::t = nullptr;
+*/
 
 //--------静态函数
 /*
