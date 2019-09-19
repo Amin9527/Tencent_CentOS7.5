@@ -24,7 +24,7 @@ int main(int argc , char *argv[])
     struct sockaddr_in cliaddr;
     char sendbuf[MAX_LEN],receivebuf[MAX_LEN];
 
-    if((sock_fd=socket(AF_INET,SOCK_STREAM,0))<0)
+    if((sock_fd=socket(AF_INET,SOCK_STREAM,0))<0) //AF_INET:ipv4, SOCK_STREAM:数据流传输
     {
         cout<<"socket error!"<<endl;
         exit(0);

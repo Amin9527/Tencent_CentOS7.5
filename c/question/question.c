@@ -1,4 +1,23 @@
 #include<stdio.h>
+#include<string.h>
+
+
+int main()
+{
+    char arr[30] = {0};
+    gets(arr);
+    size_t i = 0;
+    for(i = 0; i < ((strlen(arr) + 1) / 2); ++i)
+    {
+        if(arr[i] != arr[strlen(arr) - i - 1])
+        {
+            printf("不是回文\n");
+            return 0;
+        }
+    }
+    printf("是回文\n");
+    return 0;
+}
 
 //---------------------大小端检测--
 
